@@ -1,83 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>auren</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auren - Amor en cada detalle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="#ropa">Ropa</a>
-      <a href="#joyeria">Joyería</a>
-      <a href="#charms">Charms</a>
-      <a href="#firstdate">FirstDate</a>
-      <a href="https://wa.me/523142836428" class="btn" style="margin-left:10px;background-color:#25D366;">WhatsApp</a>
-    </nav>
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Auren</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="ropa.html">Ropa</a></li>
+          <li><a href="joyeria.html">Joyería</a></li>
+          <li><a href="charms.html">Charms</a></li>
+          <li><a href="firstdate.html">First Date</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Menú">&#9776;</button>
+      </nav>
+    </div>
   </header>
 
-  <section id="inicio" class="intro fade-in">
-    <h1>Bienvenido a Auren</h1>
-    <p>Somos Arturo y Enrique, creadores de experiencias y regalos únicos.</p>
-    <p>Síguenos en <a href="https://www.facebook.com/share/1C28PMHGku/" target="_blank">Facebook</a> y <a href="https://www.instagram.com/arturoyenrique/" target="_blank">Instagram</a>. Escríbenos por <a href="https://wa.me/523142836428" target="_blank">WhatsApp</a>.</p>
-  </section>
-
-  <section id="ropa" class="hero hero-ropa fade-in">
-    <div class="overlay">
-      <h1>Ropa para Regalar</h1>
-      <p>Ropa de calidad con envoltorio, fotos impresas y decoración personalizada.</p>
-      <a href="https://wa.me/523142836428" class="btn">¡Contáctanos!</a>
-      <a href="catalogo.html" class="btn" style="margin-left:10px;background-color:#333;">Ver Catálogo</a>
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Auren</h2>
+      <p>Arturo y Enrique crean momentos inolvidables para enamorar.</p>
     </div>
   </section>
 
-  <section id="joyeria" class="hero hero-joyeria fade-in">
-    <div class="overlay">
-      <h1>Joyería</h1>
-      <p>Piezas brillantes para momentos inolvidables.</p>
-      <a href="https://wa.me/523142836428" class="btn">¡Contáctanos!</a>
+  <section class="intro">
+    <h2>Conoce a los creadores</h2>
+    <p>Somos <strong>Arturo</strong> y <strong>Enrique</strong>, apasionados por diseñar experiencias románticas y detalles únicos.</p>
+  </section>
+
+  <section class="carousel">
+    <div class="slides">
+      <a class="slide" href="ropa.html" style="background-image:url('https://images.unsplash.com/photo-1520975922132-78b4c933c578?auto=format&fit=crop&w=1200&q=60');">Ropa</a>
+      <a class="slide" href="joyeria.html" style="background-image:url('https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=60');">Joyería</a>
+      <a class="slide" href="charms.html" style="background-image:url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=60');">Charms</a>
+      <a class="slide" href="firstdate.html" style="background-image:url('https://images.unsplash.com/photo-1529634892023-d8d9fe25752e?auto=format&fit=crop&w=1200&q=60');">First Date</a>
     </div>
+    <button class="prev" aria-label="Anterior">&#10094;</button>
+    <button class="next" aria-label="Siguiente">&#10095;</button>
   </section>
 
-  <section id="charms" class="hero hero-charms fade-in">
-    <div class="overlay">
-      <h1>Charms</h1>
-      <p>Accesorios con significado que te acompañan siempre.</p>
-      <a href="https://wa.me/523142836428" class="btn">¡Contáctanos!</a>
-    </div>
-  </section>
-
-  <section id="firstdate" class="hero hero-firstdate fade-in">
-    <div class="overlay">
-      <h1>FirstDate</h1>
-      <p>Planea la primera cita perfecta con detalles inolvidables.</p>
-      <a href="https://wa.me/523142836428" class="btn">¡Proximamente!</a>
-    </div>
-  </section>
-
-  <section id="contacto" class="contact fade-in">
-    <h2>Contacto</h2>
-    <p>Estamos para ayudarte.</p>
-    <p><strong>Email:</strong> auren@arturoyenrique.com</p>
-    <p><strong>WhatsApp:</strong> <a href="https://wa.me/523142836428">Enviar mensaje</a></p>
-     <p>
-      <strong>Facebook:</strong>
-      <a href="https://www.facebook.com/share/1C28PMHGku/" target="_blank">Visítanos en Facebook</a>
-    </p>
-    <p>
-      <strong>Instagram:</strong>
-      <a href="https://www.instagram.com/arturoyenrique/" target="_blank">Síguenos en Instagram</a>
-    </p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Auren - Arturo y Enrique</p>
+  <footer class="footer">
+    <p>&copy; 2025 Auren - Arturo & Enrique</p>
   </footer>
 
-  <a href="https://wa.me/523142836428" class="whatsapp-float" target="_blank">WhatsApp</a>
-
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
