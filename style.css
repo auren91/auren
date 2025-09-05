@@ -1,0 +1,186 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+.hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 85%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
+
+.btn {
+  background-color: #ff4d6d;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e60039;
+}
+
+/* Fondos personalizados */
+.hero-romanticas {
+  background-image: url('img/fondo-romantico.png');
+}
+
+.hero-ropa {
+  background-image: url('img/fondo-ropa.png');
+}
+
+.hero-reclutamiento {
+  background-image: url('img/fondo-reclutamiento.png');
+}
+
+/* Fade-in al hacer scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact {
+  padding: 80px 20px;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.carrusel-container {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.carrusel-container h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.carrusel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.carrusel-items {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carrusel-items img {
+  width: 300px;
+  height: auto;
+  margin: 0 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.prev, .next {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background-color: #ff4d6d;
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.prev:hover, .next:hover {
+  background-color: #e03d5a;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.producto-card {
+  transition: opacity 0.4s ease;
+}
+.producto-card.oculto {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.producto-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.producto-img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.producto-img-container img.back {
+  opacity: 0;
+}
+
+.producto-card:hover .producto-img-container img.front {
+  opacity: 0;
+}
+
+.producto-card:hover .producto-img-container img.back {
+  opacity: 1;
+}
