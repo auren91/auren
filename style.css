@@ -5,6 +5,30 @@ body {
   color: #333;
 }
 
+header {
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav a {
+  margin: 0 15px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ff4d6d;
+}
+
+.intro {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
 .hero {
   height: 100vh;
   background-size: cover;
@@ -51,16 +75,24 @@ body {
 }
 
 /* Fondos personalizados */
-.hero-romanticas {
-  background-image: url('img/fondo-romantico.png');
-}
-
 .hero-ropa {
   background-image: url('img/fondo-ropa.png');
 }
 
 .hero-reclutamiento {
   background-image: url('img/fondo-reclutamiento.png');
+}
+
+.hero-joyeria {
+  background-image: url('img/fondo-ropa.png');
+}
+
+.hero-charms {
+  background-image: url('img/fondo-ropa.png');
+}
+
+.hero-firstdate {
+  background-image: url('img/fondo-romantico.png');
 }
 
 /* Fade-in al hacer scroll */
@@ -86,6 +118,24 @@ footer {
   color: white;
   text-align: center;
   padding: 20px;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.whatsapp-float:hover {
+  background-color: #1ebe5d;
 }
 
 .carrusel-container {
