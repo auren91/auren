@@ -28,6 +28,7 @@ const products=[...charmsCatalog,...otherProducts];
 
 document.addEventListener('DOMContentLoaded',()=>{
   initMenu();
+  initSliders();
   const bodyCategory=document.body.dataset.category;
   if(bodyCategory) initCatalog(bodyCategory);
   if(document.getElementById('product-detail')) initProductPage();
@@ -39,6 +40,20 @@ function initMenu(){
   if(hamburger&&nav){
     hamburger.addEventListener('click',()=>nav.classList.toggle('open'));
   }
+}
+
+function initSliders(){
+  document.querySelectorAll('.slider').forEach(slider=>{
+    const track=slider.querySelector('.slider-track');
+    const prev=slider.querySelector('.prev');
+    const next=slider.querySelector('.next');
+    if(prev&&track){
+      prev.addEventListener('click',()=>track.scrollBy({left:-track.clientWidth,behavior:'smooth'}));
+    }
+    if(next&&track){
+      next.addEventListener('click',()=>track.scrollBy({left:track.clientWidth,behavior:'smooth'}));
+    }
+  });
 }
 
 function initCatalog(category){

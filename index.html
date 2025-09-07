@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
+  <header class="header header-home">
     <div class="promo-banner"><a href="builder.html">🎁 Promo: en la compra de $400 MXN en charms, tu pulsera es GRATIS.</a></div>
     <div class="nav-container container">
       <a href="index.html" class="brand"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header"></a>
@@ -30,7 +30,7 @@
     </div>
   </header>
 
-  <section class="hero" style="background-image:url('img/heroes/hero-01.jpg');">
+  <section class="hero" style="background-image:url('img/heroes/hero-01.jpg'); background-position:center 35%;">
     <div class="hero-content">
       <img src="img/logos/logotipo.png" alt="Auren logotipo" class="logo-hero">
     </div>
@@ -40,40 +40,71 @@
     <a class="chip" href="ropa.html">Ropa</a>
     <a class="chip" href="joyeria.html">Joyería</a>
     <a class="chip" href="charms.html">Charms</a>
+    <a class="chip" href="builder.html">Constructor</a>
     <a class="chip" href="firstdate.html">First Date</a>
   </nav>
 
   <main class="container">
     <section class="intro">
       <h2>Conoce a los creadores</h2>
-      <p>Somos <strong>Arturo</strong> y <strong>Enrique</strong>, diseñando experiencias y detalles que enamoran.</p>
+      <p class="intro-text">Somos Arturo y Enrique, diseñando experiencias y detalles que enamoran. Creemos en los gestos que dibujan una sonrisa al corazón: más que ropa o joyas, creamos momentos. Explora nuestro catálogo, descubre lo que estamos creando y sorprende a esa persona especial con algo que cuente su historia.</p>
     </section>
 
-    <section>
+    <section class="featured">
       <h2>Destacados</h2>
-      <div class="grid-3">
-        <div class="card glass">
-          <div class="img-wrapper"><img src="img/firstdate/firstdate-01.jpg" alt="Detalle 1"></div>
-          <div class="card-body">
-            <h3>Detalles únicos</h3>
-            <p>Regalos pensados para sorprender.</p>
+
+      <div class="featured-carousel">
+        <h3>Ropa</h3>
+        <div class="slider">
+          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
+          <div class="slider-track">
+            <div class="card glass"><div class="img-wrapper"><img src="img/ropa/ropa-01.jpg" alt="Destacado ropa 01"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/ropa/ropa-02.jpg" alt="Destacado ropa 02"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/ropa/ropa-03.jpg" alt="Destacado ropa 03"></div></div>
           </div>
-        </div>
-        <div class="card glass">
-          <div class="img-wrapper"><img src="img/firstdate/firstdate-02.jpg" alt="Detalle 2"></div>
-          <div class="card-body">
-            <h3>Hecho con amor</h3>
-            <p>Materiales seleccionados con cuidado.</p>
-          </div>
-        </div>
-        <div class="card glass">
-          <div class="img-wrapper"><img src="img/firstdate/firstdate-03.jpg" alt="Detalle 3"></div>
-          <div class="card-body">
-            <h3>Personaliza</h3>
-            <p>Crea un momento inolvidable.</p>
-          </div>
+          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
         </div>
       </div>
+
+      <div class="featured-carousel">
+        <h3>Joyería</h3>
+        <div class="slider">
+          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
+          <div class="slider-track">
+            <div class="card glass"><div class="img-wrapper"><img src="img/joyeria/joya-01.jpg" alt="Destacado joyería 01"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/joyeria/joya-02.jpg" alt="Destacado joyería 02"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/joyeria/joya-03.jpg" alt="Destacado joyería 03"></div></div>
+          </div>
+          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+
+      <div class="featured-carousel">
+        <h3>Charms</h3>
+        <div class="slider">
+          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
+          <div class="slider-track">
+            <div class="card glass"><div class="img-wrapper"><img src="img/charms/charm-01-front.jpg" alt="Destacado charms 01"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/charms/charm-02-front.jpg" alt="Destacado charms 02"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/charms/charm-03-front.jpg" alt="Destacado charms 03"></div></div>
+          </div>
+          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+
+      <div class="featured-carousel">
+        <h3>First Date</h3>
+        <div class="slider">
+          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
+          <div class="slider-track">
+            <div class="card glass"><div class="img-wrapper"><img src="img/firstdate/firstdate-01.jpg" alt="Destacado first date 01"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/firstdate/firstdate-02.jpg" alt="Destacado first date 02"></div></div>
+            <div class="card glass"><div class="img-wrapper"><img src="img/firstdate/firstdate-03.jpg" alt="Destacado first date 03"></div></div>
+          </div>
+          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+
     </section>
   </main>
 
