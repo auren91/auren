@@ -11,7 +11,7 @@ for (let i = 1; i <= 30; i++) {
     imgBack: `img/charms/charm-${String(i).padStart(2,'0')}b.jpg`,
     color: ['rosa','azul','dorado'][i%3],
     material: ['acero','oro','plata'][i%3],
-    stock: 10,
+    stock: i % 6 === 0 ? 0 : 10,
     badge: i % 10 === 0 ? '-20%' : i % 5 === 0 ? 'Nuevo' : i % 7 === 0 ? 'Top' : ''
   });
 }
@@ -39,6 +39,8 @@ function firstEmptySlot(){
 }
 
 function addCharm(id, index){
+  const charm=charms.find(c=>c.id===id);
+  if(!charm || charm.stock<=0) return;
   if(index === undefined) index = firstEmptySlot();
   if(index === -1) return;
   slots[index] = id;
@@ -120,11 +122,15 @@ function renderCatalog(){
   const catalog=document.getElementById('catalog');
   catalog.innerHTML='';
   list.forEach((c,i)=>{
-    const card=document.createElement('div');card.className='charm-card fade-in';card.draggable=true;card.dataset.id=c.id;
+    const out=c.stock<=0;
+    const card=document.createElement('div');card.className='charm-card fade-in';card.dataset.id=c.id;
+    if(out) card.classList.add('out'); else card.draggable=true;
     card.style.animationDelay=`${i*50}ms`;
-    card.innerHTML=`<img src="${c.imgFront}" alt="${c.name} frente" class="front"><img src="${c.imgBack}" alt="${c.name} reverso" class="back"><h4>${c.name}</h4><p class="price">$${c.price}</p>${c.badge?`<span class="badge">${c.badge}</span>`:''}<button class="add">Agregar</button>`;
-    card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.id);});
-    card.querySelector('.add').addEventListener('click',()=>addCharm(c.id));
+    card.innerHTML=`<img src="${c.imgFront}" alt="${c.name} frente" class="front"><img src="${c.imgBack}" alt="${c.name} reverso" class="back"><h4>${c.name}</h4><p class="price">$${c.price}</p>${c.badge?`<span class="badge">${c.badge}</span>`:''}${out?`<span class="badge agotado">Agotado</span>`:''}<button class="add"${out?' disabled':''}>Agregar</button>`;
+    if(!out){
+      card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.id);});
+      card.querySelector('.add').addEventListener('click',()=>addCharm(c.id));
+    }
     catalog.appendChild(card);
   });
   catalog.classList.toggle('compact',document.getElementById('compact').checked);
@@ -146,6 +152,10 @@ function renderBracelet(){
       slot.classList.add('filled');
       slot.innerHTML=`<img src="${charm.imgFront}" alt="${charm.name}">`;
       const rm=document.createElement('button');rm.className='remove';rm.textContent='x';rm.addEventListener('click',()=>removeCharm(i));slot.appendChild(rm);
+      if(charm.stock<=0){
+        slot.classList.add('out');
+        const warn=document.createElement('span');warn.className='badge agotado';warn.textContent='Agotado';slot.appendChild(warn);
+      }
       slot.draggable=true;
       slot.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/slot',i);});
       let startX=null;
@@ -191,6 +201,8 @@ function handleDrop(e){
       triggerSnap(targetIndex);
     }
   }else if(charmId){
+    const charm=charms.find(c=>c.id===charmId);
+    if(!charm || charm.stock<=0) return;
     if(slots[targetIndex] && !e.shiftKey){
       const temp=slots[targetIndex];
       slots[targetIndex]=charmId;
