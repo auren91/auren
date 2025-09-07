@@ -30,7 +30,8 @@
 }
 
 .filters input[type="text"],
-.filters select {
+.filters select,
+.filters input[type="number"] {
   width: 100%;
   padding: .5rem;
   margin-bottom: .5rem;
@@ -41,6 +42,67 @@
   flex-wrap: wrap;
   gap: .25rem;
   margin-bottom: .5rem;
+}
+
+.slot-input {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.slot-input input {
+  width: 4rem;
+  text-align: center;
+}
+
+.slot-input button {
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  border: 1px solid var(--acento);
+  background: transparent;
+  cursor: pointer;
+}
+
+#bracelet-color {
+  display: flex;
+  gap: .25rem;
+  margin-bottom: .5rem;
+}
+
+#bracelet-color input[type="radio"] {
+  display: none;
+}
+
+#bracelet-color label {
+  cursor: pointer;
+}
+
+#bracelet-color label span {
+  border: 1px solid var(--acento);
+  border-radius: 999px;
+  padding: .25rem .75rem;
+  display: inline-block;
+}
+
+#bracelet-color input[type="radio"]:checked + span {
+  background: var(--acento);
+  color: #fff;
+}
+
+.slot.base {
+  opacity: .8;
+}
+
+.slot.base.no-img.base-plata {
+  background: #ddd;
+}
+
+.slot.base.no-img.base-dorado {
+  background: #d4af37;
+}
+
+.slot.base.no-img.base-negro {
+  background: #333;
 }
 
 .chips button {
