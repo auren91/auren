@@ -119,8 +119,9 @@ function renderCatalog(){
   }
   const catalog=document.getElementById('catalog');
   catalog.innerHTML='';
-  list.forEach(c=>{
-    const card=document.createElement('div');card.className='charm-card';card.draggable=true;card.dataset.id=c.id;
+  list.forEach((c,i)=>{
+    const card=document.createElement('div');card.className='charm-card fade-in';card.draggable=true;card.dataset.id=c.id;
+    card.style.animationDelay=`${i*50}ms`;
     card.innerHTML=`<img src="${c.imgFront}" alt="${c.name} frente" class="front"><img src="${c.imgBack}" alt="${c.name} reverso" class="back"><h4>${c.name}</h4><p class="price">$${c.price}</p>${c.badge?`<span class="badge">${c.badge}</span>`:''}<button class="add">Agregar</button>`;
     card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.id);});
     card.querySelector('.add').addEventListener('click',()=>addCharm(c.id));
@@ -134,7 +135,8 @@ function renderBracelet(){
   container.innerHTML='';
   for(let i=0;i<braceletSize;i++){
     const slot=document.createElement('div');
-    slot.className='slot';
+    slot.className='slot fade-in';
+    slot.style.animationDelay=`${i*50}ms`;
     slot.dataset.index=i;
     slot.textContent=String(i+1).padStart(2,'0');
     slot.addEventListener('dragover',e=>e.preventDefault());
@@ -151,6 +153,14 @@ function renderBracelet(){
   }
 }
 
+function triggerSnap(index){
+  const el=document.querySelector(`.slot[data-index="${index}"]`);
+  if(el){
+    el.classList.add('snap');
+    setTimeout(()=>el.classList.remove('snap'),200);
+  }
+}
+
 function handleDrop(e){
   e.preventDefault();
   const targetIndex=parseInt(e.currentTarget.dataset.index,10);
@@ -160,12 +170,14 @@ function handleDrop(e){
     const from=parseInt(fromSlot,10);
     if(slots[targetIndex] && !e.shiftKey){
       swapSlots(from,targetIndex);
+      triggerSnap(targetIndex);
     }else{
       slots[targetIndex]=slots[from];
       slots[from]=null;
       pushState();
       renderBracelet();
       updateTotals();
+      triggerSnap(targetIndex);
     }
   }else if(charmId){
     if(slots[targetIndex] && !e.shiftKey){
@@ -179,6 +191,7 @@ function handleDrop(e){
     pushState();
     renderBracelet();
     updateTotals();
+    triggerSnap(targetIndex);
   }
 }
 
