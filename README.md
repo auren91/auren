@@ -11,3 +11,14 @@ npm run gen:charms
 ```
 
 3. Commitea el archivo generado `data/charms.json`.
+
+## Generar catálogo de ropa
+
+1. Coloca las imágenes en `img/ropa/` siguiendo la convención `ropa-(1).jpeg`.
+2. Ejecuta:
+
+```bash
+npm run gen:ropa
+```
+
+3. Commitea el archivo generado `data/ropa.json`.

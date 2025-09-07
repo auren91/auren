@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "gen:charms": "node scripts/generateCharmsCatalog.mjs"
+    "gen:charms": "node scripts/generateCharmsCatalog.mjs",
+    "gen:ropa": "node scripts/generateRopaCatalog.mjs"
   }
 }
