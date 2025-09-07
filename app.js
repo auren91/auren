@@ -1,20 +1,4 @@
-const categories=['Amor','Letras','Animales','Naturaleza','Símbolos','Viajes'];
-const colors=['Rosa','Dorado','Plateado','Verde','Azul','Negro','Blanco','Multicolor'];
-const discounts=[15,18,20,22,25,30,35,40];
-const charmsCatalog=[];
-for(let i=1;i<=30;i++){
-  const num=String(i).padStart(2,'0');
-  const id='ch'+num;
-  const category=categories[(i-1)%categories.length];
-  const color=colors[(i-1)%colors.length];
-  const discount=discounts[(i-1)%discounts.length];
-  const price=30+((i*7)%96);
-  const priceOriginal=Math.round(price/(1-discount/100));
-  const stock=6+(i*3)%15;
-  const rating=3+(i%3);
-  charmsCatalog.push({id,name:`${category} ${i}`,category,tags:[category.toLowerCase(),color.toLowerCase()],color,material:i%2?'Acero Inoxidable':'Esmalte',imgFront:`img/charms/charm-${num}-front.jpg`,imgBack:`img/charms/charm-${num}-back.jpg`,stock,badge:'Descuento',priceOriginal,discountPercent:discount,price,rating,available:stock>0});
-}
-
+let charmsCatalog=[];
 const otherProducts=[
   {id:'camisa-rosa',name:'Camisa Rosa',category:'ropa',price:520,tags:['camisa'],badge:'',images:['img/ropa/ropa-01.jpg','img/ropa/ropa-02.jpg'],rating:4,available:true},
   {id:'sueter-dorado',name:'Suéter Dorado',category:'ropa',price:650,tags:['sueter','top'],badge:'Top',images:['img/ropa/ropa-03.jpg','img/ropa/ropa-04.jpg'],rating:5,available:true},
@@ -24,9 +8,26 @@ const otherProducts=[
   {id:'pulsera-charms',name:'Pulsera con Charms',category:'joyeria',price:900,tags:['pulsera','top'],badge:'Top',images:['img/joyeria/joya-05.jpg','img/joyeria/joya-06.jpg'],rating:4,available:true}
 ];
 
-const products=[...charmsCatalog,...otherProducts];
+let products=[];
 
-document.addEventListener('DOMContentLoaded',()=>{
+async function loadCharmsCatalog(){
+  try{
+    const res=await fetch('/data/charms.json');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    charmsCatalog=await res.json();
+  }catch(err){
+    console.warn('No se pudo cargar catálogo de charms, usando fallback.',err);
+    charmsCatalog=[
+      {id:'charm-01',name:'Charm 01',category:'Charms',tags:[],color:'Multicolor',material:'Esmalte',imgFront:'img/charms/charm-01.png',imgBack:'img/charms/charm-01.png',stock:12,badge:'Descuento',discountPercent:15,price:79,priceOriginal:93},
+      {id:'charm-02',name:'Charm 02',category:'Charms',tags:[],color:'Multicolor',material:'Esmalte',imgFront:'img/charms/charm-02.png',imgBack:'img/charms/charm-02.png',stock:10,badge:'Descuento',discountPercent:20,price:70,priceOriginal:88},
+      {id:'charm-03',name:'Charm 03',category:'Charms',tags:[],color:'Multicolor',material:'Esmalte',imgFront:'img/charms/charm-03.png',imgBack:'img/charms/charm-03.png',stock:8,badge:'Descuento',discountPercent:25,price:65,priceOriginal:87}
+    ];
+  }
+  products=[...charmsCatalog,...otherProducts];
+}
+
+document.addEventListener('DOMContentLoaded',async()=>{
+  await loadCharmsCatalog();
   initMenu();
   initSliders();
   const bodyCategory=document.body.dataset.category;

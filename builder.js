@@ -1,6 +1,15 @@
 // Constructor de Pulsera Italiana
 // Merge resuelto: incluye slots editables y selector de color de pulsera
-const charms = charmsCatalog;
+let charms = [];
+const charmsPromise = fetch('/data/charms.json')
+  .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .catch(err => {
+    console.warn('No se pudo cargar catálogo de charms, usando fallback.', err);
+    return [
+      {id:'charm-01',name:'Charm 01',category:'Charms',tags:[],color:'Multicolor',material:'Esmalte',imgFront:'img/charms/charm-01.png',imgBack:'img/charms/charm-01.png',stock:12,badge:'Descuento',discountPercent:15,price:79,priceOriginal:93},
+      {id:'charm-02',name:'Charm 02',category:'Charms',tags:[],color:'Multicolor',material:'Esmalte',imgFront:'img/charms/charm-02.png',imgBack:'img/charms/charm-02.png',stock:10,badge:'Descuento',discountPercent:20,price:70,priceOriginal:88}
+    ];
+  });
 
 const baseCharms = {
   plata: {
@@ -406,7 +415,7 @@ function sendWhatsApp(){
   const lines=slots.map((id,i)=>{
     const c=getCharm(id);
     if(!c || c.isBase) return null;
-    return `${String(i+1).padStart(2,'0')}) [${c.id}] ${c.name} – $${c.price}`;
+    return `${String(i+1).padStart(2,'0')}) [${c.id}] ${c.name} – $${c.price}${c.badge==='Descuento'?' (Descuento)':''}`;
   }).filter(Boolean).join('%0A');
   const total=slots.filter(id=>!isBase(id)).reduce((s,id)=>s+(getCharm(id)?.price||0),0);
   const baseCount=slots.filter(id=>isBase(id)).length;
@@ -469,7 +478,8 @@ function redo(){
 }
 
 // Event bindings
-window.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('DOMContentLoaded',async()=>{
+  charms = await charmsPromise;
   renderFilters();
   renderCatalog();
   const qs=new URLSearchParams(location.search).get('design');
