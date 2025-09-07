@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren - Ropa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&family=Forum&display=swap" rel="stylesheet">
+  <meta name="description" content="Descubre ropa y outfits para enamorar.">
+  <meta property="og:title" content="Auren - Ropa">
+  <meta property="og:description" content="Descubre ropa y outfits para enamorar.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-category="ropa">
   <header class="header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <img src="img/isotipo.png" alt="Auren" class="logo-header">
-      </a>
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
           <li><a href="ropa.html">Ropa</a></li>
@@ -26,36 +28,63 @@
     </div>
   </header>
 
-  <main>
-    <section class="catalog">
-      <h2>Ropa</h2>
-      <input type="text" class="search-input" placeholder="Buscar prenda...">
-      <div class="cards">
-        <div class="card" data-name="Camisa Rosa">
-          <img src="https://images.unsplash.com/photo-1542060748-a0f8d62c1a8b?auto=format&fit=crop&w=400&q=60" alt="Camisa Rosa">
-          <h3>Camisa Rosa</h3>
-          <p>Camisa elegante ideal para un detalle especial.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20la%20Camisa%20Rosa">Contactar</a>
-        </div>
-        <div class="card" data-name="Suéter Dorado">
-          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=60" alt="Suéter Dorado">
-          <h3>Suéter Dorado</h3>
-          <p>Suéter cálido con detalles dorados.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Suéter%20Dorado">Contactar</a>
-        </div>
-        <div class="card" data-name="Vestido Rojo">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=60" alt="Vestido Rojo">
-          <h3>Vestido Rojo</h3>
-          <p>Vestido romántico para ocasiones especiales.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Vestido%20Rojo">Contactar</a>
+  <section class="hero" style="background-image:url('img/hero-ropa.jpg');">
+    <div class="hero-content">
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
+    </div>
+  </section>
+
+  <nav class="categories">
+    <a class="chip active" href="ropa.html">Ropa</a>
+    <a class="chip" href="joyeria.html">Joyería</a>
+    <a class="chip" href="charms.html">Charms</a>
+    <a class="chip" href="firstdate.html">First Date</a>
+  </nav>
+
+  <main class="container catalog-page">
+    <aside class="sidebar">
+      <h3>Filtros</h3>
+      <input type="search" id="search" class="search" placeholder="Buscar...">
+      <h4>Categorías</h4>
+      <div id="tag-filter">
+        <span class="chip" data-tag="camisa">Camisa</span>
+        <span class="chip" data-tag="sueter">Suéter</span>
+        <span class="chip" data-tag="vestido">Vestido</span>
+      </div>
+      <h4>Precio</h4>
+      <input type="range" id="price" min="0" max="1000" value="1000">
+      <div class="price-output">$0 - $<span id="price-value">1000</span></div>
+      <label><input type="checkbox" id="available"> Disponible</label>
+    </aside>
+    <section class="catalog-content">
+      <div class="toolbar">
+        <div class="count"><span id="count"></span> productos</div>
+        <div>
+          <select id="sort">
+            <option value="">Ordenar</option>
+            <option value="price-asc">Precio ↑</option>
+            <option value="price-desc">Precio ↓</option>
+            <option value="new">Nuevo</option>
+            <option value="top">Más vendido</option>
+          </select>
+          <div class="view">
+            <button class="chip active" data-view="3">3</button>
+            <button class="chip" data-view="4">4</button>
+          </div>
         </div>
       </div>
+      <div id="product-grid" class="grid-3"></div>
+      <div class="pagination"><a href="#" class="chip">1</a></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
   </footer>
+
+  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
 </body>
 </html>
