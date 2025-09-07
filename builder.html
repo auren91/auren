@@ -49,11 +49,12 @@
       </div>
       <div class="size-select">
         <label for="slotCount">Eslabones</label>
-        <div class="slot-input">
-          <button id="slotMinus" aria-label="Menos eslabones">-</button>
-          <input type="number" id="slotCount" min="10" max="24" step="1" value="18">
-          <button id="slotPlus" aria-label="Más eslabones">+</button>
+        <div class="slot-control" role="group" aria-label="Selector de eslabones">
+          <button type="button" id="slotMinus" class="btn-step" aria-label="Disminuir eslabones">–</button>
+          <input type="number" id="slotCount" min="10" max="24" step="1" value="18" inputmode="numeric" aria-live="polite" />
+          <button type="button" id="slotPlus" class="btn-step" aria-label="Aumentar eslabones">+</button>
         </div>
+        <div id="slotHint" class="slot-hint" aria-live="polite"></div>
       </div>
       <fieldset id="bracelet-color" class="color-select" aria-label="Color de pulsera">
         <label><input type="radio" name="braceletColor" value="plata" checked><span>Plata</span></label>
