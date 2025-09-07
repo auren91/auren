@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auren - Constructor de Pulsera</title>
+  <meta name="description" content="Arma tu pulsera italiana personalizada">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="builder.css">
+</head>
+<body id="bracelet-builder">
+  <header class="header">
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="ropa.html">Ropa</a></li>
+          <li><a href="joyeria.html">Joyería</a></li>
+          <li><a href="charms.html">Charms</a></li>
+          <li><a href="builder.html">Constructor</a></li>
+          <li><a href="firstdate.html">First Date</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Menú">&#9776;</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" style="background-image:url('img/hero-charms.jpg');">
+    <div class="hero-content">
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
+    </div>
+  </section>
+
+  <main class="builder container">
+    <aside class="filters">
+      <h2>Filtros</h2>
+      <input type="text" id="search" placeholder="Buscar" aria-label="Buscar charms">
+      <div id="filter-tags" class="chips"></div>
+      <div id="filter-color" class="chips"></div>
+      <div id="filter-material" class="chips"></div>
+      <div class="price-range">
+        <label>Precio: <span id="price-display"></span></label>
+        <input type="range" id="price-min" min="0" max="500" value="0">
+        <input type="range" id="price-max" min="0" max="500" value="500">
+      </div>
+      <div class="size-select">
+        <label for="size">Eslabones:</label>
+        <select id="size">
+          <option value="18" selected>18</option>
+          <option value="20">20</option>
+          <option value="22">22</option>
+        </select>
+      </div>
+      <div class="sort-select">
+        <label for="sort">Ordenar por:</label>
+        <select id="sort">
+          <option value="relevance">Relevancia</option>
+          <option value="price-asc">Precio ↑</option>
+          <option value="price-desc">Precio ↓</option>
+          <option value="new">Nuevo</option>
+        </select>
+      </div>
+      <label class="compact-toggle"><input type="checkbox" id="compact"> Modo compacto</label>
+    </aside>
+
+    <section class="tray">
+      <h2>Catálogo</h2>
+      <div id="catalog" class="catalog-grid"></div>
+    </section>
+
+    <aside class="bracelet-area">
+      <h2>Tu Pulsera</h2>
+      <div id="bracelet" class="bracelet-grid" aria-live="polite"></div>
+      <p id="bracelet-status"></p>
+      <p id="bracelet-total" class="price"></p>
+    </aside>
+  </main>
+
+  <div class="builder-bar">
+    <button id="undo" aria-label="Deshacer">Deshacer</button>
+    <button id="redo" aria-label="Rehacer">Rehacer</button>
+    <button id="clear" aria-label="Vaciar">Vaciar</button>
+    <button id="save" aria-label="Guardar">Guardar</button>
+    <button id="load" aria-label="Cargar">Cargar</button>
+    <button id="whatsapp" aria-label="Pedir por WhatsApp" class="whatsapp">Pedir por WhatsApp</button>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="builder.js"></script>
+</body>
+</html>
