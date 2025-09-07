@@ -48,13 +48,18 @@
         <input type="range" id="price-max" min="30" max="125" value="125">
       </div>
       <div class="size-select">
-        <label for="size">Eslabones:</label>
-        <select id="size">
-          <option value="18" selected>18</option>
-          <option value="20">20</option>
-          <option value="22">22</option>
-        </select>
+        <label for="slotCount">Eslabones</label>
+        <div class="slot-input">
+          <button id="slotMinus" aria-label="Menos eslabones">-</button>
+          <input type="number" id="slotCount" min="10" max="24" step="1" value="18">
+          <button id="slotPlus" aria-label="Más eslabones">+</button>
+        </div>
       </div>
+      <fieldset id="bracelet-color" class="color-select" aria-label="Color de pulsera">
+        <label><input type="radio" name="braceletColor" value="plata" checked><span>Plata</span></label>
+        <label><input type="radio" name="braceletColor" value="dorado"><span>Dorado</span></label>
+        <label><input type="radio" name="braceletColor" value="negro"><span>Negro</span></label>
+      </fieldset>
       <div class="sort-select">
         <label for="sort">Ordenar por:</label>
         <select id="sort">
