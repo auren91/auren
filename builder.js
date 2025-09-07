@@ -249,6 +249,43 @@ function sendWhatsApp(){
   window.open(`https://wa.me/523142836428?text=${msg}`,'_blank');
 }
 
+// Descargar imagen del diseño
+async function downloadMock(){
+  const filled=slots.filter(Boolean);
+  if(!filled.length){
+    alert('No hay charms en tu diseño');
+    return;
+  }
+  const cell=100;
+  const cols=6;
+  const rows=Math.ceil(filled.length/cols);
+  const canvas=document.createElement('canvas');
+  canvas.width=cols*cell;
+  canvas.height=rows*cell;
+  const ctx=canvas.getContext('2d');
+
+  const images=await Promise.all(filled.map(id=>{
+    const c=charms.find(ch=>ch.id===id);
+    return new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=reject;
+      img.src=c.imgFront;
+    });
+  }));
+
+  images.forEach((img,i)=>{
+    const x=(i%cols)*cell;
+    const y=Math.floor(i/cols)*cell;
+    ctx.drawImage(img,x,y,cell,cell);
+  });
+
+  const link=document.createElement('a');
+  link.href=canvas.toDataURL('image/png');
+  link.download='pulsera-mock.png';
+  link.click();
+}
+
 // Undo/redo
 function undo(){
   if(undoStack.length){
@@ -282,6 +319,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('clear').addEventListener('click',()=>{if(confirm('¿Vaciar pulsera?')){slots=Array(braceletSize).fill(null);pushState();renderBracelet();updateTotals();}});
   document.getElementById('save').addEventListener('click',saveLocal);
   document.getElementById('load').addEventListener('click',loadLocal);
+  document.getElementById('download').addEventListener('click',downloadMock);
   document.getElementById('whatsapp').addEventListener('click',sendWhatsApp);
   const filterToggle=document.getElementById('filter-toggle');
   const filters=document.querySelector('.filters');
