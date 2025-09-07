@@ -1,7 +1,20 @@
-const products=[
-  {id:'charm-inicial',name:'Charm Inicial',category:'charms',price:150,tags:['letras','nuevo'],badge:'Nuevo',images:['img/charms-01a.jpg','img/charms-01b.jpg'],rating:4,available:true},
-  {id:'charm-amor',name:'Charm Amor',category:'charms',price:180,tags:['amor','top'],badge:'Top',images:['img/charms-02a.jpg','img/charms-02b.jpg'],rating:5,available:true},
-  {id:'charm-estrella',name:'Charm Estrella',category:'charms',price:120,tags:['estrella'],badge:'-20%',images:['img/charms-03a.jpg','img/charms-03b.jpg'],rating:4,available:false},
+const categories=['Amor','Letras','Animales','Naturaleza','Símbolos','Viajes'];
+const colors=['Rosa','Dorado','Plateado','Verde','Azul','Negro','Blanco','Multicolor'];
+const discounts=[15,18,20,22,25,30,35,40];
+const charmsCatalog=[];
+for(let i=1;i<=30;i++){
+  const id='ch'+String(i).padStart(3,'0');
+  const category=categories[(i-1)%categories.length];
+  const color=colors[(i-1)%colors.length];
+  const discount=discounts[(i-1)%discounts.length];
+  const price=30+((i*7)%96);
+  const priceOriginal=Math.round(price/(1-discount/100));
+  const stock=6+(i*3)%15;
+  const rating=3+(i%3);
+  charmsCatalog.push({id,name:`${category} ${i}`,category,tags:[category.toLowerCase(),color.toLowerCase()],color,material:i%2?'Acero Inoxidable':'Esmalte',imgFront:`img/charms/${id}-front.jpg`,imgBack:`img/charms/${id}-back.jpg`,stock,badge:'Descuento',priceOriginal,discountPercent:discount,price,rating,available:stock>0});
+}
+
+const otherProducts=[
   {id:'camisa-rosa',name:'Camisa Rosa',category:'ropa',price:520,tags:['camisa'],badge:'',images:['img/ropa-01a.jpg','img/ropa-01b.jpg'],rating:4,available:true},
   {id:'sueter-dorado',name:'Suéter Dorado',category:'ropa',price:650,tags:['sueter','top'],badge:'Top',images:['img/ropa-02a.jpg','img/ropa-02b.jpg'],rating:5,available:true},
   {id:'vestido-rojo',name:'Vestido Rojo',category:'ropa',price:780,tags:['vestido','nuevo'],badge:'Nuevo',images:['img/ropa-03a.jpg','img/ropa-03b.jpg'],rating:4,available:false},
@@ -9,6 +22,8 @@ const products=[
   {id:'anillo-minimal',name:'Anillo Minimalista',category:'joyeria',price:800,tags:['anillo'],badge:'',images:['img/joyeria-02a.jpg','img/joyeria-02b.jpg'],rating:4,available:true},
   {id:'pulsera-charms',name:'Pulsera con Charms',category:'joyeria',price:900,tags:['pulsera','top'],badge:'Top',images:['img/joyeria-03a.jpg','img/joyeria-03b.jpg'],rating:4,available:true}
 ];
+
+const products=[...charmsCatalog,...otherProducts];
 
 document.addEventListener('DOMContentLoaded',()=>{
   initMenu();
@@ -65,7 +80,7 @@ function initCatalog(category){
   }
 
   function render(){
-    let items=products.filter(p=>p.category===category);
+    let items=category==='charms'?[...charmsCatalog]:otherProducts.filter(p=>p.category===category);
     if(state.q) items=items.filter(p=>p.name.toLowerCase().includes(state.q.toLowerCase()));
     if(state.tags.length) items=items.filter(p=>state.tags.every(t=>p.tags.includes(t)));
     if(state.available) items=items.filter(p=>p.available);
@@ -81,12 +96,15 @@ function initCatalog(category){
     items.forEach(p=>{
       const card=document.createElement('div');
       card.className='card glass';
-      card.innerHTML=`<div class="img-wrapper"><img src="${p.images[0]}" alt="${p.name} frontal" class="front"><img src="${p.images[1]}" alt="${p.name} reverso" class="back"></div>`+
-        (p.badge?`<span class="badge">${p.badge}</span>`:'')+
-        `<div class="card-body"><h3>${p.name}</h3><p class="price">$<span class="num">${p.price}</span></p>`+
+      const imgFront=p.imgFront||(p.images?p.images[0]:'');
+      const imgBack=p.imgBack||(p.images?p.images[1]:'');
+      const priceHTML=p.priceOriginal?`<div class="price"><span class="price-old">$${p.priceOriginal}</span><span class="price-new">$${p.price}</span></div>`:`<div class="price"><span class="price-new">$${p.price}</span></div>`;
+      card.innerHTML=`<div class="img-wrapper"><img src="${imgFront}" alt="${p.name} frontal" class="front"><img src="${imgBack}" alt="${p.name} reverso" class="back"></div>`+
+        (p.badge?`<span class="badge ${p.badge==='Descuento'?'badge-descuento':''}">${p.badge}</span>`:'')+
+        `<div class="card-body"><h3>${p.name}</h3>${priceHTML}`+
         `<div class="rating" aria-label="${p.rating} estrellas">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div>`+
         `<div class="actions"><a href="producto.html?id=${p.id}" class="btn">Ver detalles</a>`+
-        `<a href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name)}" target="_blank" class="btn whatsapp">WhatsApp</a></div>`+
+        `<a href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" class="btn whatsapp">WhatsApp</a></div>`+
         `<button class="sr-only quick" data-id="${p.id}">Vista rápida</button></div>`;
       grid.appendChild(card);
     });
@@ -116,7 +134,9 @@ function initCatalog(category){
     if(btn){
       const p=products.find(pr=>pr.id===btn.dataset.id);
       if(p){
-        quickView.innerHTML=`<form method="dialog"><div class="card"><div class="img-wrapper"><img src="${p.images[0]}" alt="${p.name}"></div><h3>${p.name}</h3><p class="price">$${p.price}</p><a class="btn whatsapp" href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name)}" target="_blank">WhatsApp</a><button class="btn">Cerrar</button></div></form>`;
+        const imgFront=p.imgFront||(p.images?p.images[0]:'');
+        const priceHTML=p.priceOriginal?`<div class="price"><span class="price-old">$${p.priceOriginal}</span><span class="price-new">$${p.price}</span></div>`:`<div class="price"><span class="price-new">$${p.price}</span></div>`;
+        quickView.innerHTML=`<form method="dialog"><div class="card"><div class="img-wrapper"><img src="${imgFront}" alt="${p.name}"></div><h3>${p.name}</h3>${priceHTML}<a class="btn whatsapp" href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank">WhatsApp</a><button class="btn">Cerrar</button></div></form>`;
         quickView.showModal();
       }
     }
@@ -143,11 +163,12 @@ function initProductPage(){
 
   title.textContent=product.name;
   sku.textContent='SKU: '+product.id;
-  price.textContent='$'+product.price;
+  price.innerHTML=product.priceOriginal?`<div class="price"><span class="price-old">$${product.priceOriginal}</span><span class="price-new">$${product.price}</span></div>`:`<div class="price"><span class="price-new">$${product.price}</span></div>`;
   desc.textContent='Producto exclusivo de Auren.';
-  mainImg.src=product.images[0];
+  const images=product.imgFront?[product.imgFront,product.imgBack]:product.images;
+  mainImg.src=images[0];
   mainImg.alt=product.name;
-  product.images.forEach((src,i)=>{
+  images.forEach((src,i)=>{
     const img=document.createElement('img');
     img.src=src; img.alt=product.name+' '+(i+1);
     if(i===0) img.classList.add('active');
@@ -169,7 +190,7 @@ function initProductPage(){
 
   function updateWhats(){
     const variant=document.querySelector('input[name="variant"]:checked');
-    const message=`Hola Auren, me interesa: ${product.name}${variant? ' - '+variant.value:''} x${qty.value}`;
+    const message=`Hola Auren, me interesa: ${product.name}${variant? ' - '+variant.value:''} x${qty.value} a $${product.price}`;
     whats.href=`https://wa.me/523142836428?text=${encodeURIComponent(message)}`;
   }
   qty.addEventListener('input',updateWhats);
@@ -186,7 +207,9 @@ function initProductPage(){
     const a=document.createElement('a');
     a.href=`producto.html?id=${p.id}`;
     a.className='card glass';
-    a.innerHTML=`<div class="img-wrapper"><img src="${p.images[0]}" alt="${p.name}"></div><div class="card-body"><h3>${p.name}</h3><p class="price">$${p.price}</p></div>`;
+    const imgFront=p.imgFront||(p.images?p.images[0]:'');
+    const priceHTML=p.priceOriginal?`<div class="price"><span class="price-old">$${p.priceOriginal}</span><span class="price-new">$${p.price}</span></div>`:`<div class="price"><span class="price-new">$${p.price}</span></div>`;
+    a.innerHTML=`<div class="img-wrapper"><img src="${imgFront}" alt="${p.name}"></div><div class="card-body"><h3>${p.name}</h3>${priceHTML}</div>`;
     relatedContainer.appendChild(a);
   });
 }

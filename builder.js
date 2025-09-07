@@ -1,20 +1,5 @@
 // Constructor de Pulsera Italiana
-// Data de ejemplo de charms
-const charms = [];
-for (let i = 1; i <= 30; i++) {
-  charms.push({
-    id: `id-${String(i).padStart(3,'0')}`,
-    name: `Charm ${i}`,
-    price: 100 + i * 5,
-    tags: i % 2 ? ['amor'] : ['amistad'],
-    imgFront: `img/charms/charm-${String(i).padStart(2,'0')}.jpg`,
-    imgBack: `img/charms/charm-${String(i).padStart(2,'0')}b.jpg`,
-    color: ['rosa','azul','dorado'][i%3],
-    material: ['acero','oro','plata'][i%3],
-    stock: i % 6 === 0 ? 0 : 10,
-    badge: i % 10 === 0 ? '-20%' : i % 5 === 0 ? 'Nuevo' : i % 7 === 0 ? 'Top' : ''
-  });
-}
+const charms = charmsCatalog;
 
 let braceletSize = 18;
 let slots = Array(braceletSize).fill(null);
@@ -126,7 +111,8 @@ function renderCatalog(){
     const card=document.createElement('div');card.className='charm-card fade-in';card.dataset.id=c.id;
     if(out) card.classList.add('out'); else card.draggable=true;
     card.style.animationDelay=`${i*50}ms`;
-    card.innerHTML=`<img src="${c.imgFront}" alt="${c.name} frente" class="front"><img src="${c.imgBack}" alt="${c.name} reverso" class="back"><h4>${c.name}</h4><p class="price">$${c.price}</p>${c.badge?`<span class="badge">${c.badge}</span>`:''}${out?`<span class="badge agotado">Agotado</span>`:''}<button class="add"${out?' disabled':''}>Agregar</button>`;
+    const priceHTML=`<div class="price"><span class="price-old">$${c.priceOriginal}</span><span class="price-new">$${c.price}</span></div>`;
+    card.innerHTML=`<img src="${c.imgFront}" alt="${c.name} frente" class="front"><img src="${c.imgBack}" alt="${c.name} reverso" class="back"><h4>${c.name}</h4>${priceHTML}${c.badge?`<span class="badge badge-descuento">${c.badge}</span>`:''}${out?`<span class="badge agotado">Agotado</span>`:''}<button class="add"${out?' disabled':''}>Agregar</button>`;
     if(!out){
       card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.id);});
       card.querySelector('.add').addEventListener('click',()=>addCharm(c.id));
@@ -223,6 +209,8 @@ function updateTotals(){
   const total=filled.reduce((s,id)=>s+(charms.find(c=>c.id===id)?.price||0),0);
   document.getElementById('bracelet-total').textContent=`Total: $${total}`;
   document.getElementById('bracelet-status').textContent=`${filled.length}/${braceletSize} completos`;
+  const promo=document.getElementById('bracelet-promo');
+  if(promo){promo.textContent=total>=400?'Pulsera incluida GRATIS':'';}
 }
 
 function saveLocal(){
@@ -257,7 +245,8 @@ function updatePersist(){
 function sendWhatsApp(){
   const filled=slots.map((id,i)=>{ if(!id) return null; const c=charms.find(ch=>ch.id===id); return `${String(i+1).padStart(2,'0')}) [${c.id}] ${c.name} – $${c.price}`;}).filter(Boolean).join('%0A');
   const total=slots.filter(Boolean).reduce((s,id)=>s+(charms.find(c=>c.id===id)?.price||0),0);
-  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize}%0A${filled}%0ATotal: $${total}%0A¿La pueden armar y enviarme opciones de pago, por favor? ❤️`;
+  const promo=total>=400? '%0APromo aplicada: pulsera GRATIS por compra >= $400 en charms. ✅':'';
+  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize}%0A${filled}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
   window.open(`https://wa.me/523142836428?text=${msg}`,'_blank');
 }
 
