@@ -52,20 +52,101 @@ let slots = Array(braceletSize).fill(getBaseId(braceletColor));
 let undoStack = [];
 let redoStack = [];
 
+const MIN = 10, MAX = 24;
+const slotCountEl = document.getElementById('slotCount');
+const btnMinus = document.getElementById('slotMinus');
+const btnPlus  = document.getElementById('slotPlus');
+const slotHint = document.getElementById('slotHint');
+
 function pushState(){
-  undoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
+  undoStack.push(JSON.stringify({slots, color:braceletColor, slotCount:braceletSize}));
   if(undoStack.length>30) undoStack.shift();
   redoStack = [];
   updatePersist();
+}
+
+function saveState(){
+  pushState();
+}
+
+function loadState(){
+  try{
+    return JSON.parse(localStorage.getItem('auren-bracelet')) || {};
+  }catch(e){
+    return {};
+  }
 }
 
 function restoreState(state){
   const obj=JSON.parse(state);
   slots=obj.slots;
   braceletColor=obj.color || braceletColor;
-  braceletSize=obj.size || braceletSize;
+  braceletSize=obj.slotCount || obj.size || braceletSize;
   renderBracelet();
   updateTotals();
+}
+
+function refreshStepState(n){
+  if(!btnMinus || !btnPlus) return;
+  btnMinus.disabled = (n <= MIN);
+  btnPlus.disabled  = (n >= MAX);
+}
+
+function showHint(msg){
+  if(!slotHint) return;
+  slotHint.textContent = msg;
+  setTimeout(()=>{ if(slotHint.textContent===msg) slotHint.textContent=''; },2500);
+}
+
+function rebuildBraceletGrid(size){
+  const base = getBaseId(braceletColor);
+  braceletSize = size;
+  if(slots.length > size){
+    slots = slots.slice(0,size);
+  }else{
+    slots.length = size;
+    for(let i=0;i<size;i++) if(!slots[i]) slots[i]=base;
+  }
+  renderBracelet();
+  updateTotals();
+}
+
+function animateGridBounce(){
+  const grid=document.getElementById('bracelet');
+  if(grid){
+    grid.classList.add('grid-bounce');
+    setTimeout(()=>grid.classList.remove('grid-bounce'),300);
+  }
+}
+
+function applySlotCount(n,{from='input'}={}){
+  const clamped=Math.max(MIN,Math.min(MAX,Number(n)||18));
+  const finalMsg=`Eslabones establecidos en ${clamped}`;
+  slotCountEl.value=clamped;
+  refreshStepState(clamped);
+  rebuildBraceletGrid(clamped);
+  if(from!=='init') saveState();
+  if(typeof animateGridBounce==='function') animateGridBounce();
+  if(clamped!==n){
+    if(n<MIN) showHint(`El mínimo es ${MIN} eslabones ✨`);
+    if(n>MAX) showHint(`El máximo es ${MAX} eslabones ✨`);
+    setTimeout(()=>showHint(finalMsg),800);
+  }else{
+    showHint(finalMsg);
+  }
+}
+
+if(slotCountEl){
+  btnMinus.addEventListener('click',()=>applySlotCount(Number(slotCountEl.value)-1,{from:'minus'}));
+  btnPlus.addEventListener('click',()=>applySlotCount(Number(slotCountEl.value)+1,{from:'plus'}));
+  slotCountEl.addEventListener('change',()=>applySlotCount(Number(slotCountEl.value),{from:'change'}));
+  slotCountEl.addEventListener('input',()=>refreshStepState(Number(slotCountEl.value)));
+  slotCountEl.addEventListener('keydown',e=>{
+    if(e.key==='ArrowUp'){e.preventDefault();btnPlus.click();}
+    if(e.key==='ArrowDown'){e.preventDefault();btnMinus.click();}
+    if(e.key==='PageUp'){e.preventDefault();applySlotCount(Number(slotCountEl.value)+2,{from:'pgup'});}
+    if(e.key==='PageDown'){e.preventDefault();applySlotCount(Number(slotCountEl.value)-2,{from:'pgdn'});}
+  });
 }
 
 function firstEmptySlot(){
@@ -92,15 +173,6 @@ function removeCharm(index){
 
 function swapSlots(a,b){
   [slots[a], slots[b]] = [slots[b], slots[a]];
-  pushState();
-  renderBracelet();
-  updateTotals();
-}
-
-function setBraceletSize(size){
-  braceletSize = size;
-  slots.length = size;
-  for(let i=0;i<size;i++) if(slots[i]===undefined) slots[i]=getBaseId(braceletColor);
   pushState();
   renderBracelet();
   updateTotals();
@@ -283,14 +355,14 @@ function updateTotals(){
 }
 
 function saveLocal(){
-  localStorage.setItem('auren-bracelet',JSON.stringify({size:braceletSize,color:braceletColor,slots}));
+  localStorage.setItem('auren-bracelet',JSON.stringify({slotCount:braceletSize,color:braceletColor,slots}));
 }
 
 function loadLocal(){
   const data=localStorage.getItem('auren-bracelet');
   if(data){
     const obj=JSON.parse(data);
-    braceletSize=obj.size || braceletSize;
+    braceletSize=obj.slotCount || obj.size || braceletSize;
     braceletColor=obj.color || braceletColor;
     slots=obj.slots || [];
   }
@@ -299,7 +371,7 @@ function loadLocal(){
     const id=slots[i];
     if(!id || !getCharm(id) || isBase(id)) slots[i]=getBaseId(braceletColor);
   }
-  if(document.getElementById('slotCount')) document.getElementById('slotCount').value=braceletSize;
+  if(slotCountEl) slotCountEl.value=braceletSize;
   const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
   if(colorRadio) colorRadio.checked=true;
   renderBracelet();
@@ -383,14 +455,14 @@ async function downloadMock(){
 function undo(){
   if(undoStack.length){
     const state=undoStack.pop();
-    redoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
+    redoStack.push(JSON.stringify({slots, color:braceletColor, slotCount:braceletSize}));
     restoreState(state);
   }
 }
 function redo(){
   if(redoStack.length){
     const state=redoStack.pop();
-    undoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
+    undoStack.push(JSON.stringify({slots, color:braceletColor, slotCount:braceletSize}));
     restoreState(state);
   }
 }
@@ -402,23 +474,29 @@ window.addEventListener('DOMContentLoaded',()=>{
   const qs=new URLSearchParams(location.search).get('design');
   if(qs){
     const obj=decodeDesign(qs);
-    if(obj){braceletSize=obj.size;braceletColor=obj.color;slots=obj.slots;}
-    document.getElementById('slotCount').value=braceletSize;
-    const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
-    if(colorRadio) colorRadio.checked=true;
-    renderBracelet();
-    updateTotals();
+    if(obj){braceletSize=obj.slotCount || obj.size;braceletColor=obj.color;slots=obj.slots;}
   } else {
-    loadLocal();
+    const saved=loadState();
+    if(saved.slotCount){
+      braceletSize=saved.slotCount;
+      braceletColor=saved.color || braceletColor;
+      slots=saved.slots || [];
+    }
+    slots.length=braceletSize;
+    for(let i=0;i<braceletSize;i++){
+      const id=slots[i];
+      if(!id || !getCharm(id) || isBase(id)) slots[i]=getBaseId(braceletColor);
+    }
   }
+  if(slotCountEl) slotCountEl.value=braceletSize;
+  const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
+  if(colorRadio) colorRadio.checked=true;
+  applySlotCount(Number(slotCountEl.value),{from:'init'});
   document.getElementById('search').addEventListener('input',renderCatalog);
   document.getElementById('price-min').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
   document.getElementById('price-max').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
   document.getElementById('sort').addEventListener('change',renderCatalog);
   document.getElementById('compact').addEventListener('change',renderCatalog);
-  document.getElementById('slotCount').addEventListener('change',e=>setBraceletSize(parseInt(e.target.value,10)));
-  document.getElementById('slotPlus').addEventListener('click',()=>{const inp=document.getElementById('slotCount');inp.stepUp();inp.dispatchEvent(new Event('change'));});
-  document.getElementById('slotMinus').addEventListener('click',()=>{const inp=document.getElementById('slotCount');inp.stepDown();inp.dispatchEvent(new Event('change'));});
   document.querySelectorAll('input[name="braceletColor"]').forEach(r=>r.addEventListener('change',e=>setBraceletColor(e.target.value)));
   document.getElementById('undo').addEventListener('click',undo);
   document.getElementById('redo').addEventListener('click',redo);
