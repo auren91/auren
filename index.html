@@ -50,61 +50,50 @@
       <p class="intro-text">Somos Arturo y Enrique, diseñando experiencias y detalles que enamoran. Creemos en los gestos que dibujan una sonrisa al corazón: más que ropa o joyas, creamos momentos. Explora nuestro catálogo, descubre lo que estamos creando y sorprende a esa persona especial con algo que cuente su historia.</p>
     </section>
 
-    <section class="featured">
-      <h2>Destacados</h2>
+    <section class="destacados">
+      <h2 class="destacados-title">Destacados</h2>
 
-      <div class="featured-carousel">
-        <h3>Ropa</h3>
-        <div class="slider">
-          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
-          <div class="slider-track">
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-ropa-01.jpeg" alt="Destacado ropa 01"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-ropa-02.jpeg" alt="Destacado ropa 02"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-ropa-03.jpeg" alt="Destacado ropa 03"></div></div>
+      <div class="destacados-grid">
+        <!-- Ropa -->
+        <a class="destacada-card rotator" href="/ropa.html"
+           aria-label="Ver destacados de Ropa"
+           data-images="/img/destacados/destacado-ropa-01.jpeg,/img/destacados/destacado-ropa-02.jpeg,/img/destacados/destacado-ropa-03.jpeg">
+          <div class="media">
+            <img alt="Ropa destacada" loading="lazy" decoding="async" />
           </div>
-          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
-        </div>
-      </div>
+          <h3>Ropa</h3>
+        </a>
 
-      <div class="featured-carousel">
-        <h3>Joyería</h3>
-        <div class="slider">
-          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
-          <div class="slider-track">
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-joya-01.jpeg" alt="Destacado joyería 01"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-joya-02.jpeg" alt="Destacado joyería 02"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-joya-03.jpeg" alt="Destacado joyería 03"></div></div>
+        <!-- Joyería -->
+        <a class="destacada-card rotator" href="/joyeria.html"
+           aria-label="Ver destacados de Joyería"
+           data-images="/img/destacados/destacado-joya-01.jpeg,/img/destacados/destacado-joya-02.jpeg,/img/destacados/destacado-joya-03.jpeg">
+          <div class="media">
+            <img alt="Joyería destacada" loading="lazy" decoding="async" />
           </div>
-          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
-        </div>
-      </div>
+          <h3>Joyería</h3>
+        </a>
 
-      <div class="featured-carousel">
-        <h3>Charms</h3>
-        <div class="slider">
-          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
-          <div class="slider-track">
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-charm-01.png" alt="Destacado charms 01"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-charm-02.png" alt="Destacado charms 02"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-charm-03.png" alt="Destacado charms 03"></div></div>
+        <!-- Charms -->
+        <a class="destacada-card rotator" href="/charms.html"
+           aria-label="Ver destacados de Charms"
+           data-images="/img/destacados/destacado-charm-01.png,/img/destacados/destacado-charm-02.png,/img/destacados/destacado-charm-03.png">
+          <div class="media">
+            <img alt="Charms destacados" loading="lazy" decoding="async" />
           </div>
-          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
-        </div>
-      </div>
+          <h3>Charms</h3>
+        </a>
 
-      <div class="featured-carousel">
-        <h3>First Date</h3>
-        <div class="slider">
-          <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
-          <div class="slider-track">
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-firstdate-01.webp" alt="Destacado first date 01"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-firstdate-02.webp" alt="Destacado first date 02"></div></div>
-            <div class="card"><div class="img-wrapper"><img src="img/destacados/destacado-firstdate-03.webp" alt="Destacado first date 03"></div></div>
+        <!-- First Date -->
+        <a class="destacada-card rotator" href="/firstdate.html"
+           aria-label="Ver destacados de First Date"
+           data-images="/img/destacados/destacado-firstdate-01.webp,/img/destacados/destacado-firstdate-02.webp,/img/destacados/destacado-firstdate-03.webp">
+          <div class="media">
+            <img alt="First Date destacado" loading="lazy" decoding="async" />
           </div>
-          <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
-        </div>
+          <h3>First Date</h3>
+        </a>
       </div>
-
     </section>
   </main>
 
@@ -115,6 +104,7 @@
   </footer>
 
   <dialog id="quick-view" class="glass"></dialog>
+  <script src="/scripts/destacados.js" defer></script>
   <script src="app.js"></script>
 </body>
 </html>
