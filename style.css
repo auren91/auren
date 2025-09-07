@@ -163,12 +163,15 @@ a:hover { color:var(--acento); }
 .slider{position:relative;}
 .slider-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;padding-bottom:10px;}
 .slider-track::-webkit-scrollbar{display:none;}
-.slider-track .card{flex:0 0 auto;scroll-snap-align:start;min-width:250px;}
+.slider-track .card{flex:0 0 auto;scroll-snap-align:start;min-width:400px;}
 .slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--principal);color:var(--fondo);border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s;}
 .slider-btn:hover{background:var(--acento);}
 .slider-btn.prev{left:-20px;}
 .slider-btn.next{right:-20px;}
 @media(max-width:768px){.slider-btn{display:none;}}
+@media(max-width:600px){.slider-track .card{min-width:100%;}}
+
+.featured-carousel .img-wrapper img{width:100%;max-width:400px;height:auto;border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,.08);}
 
 /* Carousel */
 .carousel{position:relative;overflow:hidden;margin:40px auto;max-width:900px;}
