@@ -1,30 +1,79 @@
 // Constructor de Pulsera Italiana
 const charms = charmsCatalog;
 
+const baseCharms = {
+  plata: {
+    id: 'base-plata',
+    name: 'Eslabón liso',
+    price: 0,
+    isBase: true,
+    imgFront: '/img/pulsera/link-plata.png',
+    imgBack: '/img/pulsera/link-plata.png'
+  },
+  dorado: {
+    id: 'base-dorado',
+    name: 'Eslabón liso',
+    price: 0,
+    isBase: true,
+    imgFront: '/img/pulsera/link-dorado.png',
+    imgBack: '/img/pulsera/link-dorado.png'
+  },
+  negro: {
+    id: 'base-negro',
+    name: 'Eslabón liso',
+    price: 0,
+    isBase: true,
+    imgFront: '/img/pulsera/link-negro.png',
+    imgBack: '/img/pulsera/link-negro.png'
+  }
+};
+
+const baseById = {
+  'base-plata': baseCharms.plata,
+  'base-dorado': baseCharms.dorado,
+  'base-negro': baseCharms.negro
+};
+
+function getCharm(id){
+  return charms.find(c=>c.id===id) || baseById[id];
+}
+
+function isBase(id){
+  return !!baseById[id];
+}
+
+function getBaseId(color){
+  return baseCharms[color].id;
+}
+
+let braceletColor = 'plata';
 let braceletSize = 18;
-let slots = Array(braceletSize).fill(null);
+let slots = Array(braceletSize).fill(getBaseId(braceletColor));
 let undoStack = [];
 let redoStack = [];
 
 function pushState(){
-  undoStack.push(JSON.stringify(slots));
+  undoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
   if(undoStack.length>30) undoStack.shift();
   redoStack = [];
   updatePersist();
 }
 
 function restoreState(state){
-  slots = JSON.parse(state);
+  const obj=JSON.parse(state);
+  slots=obj.slots;
+  braceletColor=obj.color || braceletColor;
+  braceletSize=obj.size || braceletSize;
   renderBracelet();
   updateTotals();
 }
 
 function firstEmptySlot(){
-  return slots.indexOf(null);
+  return slots.findIndex(id=>isBase(id));
 }
 
 function addCharm(id, index){
-  const charm=charms.find(c=>c.id===id);
+  const charm=getCharm(id);
   if(!charm || charm.stock<=0) return;
   if(index === undefined) index = firstEmptySlot();
   if(index === -1) return;
@@ -35,7 +84,7 @@ function addCharm(id, index){
 }
 
 function removeCharm(index){
-  slots[index] = null;
+  slots[index] = getBaseId(braceletColor);
   pushState();
   renderBracelet();
   updateTotals();
@@ -51,7 +100,15 @@ function swapSlots(a,b){
 function setBraceletSize(size){
   braceletSize = size;
   slots.length = size;
-  for(let i=0;i<size;i++) if(slots[i]===undefined) slots[i]=null;
+  for(let i=0;i<size;i++) if(slots[i]===undefined) slots[i]=getBaseId(braceletColor);
+  pushState();
+  renderBracelet();
+  updateTotals();
+}
+
+function setBraceletColor(color){
+  braceletColor=color;
+  slots=slots.map(id=>isBase(id)?getBaseId(color):id);
   pushState();
   renderBracelet();
   updateTotals();
@@ -134,27 +191,37 @@ function renderBracelet(){
     slot.addEventListener('dragover',e=>e.preventDefault());
     slot.addEventListener('drop',handleDrop);
     if(slots[i]){
-      const charm=charms.find(c=>c.id===slots[i]);
-      slot.classList.add('filled');
-      slot.innerHTML=`<img src="${charm.imgFront}" alt="${charm.name}">`;
-      const rm=document.createElement('button');rm.className='remove';rm.textContent='x';rm.addEventListener('click',()=>removeCharm(i));slot.appendChild(rm);
-      if(charm.stock<=0){
-        slot.classList.add('out');
-        const warn=document.createElement('span');warn.className='badge agotado';warn.textContent='Agotado';slot.appendChild(warn);
-      }
-      slot.draggable=true;
-      slot.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/slot',i);});
-      let startX=null;
-      slot.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
-      slot.addEventListener('touchend',e=>{
-        if(startX===null) return;
-        const dx=e.changedTouches[0].clientX-startX;
-        if(Math.abs(dx)>30){
-          if(dx<0 && i<braceletSize-1) swapSlots(i,i+1);
-          else if(dx>0 && i>0) swapSlots(i,i-1);
+      const charm=getCharm(slots[i]);
+      if(charm){
+        const color = charm.id.split('-')[1];
+        if(charm.isBase){
+          const colorName=color.charAt(0).toUpperCase()+color.slice(1);
+          slot.classList.add('filled','base',charm.id);
+          slot.title=`Eslabón liso (${colorName})`;
+          slot.innerHTML=`<img src="${charm.imgFront}" alt="Eslabón liso (${colorName})" onerror="this.style.display='none';this.parentElement.classList.add('no-img');">`;
+        }else{
+          slot.classList.add('filled');
+          slot.innerHTML=`<img src="${charm.imgFront}" alt="${charm.name}">`;
+          const rm=document.createElement('button');rm.className='remove';rm.textContent='x';rm.addEventListener('click',()=>removeCharm(i));slot.appendChild(rm);
+          if(charm.stock<=0){
+            slot.classList.add('out');
+            const warn=document.createElement('span');warn.className='badge agotado';warn.textContent='Agotado';slot.appendChild(warn);
+          }
+          slot.draggable=true;
+          slot.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/slot',i);});
+          let startX=null;
+          slot.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+          slot.addEventListener('touchend',e=>{
+            if(startX===null) return;
+            const dx=e.changedTouches[0].clientX-startX;
+            if(Math.abs(dx)>30){
+              if(dx<0 && i<braceletSize-1) swapSlots(i,i+1);
+              else if(dx>0 && i>0) swapSlots(i,i-1);
+            }
+            startX=null;
+          });
         }
-        startX=null;
-      });
+      }
     }
     container.appendChild(slot);
   }
@@ -175,21 +242,21 @@ function handleDrop(e){
   const charmId=e.dataTransfer.getData('text/plain');
   if(fromSlot){
     const from=parseInt(fromSlot,10);
-    if(slots[targetIndex] && !e.shiftKey){
+    if(!isBase(slots[targetIndex]) && !e.shiftKey){
       swapSlots(from,targetIndex);
       triggerSnap(targetIndex);
     }else{
       slots[targetIndex]=slots[from];
-      slots[from]=null;
+      slots[from]=getBaseId(braceletColor);
       pushState();
       renderBracelet();
       updateTotals();
       triggerSnap(targetIndex);
     }
   }else if(charmId){
-    const charm=charms.find(c=>c.id===charmId);
+    const charm=getCharm(charmId);
     if(!charm || charm.stock<=0) return;
-    if(slots[targetIndex] && !e.shiftKey){
+    if(!isBase(slots[targetIndex]) && !e.shiftKey){
       const temp=slots[targetIndex];
       slots[targetIndex]=charmId;
       const empty=firstEmptySlot();
@@ -205,34 +272,53 @@ function handleDrop(e){
 }
 
 function updateTotals(){
-  const filled=slots.filter(Boolean);
-  const total=filled.reduce((s,id)=>s+(charms.find(c=>c.id===id)?.price||0),0);
+  const charmIds=slots.filter(id=>!isBase(id));
+  const baseCount=slots.filter(id=>isBase(id)).length;
+  const total=charmIds.reduce((s,id)=>s+(getCharm(id)?.price||0),0);
+  const colorName=braceletColor.charAt(0).toUpperCase()+braceletColor.slice(1);
   document.getElementById('bracelet-total').textContent=`Total: $${total}`;
-  document.getElementById('bracelet-status').textContent=`${filled.length}/${braceletSize} completos`;
+  document.getElementById('bracelet-status').textContent=`Eslabones: ${braceletSize} | Color: ${colorName} | Eslabones lisos: ${baseCount}`;
   const promo=document.getElementById('bracelet-promo');
   if(promo){promo.textContent=total>=400?'Pulsera incluida GRATIS':'';}
 }
 
 function saveLocal(){
-  localStorage.setItem('auren-bracelet',JSON.stringify({size:braceletSize,slots}));
+  localStorage.setItem('auren-bracelet',JSON.stringify({size:braceletSize,color:braceletColor,slots}));
 }
 
 function loadLocal(){
   const data=localStorage.getItem('auren-bracelet');
   if(data){
     const obj=JSON.parse(data);
-    braceletSize=obj.size;slots=obj.slots;
-    renderBracelet();
-    updateTotals();
+    braceletSize=obj.size || braceletSize;
+    braceletColor=obj.color || braceletColor;
+    slots=obj.slots || [];
   }
+  slots.length=braceletSize;
+  for(let i=0;i<braceletSize;i++){
+    const id=slots[i];
+    if(!id || !getCharm(id) || isBase(id)) slots[i]=getBaseId(braceletColor);
+  }
+  if(document.getElementById('slotCount')) document.getElementById('slotCount').value=braceletSize;
+  const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
+  if(colorRadio) colorRadio.checked=true;
+  renderBracelet();
+  updateTotals();
 }
 
 function encodeDesign(){
-  return btoa(JSON.stringify({size:braceletSize,slots}));
+  return btoa(JSON.stringify({size:braceletSize,color:braceletColor,slots}));
 }
 
 function decodeDesign(str){
-  try { return JSON.parse(atob(str)); } catch(e){ return null; }
+  try {
+    const obj=JSON.parse(atob(str));
+    obj.color=obj.color||'plata';
+    const arr=obj.slots||[];
+    arr.length=obj.size;
+    obj.slots=arr.map(id=>id&&getCharm(id)?id:getBaseId(obj.color));
+    return obj;
+  } catch(e){ return null; }
 }
 
 function updatePersist(){
@@ -243,16 +329,22 @@ function updatePersist(){
 }
 
 function sendWhatsApp(){
-  const filled=slots.map((id,i)=>{ if(!id) return null; const c=charms.find(ch=>ch.id===id); return `${String(i+1).padStart(2,'0')}) [${c.id}] ${c.name} – $${c.price}`;}).filter(Boolean).join('%0A');
-  const total=slots.filter(Boolean).reduce((s,id)=>s+(charms.find(c=>c.id===id)?.price||0),0);
-  const promo=total>=400? '%0APromo aplicada: pulsera GRATIS por compra >= $400 en charms. ✅':'';
-  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize}%0A${filled}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
+  const colorName=braceletColor.charAt(0).toUpperCase()+braceletColor.slice(1);
+  const lines=slots.map((id,i)=>{
+    const c=getCharm(id);
+    if(!c || c.isBase) return null;
+    return `${String(i+1).padStart(2,'0')}) [${c.id}] ${c.name} – $${c.price}`;
+  }).filter(Boolean).join('%0A');
+  const total=slots.filter(id=>!isBase(id)).reduce((s,id)=>s+(getCharm(id)?.price||0),0);
+  const baseCount=slots.filter(id=>isBase(id)).length;
+  const promo=total>=400? '%0APromo aplicada: pulsera GRATIS':'';
+  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize} | Color: ${colorName}%0A${lines}${lines?'%0A':''}Eslabones lisos: ${baseCount}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
   window.open(`https://wa.me/523142836428?text=${msg}`,'_blank');
 }
 
 // Descargar imagen del diseño
 async function downloadMock(){
-  const filled=slots.filter(Boolean);
+  const filled=slots.filter(id=>!isBase(id));
   if(!filled.length){
     alert('No hay charms en tu diseño');
     return;
@@ -266,7 +358,7 @@ async function downloadMock(){
   const ctx=canvas.getContext('2d');
 
   const images=await Promise.all(filled.map(id=>{
-    const c=charms.find(ch=>ch.id===id);
+    const c=getCharm(id);
     return new Promise((resolve,reject)=>{
       const img=new Image();
       img.onload=()=>resolve(img);
@@ -291,14 +383,14 @@ async function downloadMock(){
 function undo(){
   if(undoStack.length){
     const state=undoStack.pop();
-    redoStack.push(JSON.stringify(slots));
+    redoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
     restoreState(state);
   }
 }
 function redo(){
   if(redoStack.length){
     const state=redoStack.pop();
-    undoStack.push(JSON.stringify(slots));
+    undoStack.push(JSON.stringify({slots, color:braceletColor, size:braceletSize}));
     restoreState(state);
   }
 }
@@ -307,17 +399,30 @@ function redo(){
 window.addEventListener('DOMContentLoaded',()=>{
   renderFilters();
   renderCatalog();
-  renderBracelet();
-  updateTotals();
+  const qs=new URLSearchParams(location.search).get('design');
+  if(qs){
+    const obj=decodeDesign(qs);
+    if(obj){braceletSize=obj.size;braceletColor=obj.color;slots=obj.slots;}
+    document.getElementById('slotCount').value=braceletSize;
+    const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
+    if(colorRadio) colorRadio.checked=true;
+    renderBracelet();
+    updateTotals();
+  } else {
+    loadLocal();
+  }
   document.getElementById('search').addEventListener('input',renderCatalog);
   document.getElementById('price-min').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
   document.getElementById('price-max').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
   document.getElementById('sort').addEventListener('change',renderCatalog);
   document.getElementById('compact').addEventListener('change',renderCatalog);
-  document.getElementById('size').addEventListener('change',e=>setBraceletSize(parseInt(e.target.value,10)));
+  document.getElementById('slotCount').addEventListener('change',e=>setBraceletSize(parseInt(e.target.value,10)));
+  document.getElementById('slotPlus').addEventListener('click',()=>{const inp=document.getElementById('slotCount');inp.stepUp();inp.dispatchEvent(new Event('change'));});
+  document.getElementById('slotMinus').addEventListener('click',()=>{const inp=document.getElementById('slotCount');inp.stepDown();inp.dispatchEvent(new Event('change'));});
+  document.querySelectorAll('input[name="braceletColor"]').forEach(r=>r.addEventListener('change',e=>setBraceletColor(e.target.value)));
   document.getElementById('undo').addEventListener('click',undo);
   document.getElementById('redo').addEventListener('click',redo);
-  document.getElementById('clear').addEventListener('click',()=>{if(confirm('¿Vaciar pulsera?')){slots=Array(braceletSize).fill(null);pushState();renderBracelet();updateTotals();}});
+  document.getElementById('clear').addEventListener('click',()=>{if(confirm('¿Vaciar pulsera?')){slots=Array(braceletSize).fill(getBaseId(braceletColor));pushState();renderBracelet();updateTotals();}});
   document.getElementById('save').addEventListener('click',saveLocal);
   document.getElementById('load').addEventListener('click',loadLocal);
   document.getElementById('download').addEventListener('click',downloadMock);
@@ -337,11 +442,6 @@ window.addEventListener('DOMContentLoaded',()=>{
       overlay.classList.remove('open');
     });
   }
-  const qs=new URLSearchParams(location.search).get('design');
-  if(qs){const obj=decodeDesign(qs);if(obj){braceletSize=obj.size;slots=obj.slots;}}
-  else { loadLocal(); }
-  renderBracelet();
-  updateTotals();
 });
 
 function updatePriceDisplay(){
