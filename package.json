@@ -1,0 +1,8 @@
+{
+  "name": "auren",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "gen:charms": "node scripts/generateCharmsCatalog.mjs"
+  }
+}
