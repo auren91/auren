@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren - First Date</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&family=Forum&display=swap" rel="stylesheet">
+  <meta name="description" content="Planes románticos para tu primera cita.">
+  <meta property="og:title" content="Auren - First Date">
+  <meta property="og:description" content="Planes románticos para tu primera cita.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <img src="img/isotipo.png" alt="Auren" class="logo-header">
-      </a>
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
           <li><a href="ropa.html">Ropa</a></li>
@@ -26,36 +28,58 @@
     </div>
   </header>
 
-  <main>
-    <section class="catalog">
-      <h2>First Date</h2>
-      <input type="text" class="search-input" placeholder="Buscar plan...">
-      <div class="cards">
-        <div class="card" data-name="Cena Romántica">
-          <img src="https://images.unsplash.com/photo-1529634892023-d8d9fe25752e?auto=format&fit=crop&w=400&q=60" alt="Cena Romántica">
-          <h3>Cena Romántica</h3>
-          <p>Reservación en restaurante y decoración especial.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20plan%20Cena%20Romántica">Contactar</a>
+  <section class="hero" style="background-image:url('img/hero-firstdate.jpg');">
+    <div class="hero-content">
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
+    </div>
+  </section>
+
+  <nav class="categories">
+    <a class="chip" href="ropa.html">Ropa</a>
+    <a class="chip" href="joyeria.html">Joyería</a>
+    <a class="chip" href="charms.html">Charms</a>
+    <a class="chip active" href="firstdate.html">First Date</a>
+  </nav>
+
+  <main class="container">
+    <section>
+      <h2>Planes románticos</h2>
+      <div class="grid-3">
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/plan-1.jpg" alt="Cena Romántica"></div>
+          <div class="card-body">
+            <h3>Cena Romántica</h3>
+            <p>Reservación y decoración especial.</p>
+            <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa:%20Cena%20Romántica" target="_blank">WhatsApp</a>
+          </div>
         </div>
-        <div class="card" data-name="Picnic al Atardecer">
-          <img src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?auto=format&fit=crop&w=400&q=60" alt="Picnic al Atardecer">
-          <h3>Picnic al Atardecer</h3>
-          <p>Canasta gourmet y montaje en el parque.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Picnic%20al%20Atardecer">Contactar</a>
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/plan-2.jpg" alt="Picnic al Atardecer"></div>
+          <div class="card-body">
+            <h3>Picnic al Atardecer</h3>
+            <p>Canasta gourmet en el parque.</p>
+            <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa:%20Picnic%20al%20Atardecer" target="_blank">WhatsApp</a>
+          </div>
         </div>
-        <div class="card" data-name="Tour de Arte">
-          <img src="https://images.unsplash.com/photo-1505843523903-432f2227de96?auto=format&fit=crop&w=400&q=60" alt="Tour de Arte">
-          <h3>Tour de Arte</h3>
-          <p>Paseo por galerías con guía personalizado.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Tour%20de%20Arte">Contactar</a>
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/plan-3.jpg" alt="Tour de Arte"></div>
+          <div class="card-body">
+            <h3>Tour de Arte</h3>
+            <p>Visita guiada por galerías.</p>
+            <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa:%20Tour%20de%20Arte" target="_blank">WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
   </footer>
+
+  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
 </body>
 </html>

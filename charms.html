@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren - Charms</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&family=Forum&display=swap" rel="stylesheet">
+  <meta name="description" content="Explora charms y accesorios únicos.">
+  <meta property="og:title" content="Auren - Charms">
+  <meta property="og:description" content="Explora charms y accesorios únicos.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-category="charms">
   <header class="header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <img src="img/isotipo.png" alt="Auren" class="logo-header">
-      </a>
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
           <li><a href="ropa.html">Ropa</a></li>
@@ -26,36 +28,63 @@
     </div>
   </header>
 
-  <main>
-    <section class="catalog">
-      <h2>Charms</h2>
-      <input type="text" class="search-input" placeholder="Buscar charm...">
-      <div class="cards">
-        <div class="card" data-name="Charm Inicial">
-          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=60" alt="Charm Inicial">
-          <h3>Charm Inicial</h3>
-          <p>Personaliza con la inicial de tu amor.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Charm%20Inicial">Contactar</a>
-        </div>
-        <div class="card" data-name="Charm Amor">
-          <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d4?auto=format&fit=crop&w=400&q=60" alt="Charm Amor">
-          <h3>Charm Amor</h3>
-          <p>Corazón en tonos dorados para recordar siempre.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Charm%20Amor">Contactar</a>
-        </div>
-        <div class="card" data-name="Charm Estrella">
-          <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=60" alt="Charm Estrella">
-          <h3>Charm Estrella</h3>
-          <p>Un brillo especial para tu pulsera favorita.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Charm%20Estrella">Contactar</a>
+  <section class="hero" style="background-image:url('img/hero-charms.jpg');">
+    <div class="hero-content">
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
+    </div>
+  </section>
+
+  <nav class="categories">
+    <a class="chip" href="ropa.html">Ropa</a>
+    <a class="chip" href="joyeria.html">Joyería</a>
+    <a class="chip active" href="charms.html">Charms</a>
+    <a class="chip" href="firstdate.html">First Date</a>
+  </nav>
+
+  <main class="container catalog-page">
+    <aside class="sidebar">
+      <h3>Filtros</h3>
+      <input type="search" id="search" class="search" placeholder="Buscar...">
+      <h4>Categorías</h4>
+      <div id="tag-filter">
+        <span class="chip" data-tag="letras">Letras</span>
+        <span class="chip" data-tag="amor">Amor</span>
+        <span class="chip" data-tag="estrella">Estrella</span>
+      </div>
+      <h4>Precio</h4>
+      <input type="range" id="price" min="0" max="500" value="500">
+      <div class="price-output">$0 - $<span id="price-value">500</span></div>
+      <label><input type="checkbox" id="available"> Disponible</label>
+    </aside>
+    <section class="catalog-content">
+      <div class="toolbar">
+        <div class="count"><span id="count"></span> productos</div>
+        <div>
+          <select id="sort">
+            <option value="">Ordenar</option>
+            <option value="price-asc">Precio ↑</option>
+            <option value="price-desc">Precio ↓</option>
+            <option value="new">Nuevo</option>
+            <option value="top">Más vendido</option>
+          </select>
+          <div class="view">
+            <button class="chip active" data-view="3">3</button>
+            <button class="chip" data-view="4">4</button>
+          </div>
         </div>
       </div>
+      <div id="product-grid" class="grid-3"></div>
+      <div class="pagination"><a href="#" class="chip">1</a></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
   </footer>
+
+  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
 </body>
 </html>

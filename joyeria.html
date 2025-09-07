@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren - Joyería</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&family=Forum&display=swap" rel="stylesheet">
+  <meta name="description" content="Joyería fina para momentos inolvidables.">
+  <meta property="og:title" content="Auren - Joyería">
+  <meta property="og:description" content="Joyería fina para momentos inolvidables.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-category="joyeria">
   <header class="header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <img src="img/isotipo.png" alt="Auren" class="logo-header">
-      </a>
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
           <li><a href="ropa.html">Ropa</a></li>
@@ -26,36 +28,63 @@
     </div>
   </header>
 
-  <main>
-    <section class="catalog">
-      <h2>Joyería</h2>
-      <input type="text" class="search-input" placeholder="Buscar joya...">
-      <div class="cards">
-        <div class="card" data-name="Collar de Corazón">
-          <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=400&q=60" alt="Collar de Corazón">
-          <h3>Collar de Corazón</h3>
-          <p>Plata con baño de oro, símbolo de amor.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Collar%20de%20Corazón">Contactar</a>
-        </div>
-        <div class="card" data-name="Anillo Minimalista">
-          <img src="https://images.unsplash.com/photo-1518544801958-efcbf8a7ec10?auto=format&fit=crop&w=400&q=60" alt="Anillo Minimalista">
-          <h3>Anillo Minimalista</h3>
-          <p>Diseño delicado para un amor eterno.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20el%20Anillo%20Minimalista">Contactar</a>
-        </div>
-        <div class="card" data-name="Pulsera con Charms">
-          <img src="https://images.unsplash.com/photo-1600180758890-6b945cf31303?auto=format&fit=crop&w=400&q=60" alt="Pulsera con Charms">
-          <h3>Pulsera con Charms</h3>
-          <p>Personaliza con recuerdos inolvidables.</p>
-          <a class="btn whatsapp" href="https://wa.me/523142836428?text=Hola%20Auren,%20me%20interesa%20la%20Pulsera%20con%20Charms">Contactar</a>
+  <section class="hero" style="background-image:url('img/hero-joyeria.jpg');">
+    <div class="hero-content">
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
+    </div>
+  </section>
+
+  <nav class="categories">
+    <a class="chip" href="ropa.html">Ropa</a>
+    <a class="chip active" href="joyeria.html">Joyería</a>
+    <a class="chip" href="charms.html">Charms</a>
+    <a class="chip" href="firstdate.html">First Date</a>
+  </nav>
+
+  <main class="container catalog-page">
+    <aside class="sidebar">
+      <h3>Filtros</h3>
+      <input type="search" id="search" class="search" placeholder="Buscar...">
+      <h4>Categorías</h4>
+      <div id="tag-filter">
+        <span class="chip" data-tag="collar">Collar</span>
+        <span class="chip" data-tag="anillo">Anillo</span>
+        <span class="chip" data-tag="pulsera">Pulsera</span>
+      </div>
+      <h4>Precio</h4>
+      <input type="range" id="price" min="0" max="5000" value="5000">
+      <div class="price-output">$0 - $<span id="price-value">5000</span></div>
+      <label><input type="checkbox" id="available"> Disponible</label>
+    </aside>
+    <section class="catalog-content">
+      <div class="toolbar">
+        <div class="count"><span id="count"></span> productos</div>
+        <div>
+          <select id="sort">
+            <option value="">Ordenar</option>
+            <option value="price-asc">Precio ↑</option>
+            <option value="price-desc">Precio ↓</option>
+            <option value="new">Nuevo</option>
+            <option value="top">Más vendido</option>
+          </select>
+          <div class="view">
+            <button class="chip active" data-view="3">3</button>
+            <button class="chip" data-view="4">4</button>
+          </div>
         </div>
       </div>
+      <div id="product-grid" class="grid-3"></div>
+      <div class="pagination"><a href="#" class="chip">1</a></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
   </footer>
+
+  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
 </body>
 </html>

@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren - Amor en cada detalle</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&family=Forum&display=swap" rel="stylesheet">
+  <meta name="description" content="Detalles románticos y accesorios para enamorar.">
+  <meta property="og:title" content="Auren - Amor en cada detalle">
+  <meta property="og:description" content="Detalles románticos y accesorios para enamorar.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <img src="img/isotipo.png" alt="Auren" class="logo-header">
-      </a>
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
           <li><a href="ropa.html">Ropa</a></li>
@@ -26,33 +28,60 @@
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero" style="background-image:url('img/hero-index.jpg');">
     <div class="hero-content">
-      <img src="img/logotipo.png" alt="Auren" class="logo-hero">
-      <p>Arturo y Enrique crean momentos inolvidables para enamorar.</p>
+      <img src="img/logotipo.png" alt="Auren logotipo" class="logo-hero">
     </div>
   </section>
 
-  <section class="intro">
-    <h2>Conoce a los creadores</h2>
-    <p>Somos <strong>Arturo</strong> y <strong>Enrique</strong>, apasionados por diseñar experiencias románticas y detalles únicos.</p>
-  </section>
+  <nav class="categories">
+    <a class="chip" href="ropa.html">Ropa</a>
+    <a class="chip" href="joyeria.html">Joyería</a>
+    <a class="chip" href="charms.html">Charms</a>
+    <a class="chip" href="firstdate.html">First Date</a>
+  </nav>
 
-  <section class="carousel">
-    <div class="slides">
-      <a class="slide" href="ropa.html" style="background-image:url('https://images.unsplash.com/photo-1520975922132-78b4c933c578?auto=format&fit=crop&w=1200&q=60');">Ropa</a>
-      <a class="slide" href="joyeria.html" style="background-image:url('https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1200&q=60');">Joyería</a>
-      <a class="slide" href="charms.html" style="background-image:url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=60');">Charms</a>
-      <a class="slide" href="firstdate.html" style="background-image:url('https://images.unsplash.com/photo-1529634892023-d8d9fe25752e?auto=format&fit=crop&w=1200&q=60');">First Date</a>
-    </div>
-    <button class="prev" aria-label="Anterior">&#10094;</button>
-    <button class="next" aria-label="Siguiente">&#10095;</button>
-  </section>
+  <main class="container">
+    <section class="intro">
+      <h2>Conoce a los creadores</h2>
+      <p>Somos <strong>Arturo</strong> y <strong>Enrique</strong>, diseñando experiencias y detalles que enamoran.</p>
+    </section>
+
+    <section>
+      <h2>Destacados</h2>
+      <div class="grid-3">
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/destacado-1.jpg" alt="Detalle 1"></div>
+          <div class="card-body">
+            <h3>Detalles únicos</h3>
+            <p>Regalos pensados para sorprender.</p>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/destacado-2.jpg" alt="Detalle 2"></div>
+          <div class="card-body">
+            <h3>Hecho con amor</h3>
+            <p>Materiales seleccionados con cuidado.</p>
+          </div>
+        </div>
+        <div class="card glass">
+          <div class="img-wrapper"><img src="img/destacado-3.jpg" alt="Detalle 3"></div>
+          <div class="card-body">
+            <h3>Personaliza</h3>
+            <p>Crea un momento inolvidable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
-    <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
   </footer>
 
+  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
 </body>
 </html>

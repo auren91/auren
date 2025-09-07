@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auren - Producto</title>
+  <meta name="description" content="Detalle del producto Auren.">
+  <meta property="og:title" content="Auren - Producto">
+  <meta property="og:description" content="Detalle del producto Auren.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="product-detail">
+  <header class="header">
+    <div class="nav-container container">
+      <a href="index.html" class="brand"><img src="img/isotipo.png" alt="Auren" class="logo-header"></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="ropa.html">Ropa</a></li>
+          <li><a href="joyeria.html">Joyería</a></li>
+          <li><a href="charms.html">Charms</a></li>
+          <li><a href="firstdate.html">First Date</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Menú">&#9776;</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container product">
+    <div class="product-gallery">
+      <div class="main-img zoom"><img src="" alt="" id="main-image"></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div class="product-info">
+      <h1 id="product-title"></h1>
+      <p id="product-sku" class="num"></p>
+      <p class="price" id="product-price"></p>
+      <div class="rating" id="product-rating" aria-label="rating">★★★★★</div>
+      <div class="variants" id="variants"></div>
+      <label for="qty">Cantidad</label>
+      <input type="number" id="qty" min="1" value="1">
+      <div class="actions">
+        <a id="product-whatsapp" class="btn whatsapp" target="_blank">Añadir a WhatsApp</a>
+        <button id="share" class="btn">Compartir</button>
+      </div>
+      <div class="accordion">
+        <details open><summary>Descripción</summary><p id="product-desc"></p></details>
+        <details><summary>Detalles</summary><p>Materiales seleccionados con amor.</p></details>
+        <details><summary>Envíos/Devoluciones</summary><p>Envíos nacionales. Devoluciones dentro de 7 días.</p></details>
+        <details><summary>Cuidado</summary><p>Mantener en lugar seco.</p></details>
+      </div>
+    </div>
+  </main>
+
+  <section class="container carousel-related">
+    <h2>También te puede gustar</h2>
+    <div id="related" class="grid-4"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+    </div>
+  </footer>
+
+  <dialog id="quick-view" class="glass"></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
