@@ -11,8 +11,9 @@
   <link rel="icon" type="image/png" href="img/logos/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="joyeria.css">
 </head>
-<body data-category="joyeria">
+<body>
   <header class="header">
     <div class="nav-container container">
       <a href="index.html" class="brand"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header"></a>
@@ -42,40 +43,31 @@
     <a class="chip" href="firstdate.html">First Date</a>
   </nav>
 
-  <main class="container catalog-page">
-    <aside class="sidebar">
-      <h3>Filtros</h3>
-      <input type="search" id="search" class="search" placeholder="Buscar...">
-      <h4>Categorías</h4>
-      <div id="tag-filter">
-        <span class="chip" data-tag="collar">Collar</span>
-        <span class="chip" data-tag="anillo">Anillo</span>
-        <span class="chip" data-tag="pulsera">Pulsera</span>
-      </div>
-      <h4>Precio</h4>
-      <input type="range" id="price" min="0" max="5000" value="5000">
-      <div class="price-output">$0 - $<span id="price-value">5000</span></div>
-      <label><input type="checkbox" id="available"> Disponible</label>
-    </aside>
-    <section class="catalog-content">
-      <div class="toolbar">
-        <div class="count"><span id="count"></span> productos</div>
-        <div>
-          <select id="sort">
-            <option value="">Ordenar</option>
-            <option value="price-asc">Precio ↑</option>
-            <option value="price-desc">Precio ↓</option>
-            <option value="new">Nuevo</option>
-            <option value="top">Más vendido</option>
-          </select>
-          <div class="view">
-            <button class="chip active" data-view="3">3</button>
-            <button class="chip" data-view="4">4</button>
-          </div>
+  <main>
+    <section class="joyeria">
+      <h1 class="title">Nuestra Joyería</h1>
+
+      <div class="beam-intro" aria-hidden="true"></div>
+
+      <section class="carousel-block">
+        <h2 class="subtitle">Colección White</h2>
+        <div class="carousel" id="carousel-white" aria-roledescription="carousel" aria-label="Colección White" tabindex="0">
+          <button class="nav prev" aria-label="Anterior">‹</button>
+          <div class="track" role="list"></div>
+          <button class="nav next" aria-label="Siguiente">›</button>
         </div>
-      </div>
-      <div id="product-grid" class="grid-3"></div>
-      <div class="pagination"><a href="#" class="chip">1</a></div>
+        <div class="dots" id="dots-white" aria-label="Paginación"></div>
+      </section>
+
+      <section class="carousel-block">
+        <h2 class="subtitle">Colección Black</h2>
+        <div class="carousel" id="carousel-black" aria-roledescription="carousel" aria-label="Colección Black" tabindex="0">
+          <button class="nav prev" aria-label="Anterior">‹</button>
+          <div class="track" role="list"></div>
+          <button class="nav next" aria-label="Siguiente">›</button>
+        </div>
+        <div class="dots" id="dots-black" aria-label="Paginación"></div>
+      </section>
     </section>
   </main>
 
@@ -85,7 +77,7 @@
     </div>
   </footer>
 
-  <dialog id="quick-view" class="glass"></dialog>
   <script src="app.js"></script>
+  <script src="joyeria.js"></script>
 </body>
 </html>
