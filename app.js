@@ -3,7 +3,8 @@ const colors=['Rosa','Dorado','Plateado','Verde','Azul','Negro','Blanco','Multic
 const discounts=[15,18,20,22,25,30,35,40];
 const charmsCatalog=[];
 for(let i=1;i<=30;i++){
-  const id='ch'+String(i).padStart(3,'0');
+  const num=String(i).padStart(2,'0');
+  const id='ch'+num;
   const category=categories[(i-1)%categories.length];
   const color=colors[(i-1)%colors.length];
   const discount=discounts[(i-1)%discounts.length];
@@ -11,16 +12,16 @@ for(let i=1;i<=30;i++){
   const priceOriginal=Math.round(price/(1-discount/100));
   const stock=6+(i*3)%15;
   const rating=3+(i%3);
-  charmsCatalog.push({id,name:`${category} ${i}`,category,tags:[category.toLowerCase(),color.toLowerCase()],color,material:i%2?'Acero Inoxidable':'Esmalte',imgFront:`img/charms/${id}-front.jpg`,imgBack:`img/charms/${id}-back.jpg`,stock,badge:'Descuento',priceOriginal,discountPercent:discount,price,rating,available:stock>0});
+  charmsCatalog.push({id,name:`${category} ${i}`,category,tags:[category.toLowerCase(),color.toLowerCase()],color,material:i%2?'Acero Inoxidable':'Esmalte',imgFront:`img/charms/charm-${num}-front.jpg`,imgBack:`img/charms/charm-${num}-back.jpg`,stock,badge:'Descuento',priceOriginal,discountPercent:discount,price,rating,available:stock>0});
 }
 
 const otherProducts=[
-  {id:'camisa-rosa',name:'Camisa Rosa',category:'ropa',price:520,tags:['camisa'],badge:'',images:['img/ropa-01a.jpg','img/ropa-01b.jpg'],rating:4,available:true},
-  {id:'sueter-dorado',name:'Suéter Dorado',category:'ropa',price:650,tags:['sueter','top'],badge:'Top',images:['img/ropa-02a.jpg','img/ropa-02b.jpg'],rating:5,available:true},
-  {id:'vestido-rojo',name:'Vestido Rojo',category:'ropa',price:780,tags:['vestido','nuevo'],badge:'Nuevo',images:['img/ropa-03a.jpg','img/ropa-03b.jpg'],rating:4,available:false},
-  {id:'collar-corazon',name:'Collar de Corazón',category:'joyeria',price:1200,tags:['collar','amor'],badge:'',images:['img/joyeria-01a.jpg','img/joyeria-01b.jpg'],rating:5,available:true},
-  {id:'anillo-minimal',name:'Anillo Minimalista',category:'joyeria',price:800,tags:['anillo'],badge:'',images:['img/joyeria-02a.jpg','img/joyeria-02b.jpg'],rating:4,available:true},
-  {id:'pulsera-charms',name:'Pulsera con Charms',category:'joyeria',price:900,tags:['pulsera','top'],badge:'Top',images:['img/joyeria-03a.jpg','img/joyeria-03b.jpg'],rating:4,available:true}
+  {id:'camisa-rosa',name:'Camisa Rosa',category:'ropa',price:520,tags:['camisa'],badge:'',images:['img/ropa/ropa-01.jpg','img/ropa/ropa-02.jpg'],rating:4,available:true},
+  {id:'sueter-dorado',name:'Suéter Dorado',category:'ropa',price:650,tags:['sueter','top'],badge:'Top',images:['img/ropa/ropa-03.jpg','img/ropa/ropa-04.jpg'],rating:5,available:true},
+  {id:'vestido-rojo',name:'Vestido Rojo',category:'ropa',price:780,tags:['vestido','nuevo'],badge:'Nuevo',images:['img/ropa/ropa-05.jpg','img/ropa/ropa-06.jpg'],rating:4,available:false},
+  {id:'collar-corazon',name:'Collar de Corazón',category:'joyeria',price:1200,tags:['collar','amor'],badge:'',images:['img/joyeria/joya-01.jpg','img/joyeria/joya-02.jpg'],rating:5,available:true},
+  {id:'anillo-minimal',name:'Anillo Minimalista',category:'joyeria',price:800,tags:['anillo'],badge:'',images:['img/joyeria/joya-03.jpg','img/joyeria/joya-04.jpg'],rating:4,available:true},
+  {id:'pulsera-charms',name:'Pulsera con Charms',category:'joyeria',price:900,tags:['pulsera','top'],badge:'Top',images:['img/joyeria/joya-05.jpg','img/joyeria/joya-06.jpg'],rating:4,available:true}
 ];
 
 const products=[...charmsCatalog,...otherProducts];
