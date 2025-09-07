@@ -7,6 +7,18 @@
   margin-top: 2rem;
 }
 
+.filter-toggle {
+  display: none;
+  padding: .5rem 1rem;
+  border: none;
+  background: var(--acento);
+  color: #fff;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.filter-overlay { display: none; }
+
 .filters,
 .tray,
 .bracelet-area {
@@ -190,4 +202,32 @@
   .filters { order:3; }
   .tray { order:2; }
   .bracelet-area { order:1; }
+
+  .filter-toggle { display:block; margin:1rem auto; }
+  .filters {
+    position: fixed;
+    top:0; left:0; bottom:0;
+    width:80%;
+    max-width:300px;
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+    z-index:1001;
+    overflow-y:auto;
+  }
+  .filters.open { transform:translateX(0); }
+  .filter-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:1000;
+  }
+  .filter-overlay.open { display:block; }
+}
+
+@media(max-width:480px){
+  .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); }
+  .charm-card { font-size:.9rem; }
+  .charm-card button { font-size:.85rem; }
+  .bracelet-grid { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
+  .slot { width:80px; height:80px; }
 }
