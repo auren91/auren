@@ -73,6 +73,15 @@
   transition: all .2s ease;
 }
 
+.charm-card.out {
+  opacity: .5;
+}
+
+.charm-card.out button {
+  background: var(--suave);
+  cursor: not-allowed;
+}
+
 .charm-card img {
   width: 100%;
   display: block;
@@ -94,6 +103,10 @@
   transition: all .2s ease;
 }
 
+.badge.agotado {
+  background: #E74C3C;
+}
+
 .bracelet-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(60px,1fr));
@@ -113,6 +126,10 @@
   font-size: .75rem;
   color: var(--suave);
   transition: all .2s ease;
+}
+
+.slot.out {
+  border-color: #E74C3C;
 }
 
 .slot.filled {
