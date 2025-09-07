@@ -148,6 +148,17 @@ function renderBracelet(){
       const rm=document.createElement('button');rm.className='remove';rm.textContent='x';rm.addEventListener('click',()=>removeCharm(i));slot.appendChild(rm);
       slot.draggable=true;
       slot.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/slot',i);});
+      let startX=null;
+      slot.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+      slot.addEventListener('touchend',e=>{
+        if(startX===null) return;
+        const dx=e.changedTouches[0].clientX-startX;
+        if(Math.abs(dx)>30){
+          if(dx<0 && i<braceletSize-1) swapSlots(i,i+1);
+          else if(dx>0 && i>0) swapSlots(i,i-1);
+        }
+        startX=null;
+      });
     }
     container.appendChild(slot);
   }
@@ -272,6 +283,21 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('save').addEventListener('click',saveLocal);
   document.getElementById('load').addEventListener('click',loadLocal);
   document.getElementById('whatsapp').addEventListener('click',sendWhatsApp);
+  const filterToggle=document.getElementById('filter-toggle');
+  const filters=document.querySelector('.filters');
+  const overlay=document.getElementById('filter-overlay');
+  if(filterToggle){
+    filterToggle.addEventListener('click',()=>{
+      filters.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+  }
+  if(overlay){
+    overlay.addEventListener('click',()=>{
+      filters.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  }
   const qs=new URLSearchParams(location.search).get('design');
   if(qs){const obj=decodeDesign(qs);if(obj){braceletSize=obj.size;slots=obj.slots;}}
   else { loadLocal(); }
