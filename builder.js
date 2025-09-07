@@ -1,4 +1,5 @@
 // Constructor de Pulsera Italiana
+// Merge resuelto: incluye slots editables y selector de color de pulsera
 const charms = charmsCatalog;
 
 const baseCharms = {
