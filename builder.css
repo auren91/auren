@@ -307,3 +307,5 @@
   .bracelet-grid { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
   .slot { width:80px; height:80px; }
 }
+
+#braceletHero{margin-bottom:12px;}
