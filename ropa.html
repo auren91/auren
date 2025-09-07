@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auren - Ropa</title>
-  <meta name="description" content="Descubre ropa y outfits para enamorar.">
-  <meta property="og:title" content="Auren - Ropa">
-  <meta property="og:description" content="Descubre ropa y outfits para enamorar.">
-  <meta property="og:type" content="website">
+  <title>Colección AUREN · Ropa</title>
   <link rel="icon" type="image/png" href="img/logos/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ropa.css">
 </head>
 <body data-category="ropa">
   <header class="header">
@@ -18,7 +15,7 @@
       <a href="index.html" class="brand"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header"></a>
       <nav>
         <ul class="nav-links">
-          <li><a href="ropa.html">Ropa</a></li>
+          <li><a href="ropa.html" class="active">Ropa</a></li>
           <li><a href="joyeria.html">Joyería</a></li>
           <li><a href="charms.html">Charms</a></li>
           <li><a href="builder.html">Constructor</a></li>
@@ -29,54 +26,29 @@
     </div>
   </header>
 
-  <section class="hero" style="background-image:url('img/heroes/hero-03.jpg');">
-    <div class="hero-content">
-      <img src="img/logos/logotipo.png" alt="Auren logotipo" class="logo-hero">
+  <main class="container">
+    <h1>Colección AUREN · Ropa</h1>
+    <div id="controls" class="controls">
+      <input type="search" id="search" placeholder="Buscar por palabra clave...">
+      <div class="filters">
+        <label><input type="checkbox" name="color" value="claro"> Claro</label>
+        <label><input type="checkbox" name="color" value="oscuro"> Oscuro</label>
+        <label><input type="checkbox" name="color" value="neutro"> Neutro</label>
+        <span class="price-range">
+          <input type="number" id="price-min" value="0" min="0" max="2000" step="10">-
+          <input type="number" id="price-max" value="1000" min="0" max="2000" step="10">
+        </span>
+      </div>
+      <select id="sort">
+        <option value="relevance">Relevancia</option>
+        <option value="price-asc">Precio ↑</option>
+        <option value="price-desc">Precio ↓</option>
+        <option value="new">Nuevas</option>
+      </select>
+      <label class="compact"><input type="checkbox" id="compact"> compacto</label>
     </div>
-  </section>
-
-  <nav class="categories">
-    <a class="chip active" href="ropa.html">Ropa</a>
-    <a class="chip" href="joyeria.html">Joyería</a>
-    <a class="chip" href="charms.html">Charms</a>
-    <a class="chip" href="firstdate.html">First Date</a>
-  </nav>
-
-  <main class="container catalog-page">
-    <aside class="sidebar">
-      <h3>Filtros</h3>
-      <input type="search" id="search" class="search" placeholder="Buscar...">
-      <h4>Categorías</h4>
-      <div id="tag-filter">
-        <span class="chip" data-tag="camisa">Camisa</span>
-        <span class="chip" data-tag="sueter">Suéter</span>
-        <span class="chip" data-tag="vestido">Vestido</span>
-      </div>
-      <h4>Precio</h4>
-      <input type="range" id="price" min="0" max="1000" value="1000">
-      <div class="price-output">$0 - $<span id="price-value">1000</span></div>
-      <label><input type="checkbox" id="available"> Disponible</label>
-    </aside>
-    <section class="catalog-content">
-      <div class="toolbar">
-        <div class="count"><span id="count"></span> productos</div>
-        <div>
-          <select id="sort">
-            <option value="">Ordenar</option>
-            <option value="price-asc">Precio ↑</option>
-            <option value="price-desc">Precio ↓</option>
-            <option value="new">Nuevo</option>
-            <option value="top">Más vendido</option>
-          </select>
-          <div class="view">
-            <button class="chip active" data-view="3">3</button>
-            <button class="chip" data-view="4">4</button>
-          </div>
-        </div>
-      </div>
-      <div id="product-grid" class="grid-3"></div>
-      <div class="pagination"><a href="#" class="chip">1</a></div>
-    </section>
+    <section id="grid" class="grid" aria-live="polite"></section>
+    <div id="sentinel"></div>
   </main>
 
   <footer class="footer">
@@ -85,7 +57,14 @@
     </div>
   </footer>
 
-  <dialog id="quick-view" class="glass"></dialog>
+  <div id="quick-view" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <button class="close" aria-label="Cerrar">&times;</button>
+      <div class="modal-content"></div>
+    </div>
+  </div>
+
+  <script type="module" src="ropa.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
