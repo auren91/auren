@@ -56,7 +56,7 @@ function getBaseId(color){
   return baseCharms[color].id;
 }
 
-let braceletColor = 'plata';
+let braceletColor = localStorage.getItem('auren.braceletColor') || 'plata';
 let braceletSize = 18;
 let slots = Array(braceletSize).fill(getBaseId(braceletColor));
 let undoStack = [];
@@ -91,7 +91,10 @@ function restoreState(state){
   const obj=JSON.parse(state);
   slots=obj.slots;
   braceletColor=obj.color || braceletColor;
+  localStorage.setItem('auren.braceletColor',braceletColor);
   braceletSize=obj.slotCount || obj.size || braceletSize;
+  const hero=document.getElementById('braceletHero');
+  if(hero) hero.dataset.color=braceletColor;
   renderBracelet();
   updateTotals();
 }
@@ -190,9 +193,12 @@ function swapSlots(a,b){
 
 function setBraceletColor(color){
   braceletColor=color;
+  localStorage.setItem('auren.braceletColor',braceletColor);
   slots=slots.map(id=>isBase(id)?getBaseId(color):id);
   pushState();
   renderBracelet();
+  const hero=document.getElementById('braceletHero');
+  if(hero) hero.dataset.color=braceletColor;
   updateTotals();
 }
 
@@ -366,6 +372,7 @@ function updateTotals(){
 
 function saveLocal(){
   localStorage.setItem('auren-bracelet',JSON.stringify({slotCount:braceletSize,color:braceletColor,slots}));
+  localStorage.setItem('auren.braceletColor',braceletColor);
 }
 
 function loadLocal(){
@@ -374,6 +381,7 @@ function loadLocal(){
     const obj=JSON.parse(data);
     braceletSize=obj.slotCount || obj.size || braceletSize;
     braceletColor=obj.color || braceletColor;
+    localStorage.setItem('auren.braceletColor',braceletColor);
     slots=obj.slots || [];
   }
   slots.length=braceletSize;
@@ -384,6 +392,8 @@ function loadLocal(){
   if(slotCountEl) slotCountEl.value=braceletSize;
   const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
   if(colorRadio) colorRadio.checked=true;
+  const hero=document.getElementById('braceletHero');
+  if(hero) hero.dataset.color=braceletColor;
   renderBracelet();
   updateTotals();
 }
@@ -420,7 +430,7 @@ function sendWhatsApp(){
   const total=slots.filter(id=>!isBase(id)).reduce((s,id)=>s+(getCharm(id)?.price||0),0);
   const baseCount=slots.filter(id=>isBase(id)).length;
   const promo=total>=400? '%0APromo aplicada: pulsera GRATIS':'';
-  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize} | Color: ${colorName}%0A${lines}${lines?'%0A':''}Eslabones lisos: ${baseCount}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
+  const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize}%0AColor de pulsera: ${colorName}%0A${lines}${lines?'%0A':''}Eslabones lisos: ${baseCount}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
   window.open(`https://wa.me/523142836428?text=${msg}`,'_blank');
 }
 
@@ -482,16 +492,19 @@ window.addEventListener('DOMContentLoaded',async()=>{
   charms = await charmsPromise;
   renderFilters();
   renderCatalog();
-  const qs=new URLSearchParams(location.search).get('design');
+  const params=new URLSearchParams(location.search);
+  const colorParam=params.get('color');
+  if(colorParam){braceletColor=colorParam;}
+  const qs=params.get('design');
   if(qs){
     const obj=decodeDesign(qs);
-    if(obj){braceletSize=obj.slotCount || obj.size;braceletColor=obj.color;slots=obj.slots;}
+    if(obj){braceletSize=obj.slotCount || obj.size;braceletColor=colorParam || obj.color || braceletColor;slots=obj.slots;}
   } else {
     const saved=loadState();
     if(saved.slotCount){
       braceletSize=saved.slotCount;
-      braceletColor=saved.color || braceletColor;
       slots=saved.slots || [];
+      if(!colorParam && !localStorage.getItem('auren.braceletColor') && saved.color) braceletColor=saved.color;
     }
     slots.length=braceletSize;
     for(let i=0;i<braceletSize;i++){
@@ -499,9 +512,13 @@ window.addEventListener('DOMContentLoaded',async()=>{
       if(!id || !getCharm(id) || isBase(id)) slots[i]=getBaseId(braceletColor);
     }
   }
+  slots=slots.map(id=>isBase(id)?getBaseId(braceletColor):id);
+  localStorage.setItem('auren.braceletColor',braceletColor);
   if(slotCountEl) slotCountEl.value=braceletSize;
   const colorRadio=document.querySelector(`input[name="braceletColor"][value="${braceletColor}"]`);
   if(colorRadio) colorRadio.checked=true;
+  const hero=document.getElementById('braceletHero');
+  if(hero) hero.dataset.color=braceletColor;
   applySlotCount(Number(slotCountEl.value),{from:'init'});
   document.getElementById('search').addEventListener('input',renderCatalog);
   document.getElementById('price-min').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});

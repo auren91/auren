@@ -251,3 +251,25 @@ main{padding:100px 20px 40px;}
 .accordion details{border-top:1px solid var(--suave);padding:10px 0;}
 .accordion summary{cursor:pointer;font-weight:600;}
 .carousel-related{margin-top:40px;}
+
+/* Bracelet preview with interchangeable background */
+.bracelet-preview{
+  position:relative;
+  width:100%;
+  aspect-ratio:1.2/1;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background-color:#eee;
+}
+.bracelet-preview .charm-img{
+  max-width:56%;
+  height:auto;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.12));
+}
+.bracelet-preview[data-color="plata"]{background-image:url('/img/pulsera-plata.webp');}
+.bracelet-preview[data-color="dorado"]{background-image:url('/img/pulsera-dorado.webp');}
+.bracelet-preview[data-color="negro"]{background-image:url('/img/pulsera-negro.webp');}
