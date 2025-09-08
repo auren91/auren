@@ -1,6 +1,7 @@
 (function(){
-  const DEFAULT_INTERVAL = 3000; // 3s
-  const FADE = 600; // duración del crossfade en ms
+  const DEFAULT_INTERVAL = 5000; // 5s
+  const FADE = 1200; // duración del crossfade en ms
+  const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const cards = document.querySelectorAll('.rotator');
 
@@ -21,6 +22,9 @@
     imgEl.src = imgs[0];
     imgEl.dataset.index = '0';
 
+    // preload restantes
+    imgs.slice(1).forEach(src=>{ const i = new Image(); i.src = src; });
+
     // hover pause (desktop)
     card.addEventListener('mouseenter', ()=> stop(card));
     card.addEventListener('mouseleave', ()=> start(card));
@@ -36,33 +40,38 @@
     return (current + 1) % length;
   }
 
-  function crossfadeTo(card, nextSrc){
+  async function crossfadeTo(card, nextSrc){
     const media = card.querySelector('.media');
     const base  = media.querySelector('img');
+    if(card._busy) return;
+    card._busy = true;
 
-    // capa fantasma
     const ghost = base.cloneNode();
     ghost.classList.add('fade-layer');
-    ghost.src = nextSrc;
     ghost.style.opacity = '0';
+    ghost.src = nextSrc;
+
+    const ready = ghost.decode ? ghost.decode() : new Promise(res=>{
+      ghost.onload = ghost.onerror = res;
+    });
+
+    await ready;
     media.appendChild(ghost);
+    requestAnimationFrame(()=>{
+      ghost.style.opacity = '1';
+      base.style.opacity = '0';
+    });
 
-    // fuerza un reflow para que el transition arranque
-    void ghost.offsetWidth;
-
-    // anima
-    ghost.style.opacity = '1';
-    base.style.opacity = '0';
-
-    // al terminar el fade, fijar nuevo src y limpiar
     setTimeout(()=>{
       base.src = nextSrc;
       base.style.opacity = '1';
       ghost.remove();
+      card._busy = false;
     }, FADE);
   }
 
   function tick(card){
+    if(card._busy) return;
     const imgs = getImages(card);
     const base = card.querySelector('img');
     const current = Number(base.dataset.index || '0');
@@ -74,6 +83,7 @@
   }
 
   function start(card){
+    if(PREFERS_REDUCED) return;
     if(card._timer) return;
     const interval = Number(card.dataset.interval || DEFAULT_INTERVAL);
     card._timer = setInterval(()=>tick(card), interval);
