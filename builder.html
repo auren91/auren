@@ -57,7 +57,7 @@
         </div>
         <div id="slotHint" class="slot-hint" aria-live="polite"></div>
       </div>
-      <fieldset id="bracelet-color" class="color-select" aria-label="Color de pulsera">
+      <fieldset id="bracelet-color" class="color-select" aria-label="Color de pulsera" hidden>
         <label><input type="radio" name="braceletColor" value="plata" checked><span>Plata</span></label>
         <label><input type="radio" name="braceletColor" value="dorado"><span>Dorado</span></label>
         <label><input type="radio" name="braceletColor" value="negro"><span>Negro</span></label>
@@ -82,7 +82,7 @@
     <aside class="bracelet-area">
       <h2>Tu Pulsera</h2>
       <div id="braceletHero" class="bracelet-preview" data-color="plata"></div>
-      <div id="bracelet" class="bracelet-grid" aria-live="polite"></div>
+      <div id="braceletView" class="bracelet-grid" aria-live="polite"></div>
       <p id="bracelet-status"></p>
       <p id="bracelet-total" class="price"></p>
       <p id="bracelet-promo" class="promo-note"></p>
@@ -97,8 +97,8 @@
     <button id="clear" aria-label="Vaciar">Vaciar</button>
       <button id="save" aria-label="Guardar">Guardar</button>
       <button id="load" aria-label="Cargar">Cargar</button>
-      <button id="download" aria-label="Descargar imagen del diseño (mock)">Descargar imagen del diseño (mock)</button>
-      <button id="whatsapp" aria-label="Pedir por WhatsApp" class="whatsapp">Pedir por WhatsApp</button>
+      <button id="exportPng" aria-label="Descargar imagen del diseño (mock)">Descargar imagen del diseño (mock)</button>
+      <button id="whatsappBtn" aria-label="Pedir por WhatsApp" class="whatsapp">Pedir por WhatsApp</button>
     </div>
 
   <footer class="footer">
