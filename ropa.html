@@ -57,10 +57,26 @@
     </div>
   </footer>
 
-  <div id="quick-view" class="modal-backdrop hidden" role="dialog" aria-modal="true">
-    <div class="modal">
-      <button class="close" aria-label="Cerrar">&times;</button>
-      <div class="modal-content"></div>
+  <div class="qv" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+    <div class="qv__backdrop" onclick="closeQuickView()"></div>
+    <div class="qv__dialog">
+      <div class="qv__content">
+        <div class="qv__imageWrap">
+          <img class="qv__img" alt="" />
+          <div class="qv__tools">
+            <button class="qv__btn qv__zoomOut" aria-label="Alejar">−</button>
+            <button class="qv__btn qv__zoomReset" aria-label="Restablecer">⤾</button>
+            <button class="qv__btn qv__zoomIn" aria-label="Acercar">+</button>
+          </div>
+        </div>
+        <div class="qv__info">
+          <h3 id="qv-title">Prenda</h3>
+          <div class="qv__price"><s>$999</s><strong>$799</strong></div>
+          <div class="qv__actions">
+            <!-- tus botones existentes -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
