@@ -1,7 +1,7 @@
 // Constructor de Pulsera Italiana
 // Merge resuelto: incluye slots editables y selector de color de pulsera
 let charms = [];
-const charmsPromise = fetch('/data/charms.json')
+const charmsPromise = fetch('./data/charms.json')
   .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
   .catch(err => {
     console.warn('No se pudo cargar catálogo de charms, usando fallback.', err);
@@ -17,24 +17,24 @@ const baseCharms = {
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: '/img/pulsera-plata.webp',
-    imgBack: '/img/pulsera-plata.webp'
+    imgFront: 'img/pulsera-plata.webp',
+    imgBack: 'img/pulsera-plata.webp'
   },
   dorado: {
     id: 'base-dorado',
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: '/img/pulsera-dorado.webp',
-    imgBack: '/img/pulsera-dorado.webp'
+    imgFront: 'img/pulsera-dorado.webp',
+    imgBack: 'img/pulsera-dorado.webp'
   },
   negro: {
     id: 'base-negro',
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: '/img/pulsera-negro.webp',
-    imgBack: '/img/pulsera-negro.webp'
+    imgFront: 'img/pulsera-negro.webp',
+    imgBack: 'img/pulsera-negro.webp'
   }
 };
 

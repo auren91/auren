@@ -9,7 +9,10 @@
   <link rel="icon" type="image/png" href="img/logos/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="builder.css">
+  <script>
+    const BUILDER_VERSION = Date.now();
+    document.write(`<link rel="stylesheet" href="./assets/css/builder.css?v=${BUILDER_VERSION}">`);
+  </script>
 </head>
 <body id="bracelet-builder">
   <header class="header">
@@ -104,10 +107,16 @@
   <footer class="footer">
     <div class="container">
       <p>&copy; 2025 Auren - Arturo & Enrique</p>
+      <small id="build-info" class="build-info"></small>
     </div>
   </footer>
 
   <script src="app.js"></script>
-  <script src="builder.js"></script>
+  <script>
+    document.write(`<script src="./assets/js/builder.js?v=${BUILDER_VERSION}"><\\/script>`);
+    console.log('Builder loaded @ ' + BUILDER_VERSION);
+    const info=document.getElementById('build-info');
+    if(info) info.textContent='Build '+new Date(BUILDER_VERSION).toLocaleString();
+  </script>
 </body>
 </html>

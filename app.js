@@ -13,7 +13,7 @@ let braceletColor = localStorage.getItem('auren.braceletColor') || 'plata';
 
 async function loadCharmsCatalog(){
   try{
-    const res=await fetch('/data/charms.json');
+    const res=await fetch('data/charms.json');
     if(!res.ok) throw new Error('HTTP '+res.status);
     charmsCatalog=await res.json();
   }catch(err){
