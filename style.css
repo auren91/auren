@@ -189,25 +189,19 @@ a:hover { color:var(--acento); }
   width:100%; height:100%; object-fit:cover; display:block;
 }
 
-.rotator .media{ position:relative; }
+.rotator .media{
+  position:relative;
+  background:#000;
+}
 .rotator .media img{
   display:block; width:100%; height:100%; object-fit:cover;
   position:relative; z-index:1;
-  transition:opacity 1.2s ease-in-out;
-  will-change:opacity; backface-visibility:hidden; transform:translateZ(0);
-}
-.rotator .media .fade-layer{
-  position:absolute; inset:0;
-  width:100%; height:100%; object-fit:cover;
-  opacity:0; z-index:2;
-  transition:opacity 1.2s ease-in-out;
-  pointer-events:none; border-radius:inherit;
+  transition:opacity .6s ease-in-out;
   will-change:opacity; backface-visibility:hidden; transform:translateZ(0);
 }
 
 @media (prefers-reduced-motion:reduce){
-  .rotator .media img,
-  .rotator .media .fade-layer{transition:none;}
+  .rotator .media img{transition:none;}
 }
 
 .destacada-card h3{

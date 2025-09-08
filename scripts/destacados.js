@@ -1,6 +1,6 @@
 (function(){
   const DEFAULT_INTERVAL = 5000; // 5s
-  const FADE = 1200; // duración del crossfade en ms
+  const FADE = 600; // duración de cada fase del fundido en ms
   const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const cards = document.querySelectorAll('.rotator');
@@ -40,34 +40,24 @@
     return (current + 1) % length;
   }
 
-  async function crossfadeTo(card, nextSrc){
+  async function fadeToBlack(card, nextSrc){
     const media = card.querySelector('.media');
     const base  = media.querySelector('img');
     if(card._busy) return;
     card._busy = true;
 
-    const ghost = base.cloneNode();
-    ghost.classList.add('fade-layer');
-    ghost.style.opacity = '0';
-    ghost.src = nextSrc;
-
-    const ready = ghost.decode ? ghost.decode() : new Promise(res=>{
-      ghost.onload = ghost.onerror = res;
+    const img = new Image();
+    img.src = nextSrc;
+    const ready = img.decode ? img.decode() : new Promise(res=>{
+      img.onload = img.onerror = res;
     });
-
     await ready;
-    media.appendChild(ghost);
-    requestAnimationFrame(()=>{
-      ghost.style.opacity = '1';
-      base.style.opacity = '0';
-    });
 
-    setTimeout(()=>{
-      base.src = nextSrc;
-      base.style.opacity = '1';
-      ghost.remove();
-      card._busy = false;
-    }, FADE);
+    base.style.opacity = '0';
+    await new Promise(res=>setTimeout(res, FADE));
+    base.src = nextSrc;
+    base.style.opacity = '1';
+    setTimeout(()=>{ card._busy = false; }, FADE);
   }
 
   function tick(card){
@@ -78,7 +68,7 @@
     const next = nextIndex(current, imgs.length);
     const nextSrc = imgs[next];
 
-    crossfadeTo(card, nextSrc);
+    fadeToBlack(card, nextSrc);
     base.dataset.index = String(next);
   }
 
