@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   initMenu();
   initSliders();
   initPromoBar();
+  initSocialBanner();
   const bodyCategory=document.body.dataset.category;
   if(bodyCategory) initCatalog(bodyCategory);
   if(document.getElementById('product-detail')) initProductPage();
@@ -103,6 +104,54 @@ function initPromoBar(){
   }
 
   show();
+}
+
+function initSocialBanner(){
+  const banner=document.getElementById('promoSocialBanner');
+  if(!banner) return;
+  const close=document.getElementById('bannerClose');
+  const storageKey='promoSocialBanner.dismissedAt';
+  const dismissed=parseInt(localStorage.getItem(storageKey)||0,10);
+  const now=Date.now();
+  if(dismissed && now-dismissed < 7*24*60*60*1000){
+    banner.remove();
+    return;
+  }
+  function show(){
+    banner.classList.add('social-banner--enter');
+    const promoH=document.body.classList.contains('promo-bar-visible')?parseInt(getComputedStyle(document.body).getPropertyValue('--promo-bar-height')||'0',10):0;
+    banner.style.top=promoH+'px';
+    const height=banner.offsetHeight;
+    document.body.style.setProperty('--social-banner-height',height+'px');
+    document.body.classList.add('social-banner-visible');
+    requestAnimationFrame(()=>{
+      banner.classList.replace('social-banner--enter','social-banner--visible');
+    });
+  }
+  function hide(){
+    banner.classList.replace('social-banner--visible','social-banner--exit');
+    banner.addEventListener('transitionend',e=>{
+      if(e.propertyName==='opacity') banner.remove();
+    },{once:true});
+    document.body.classList.remove('social-banner-visible');
+    localStorage.setItem(storageKey,Date.now().toString());
+  }
+  setTimeout(show,400);
+  if(close){
+    close.addEventListener('click',hide);
+    close.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        hide();
+      }
+    });
+  }
+  banner.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      const cta=a.id==='ctaInstagram'?'instagram':a.id==='ctaFacebook'?'facebook':'howto';
+      console.log('bannerSocial',{cta});
+    });
+  });
 }
 
 function initCatalog(category){
