@@ -8,27 +8,59 @@
   <meta property="og:title" content="Auren - Amor en cada detalle">
   <meta property="og:description" content="Detalles románticos y accesorios para enamorar.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="img/heroes/hero-01.jpg">
   <link rel="icon" type="image/png" href="img/logos/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&family=Forum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- AUREN: Datos estructurados para SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Auren",
+    "url": "https://auren.github.io",
+    "logo": "img/logos/isotipo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "contacto@auren.mx"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Manzanillo",
+      "addressCountry": "MX"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://auren.github.io",
+    "name": "Auren"
+  }
+  </script>
 </head>
 <body>
-  <header class="header header-home">
-    <div class="nav-container container">
-      <a href="index.html" class="brand"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header"></a>
-      <nav>
-        <ul class="nav-links">
+  <!-- AUREN: Navbar fijo y responsive -->
+  <header class="header site-header">
+    <div class="nav-wrapper container">
+      <a href="index.html" class="logo"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header" loading="lazy" decoding="async"></a>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+      <nav class="nav" aria-label="principal">
+        <ul class="nav-menu">
+          <li><a href="index.html">Inicio</a></li>
           <li><a href="ropa.html">Ropa</a></li>
           <li><a href="joyeria.html">Joyería</a></li>
           <li><a href="charms.html">Charms</a></li>
-          <li><a href="builder.html">Constructor</a></li>
           <li><a href="firstdate.html">First Date</a></li>
+          <li><a href="#contacto">Contacto</a></li>
         </ul>
-        <button class="hamburger" aria-label="Menú">&#9776;</button>
       </nav>
-  </div>
+    </div>
   </header>
 
+  <!-- AUREN: Barra de promoción reutilizada -->
   <div id="promoBar" class="promo-bar promo-bar--hidden" role="region" aria-label="Promoción" aria-live="polite">
     <div class="promo-bar__content">
       <span class="promo-bar__icon" aria-hidden="true">🎁</span>
@@ -37,6 +69,7 @@
     </div>
   </div>
 
+  <!-- AUREN: Banner social reutilizado -->
   <div id="promoSocialBanner" class="social-banner" role="region" aria-label="Promoción de cupón por redes sociales">
     <div class="social-banner__content">
       <span class="social-banner__icon" aria-hidden="true">📸</span>
@@ -53,64 +86,32 @@
     </div>
   </div>
 
-  <section class="hero" style="background-image:url('img/heroes/hero-01.jpg'); background-position:center 35%;">
-    <div class="hero-content">
-      <img src="img/logos/logotipo.png" alt="Auren logotipo" class="logo-hero">
+  <!-- AUREN: Hero con slider de fondo -->
+  <section class="hero" aria-label="Auren">
+    <div class="hero-slider">
+      <div class="slide active" style="background-image:url('img/heroes/hero-01.jpg');"></div>
+      <div class="slide" style="background-image:url('img/heroes/hero-02.jpg');"></div>
+    </div>
+    <div class="hero-overlay">
+      <h1>Amor en cada detalle</h1>
+      <p>Accesorios y experiencias para enamorar.</p>
+      <div class="hero-ctas">
+        <a class="btn whatsapp" href="https://wa.me/5215555555555?text=Hola%20Auren" target="_blank" rel="noopener">WhatsApp Business</a>
+        <a class="btn outline" href="#destacados">Ver Catálogo</a>
+      </div>
     </div>
   </section>
 
-  <nav class="categories">
-    <a class="chip" href="ropa.html">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 10V7a2 2 0 1 1 4 0"/>
-        <path d="M3 16h18l-9-6-9 6"/>
-      </svg>
-      Ropa
-    </a>
-    <a class="chip" href="joyeria.html">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="13" r="5"/>
-        <path d="M8 2l4 4 4-4"/>
-      </svg>
-      Joyería
-    </a>
-    <a class="chip" href="charms.html">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v4"/>
-        <path d="M12 8l3 3-3 3-3-3z"/>
-      </svg>
-      Charms
-    </a>
-    <a class="chip" href="builder.html">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 14l-2 2a3 3 0 1 0 4.24 4.24l2-2"/>
-        <path d="M14 10l2-2a3 3 0 1 0-4.24-4.24l-2 2"/>
-        <path d="M8 12l8-8"/>
-      </svg>
-      Constructor
-    </a>
-    <a class="chip" href="firstdate.html">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
-      First Date
-    </a>
-  </nav>
-
-  <main class="container">
-    <section class="intro">
-      <h2>Conoce a los creadores</h2>
-      <p class="intro-text">Somos Arturo y Enrique, diseñando experiencias y detalles que enamoran. Creemos en los gestos que dibujan una sonrisa al corazón: más que ropa o joyas, creamos momentos. Explora nuestro catálogo, descubre lo que estamos creando y sorprende a esa persona especial con algo que cuente su historia.</p>
-    </section>
-
-    <section class="destacados">
+  <main>
+    <!-- AUREN: Sección Destacados conservada -->
+    <section id="destacados" class="destacados container">
       <h2 class="destacados-title">Destacados</h2>
 
       <div class="destacados-grid">
         <!-- Ropa -->
         <a class="destacada-card rotator" href="ropa.html"
            aria-label="Ver destacados de Ropa"
-             data-images="img/destacados/destacado-ropa-01.jpeg,img/destacados/destacado-ropa-02.jpeg,img/destacados/destacado-ropa-03.jpeg">
+           data-images="img/destacados/destacado-ropa-01.jpeg,img/destacados/destacado-ropa-02.jpeg,img/destacados/destacado-ropa-03.jpeg">
           <div class="media">
             <img alt="Ropa destacada" loading="lazy" decoding="async" />
           </div>
@@ -120,7 +121,7 @@
         <!-- Joyería -->
         <a class="destacada-card rotator" href="joyeria.html"
            aria-label="Ver destacados de Joyería"
-             data-images="img/destacados/destacado-joya-01.jpeg,img/destacados/destacado-joya-02.jpeg,img/destacados/destacado-joya-03.jpeg">
+           data-images="img/destacados/destacado-joya-01.jpeg,img/destacados/destacado-joya-02.jpeg,img/destacados/destacado-joya-03.jpeg">
           <div class="media">
             <img alt="Joyería destacada" loading="lazy" decoding="async" />
           </div>
@@ -130,7 +131,7 @@
         <!-- Charms -->
         <a class="destacada-card rotator" href="charms.html"
            aria-label="Ver destacados de Charms"
-             data-images="img/destacados/destacado-charm-01.png,img/destacados/destacado-charm-02.png,img/destacados/destacado-charm-03.png">
+           data-images="img/destacados/destacado-charm-01.png,img/destacados/destacado-charm-02.png,img/destacados/destacado-charm-03.png">
           <div class="media">
             <img alt="Charms destacados" loading="lazy" decoding="async" />
           </div>
@@ -140,7 +141,7 @@
         <!-- First Date -->
         <a class="destacada-card rotator" href="firstdate.html"
            aria-label="Ver destacados de First Date"
-             data-images="img/destacados/destacado-firstdate-01.webp,img/destacados/destacado-firstdate-02.webp,img/destacados/destacado-firstdate-03.webp">
+           data-images="img/destacados/destacado-firstdate-01.webp,img/destacados/destacado-firstdate-02.webp,img/destacados/destacado-firstdate-03.webp">
           <div class="media">
             <img alt="First Date destacado" loading="lazy" decoding="async" />
           </div>
@@ -148,12 +149,80 @@
         </a>
       </div>
     </section>
+
+    <!-- AUREN: Beneficios -->
+    <section class="benefits">
+      <div class="container">
+        <ul class="benefits-list">
+          <li class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18v13H3z"/><polyline points="16 21 12 17 8 21"/></svg>
+            Envíos a todo México
+          </li>
+          <li class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20l9-5-9-5-9 5 9 5z"/><path d="M12 12l9-5-9-5-9 5 9 5z"/></svg>
+            Personalización única
+          </li>
+          <li class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Pagos seguros
+          </li>
+          <li class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21C12 21 5 13.5 5 8a7 7 0 0 1 14 0c0 5.5-7 13-7 13z"/></svg>
+            Experiencias románticas
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- AUREN: Testimonios -->
+    <section class="testimonials container">
+      <h2>Testimonios</h2>
+      <div class="testimonials-grid">
+        <figure class="testimonial">
+          <blockquote>“Increíble calidad y atención, mi pareja quedó encantada.”</blockquote>
+          <div class="stars" aria-label="5 de 5 estrellas"><span aria-hidden="true">★★★★★</span></div>
+          <figcaption>Mariana</figcaption>
+        </figure>
+        <figure class="testimonial">
+          <blockquote>“Los detalles personalizados hacen toda la diferencia.”</blockquote>
+          <div class="stars" aria-label="5 de 5 estrellas"><span aria-hidden="true">★★★★★</span></div>
+          <figcaption>Carlos</figcaption>
+        </figure>
+        <figure class="testimonial">
+          <blockquote>“Servicio rápido y productos hermosos, volveré pronto.”</blockquote>
+          <div class="stars" aria-label="4 de 5 estrellas"><span aria-hidden="true">★★★★☆</span></div>
+          <figcaption>Sofía</figcaption>
+        </figure>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Auren - Arturo & Enrique</p>
+  <!-- AUREN: Footer con información de contacto -->
+  <footer class="footer" id="contacto">
+    <div class="container footer-grid">
+      <div>
+        <h3>Contacto</h3>
+        <p><a href="https://wa.me/5215555555555" class="link">WhatsApp</a></p>
+        <p><a href="mailto:contacto@auren.mx" class="link">contacto@auren.mx</a></p>
+        <p>Manzanillo, MX</p>
+      </div>
+      <div>
+        <h3>Redes sociales</h3>
+        <ul class="social-links">
+          <li><a href="#" class="link">Instagram</a></li>
+          <li><a href="#" class="link">Facebook</a></li>
+          <li><a href="#" class="link">TikTok</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <ul class="legal-links">
+          <li><a href="#" class="link">Aviso de privacidad</a></li>
+          <li><a href="#" class="link">Términos y condiciones</a></li>
+        </ul>
+      </div>
     </div>
+    <div class="footer-bottom">&copy; 2025 Auren. Todos los derechos reservados.</div>
   </footer>
 
   <dialog id="quick-view" class="glass"></dialog>
@@ -161,3 +230,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+

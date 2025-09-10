@@ -1,11 +1,17 @@
 /* Fonts & Colors */
 :root {
-  --principal:#C2644C;   /* Títulos, nombre Auren, íconos importantes */
-  --acento:#D6A77A;      /* Líneas, detalles decorativos */
-  --fondo:#FFF7F2;       /* Fondo base */
-  --suave:#EAC7BD;       /* Etiquetas, textos secundarios */
-  --oscuro:#5D4036;      /* Textos principales */
-  --green:#25D366;       /* WhatsApp */
+  --bg:#0b0b0c;
+  --text:#f5f5f7;
+  --muted:#c9c9cf;
+  --gold:#d4af37;
+  --accent:#9b87f5;
+  --green:#25D366; /* AUREN: color WhatsApp */
+  /* AUREN: variables legacy para compatibilidad */
+  --fondo:var(--bg);
+  --oscuro:var(--text);
+  --suave:var(--muted);
+  --principal:var(--gold);
+  --acento:var(--accent);
 }
 
 * {
@@ -19,15 +25,15 @@ html {
 }
 
 body {
-  font-family:'Poppins',sans-serif;
-  background-color:var(--fondo);
-  color:var(--oscuro);
+  font-family:'Inter',sans-serif;
+  background-color:var(--bg);
+  color:var(--text);
   line-height:1.6;
 }
 
 h1,h2,h3 {
   font-family:'Playfair Display',serif;
-  color:var(--principal);
+  color:var(--gold);
 }
 
 .num {
@@ -44,9 +50,9 @@ a:hover { color:var(--acento); }
 
 /* Utilities */
 .container{max-width:1200px;margin:0 auto;padding:0 20px;}
-.btn{display:inline-block;margin:10px 0;padding:10px 20px;border-radius:4px;background:var(--principal);color:var(--fondo);transition:background .3s ease;border:none;cursor:pointer;text-align:center;}
-.btn:hover{background:var(--acento);}
-.btn.whatsapp{background:var(--green);}
+.btn{display:inline-block;margin:10px 0;padding:10px 20px;border-radius:1rem;background:var(--accent);color:var(--text);transition:background .3s ease;border:none;cursor:pointer;text-align:center;}/* AUREN: botón principal */
+.btn:hover{background:var(--gold);}
+.btn.whatsapp{background:var(--green);color:var(--text);}/* AUREN: CTA WhatsApp */
 .chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:16px;border:1px solid var(--acento);background:var(--fondo);cursor:pointer;font-size:.875rem;transition:.3s;margin:4px;color:var(--oscuro);}
 .chip.active,.chip:hover{background:var(--acento);color:var(--fondo);}
 .chip svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none;flex-shrink:0;}
@@ -390,3 +396,56 @@ main{padding:100px 20px 40px;}
 .bracelet-preview[data-color="plata"]{background-image:url('/img/pulsera-plata.webp');}
 .bracelet-preview[data-color="dorado"]{background-image:url('/img/pulsera-dorado.webp');}
 .bracelet-preview[data-color="negro"]{background-image:url('/img/pulsera-negro.webp');}
+
+/* === AUREN: estilos landing === */
+.site-header{position:fixed;top:0;left:0;width:100%;background:rgba(11,11,12,.8);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid rgba(255,255,255,.08);}/* AUREN: navbar fijo */
+.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
+.nav-menu{list-style:none;display:flex;gap:32px;}
+.nav-menu a{color:var(--text);font-weight:500;}
+.nav-menu a:hover{color:var(--gold);}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;}
+@media(max-width:768px){
+  .hamburger{display:block;}
+  .nav-menu{position:absolute;top:100%;right:0;background:var(--bg);flex-direction:column;gap:1rem;padding:1.5rem;min-width:200px;transform:translateY(-200%);transition:transform .3s ease;}
+  .nav-menu.open{transform:translateY(0);}
+}
+
+.hero{position:relative;height:100vh;overflow:hidden;color:var(--text);}/* AUREN: hero slider */
+.hero-slider{position:absolute;inset:0;}
+.hero-slider .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
+.hero-slider .slide.active{opacity:1;}
+.hero-overlay{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1rem;background:rgba(11,11,12,.4);padding:0 1rem;}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;}
+.btn.outline{background:transparent;border:2px solid var(--accent);color:var(--text);}/* AUREN: botón alternativo */
+.btn.outline:hover{background:var(--accent);}
+
+.destacados{padding:4rem 0;}
+.destacados-title{text-align:center;margin-bottom:2rem;color:var(--gold);}
+.destacados-grid{display:grid;gap:1.5rem;}
+@media(max-width:639px){.destacados-grid{grid-template-columns:1fr;}}
+@media(min-width:640px) and (max-width:1023px){.destacados-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.destacados-grid{grid-template-columns:repeat(4,1fr);}}
+.destacada-card{background:var(--bg);border-radius:1rem;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .4s ease,box-shadow .4s ease;}
+.destacada-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,.6);}
+.destacada-card .media{aspect-ratio:1/1;overflow:hidden;}
+.destacada-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.destacada-card:hover img{transform:scale(1.05);}
+.destacada-card h3{text-align:center;margin:1rem;font-family:'Playfair Display',serif;color:var(--gold);}
+
+.benefits{background:var(--accent);color:var(--bg);padding:1.5rem 0;}
+.benefits-list{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;font-weight:500;}
+.benefit{display:flex;align-items:center;gap:.5rem;}
+.benefit svg{width:24px;height:24px;stroke:currentColor;}
+
+.testimonials{padding:4rem 0;}
+.testimonials h2{text-align:center;margin-bottom:2rem;color:var(--gold);}
+.testimonials-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.testimonial{background:rgba(255,255,255,.05);border-radius:1rem;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.testimonial blockquote{font-style:italic;margin-bottom:1rem;}
+.stars{color:var(--gold);margin-bottom:1rem;}
+
+.footer{background:var(--bg);color:var(--text);padding:3rem 0;}
+.footer-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.footer h3{color:var(--gold);margin-bottom:1rem;}
+.footer a{color:var(--text);}
+.footer-bottom{text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.875rem;color:var(--muted);}
