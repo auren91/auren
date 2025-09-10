@@ -41,6 +41,31 @@ body {
   line-height:1.6;
 }
 
+/* AUREN: tokens */
+:root{
+  --auren-primary:#C2644C;
+  --auren-gold:#D6A77A;
+  --auren-text:#FFF7F2;
+}
+.footer-social a{
+  color: var(--auren-text);
+  text-decoration: none;
+  transition: transform .2s ease, color .2s ease;
+  outline-offset: 2px;
+}
+.footer-social a:hover,
+.footer-social a:focus-visible{
+  color: var(--auren-gold);
+  transform: translateY(-1px);
+}
+.btn-whatsapp{
+  background: var(--auren-primary);
+  color: var(--auren-text);
+  border-radius: 999px;
+  padding: .7rem 1.1rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+
 h1,h2,h3 {
   font-family:'Playfair Display',serif;
   color:var(--auren-text); /* AUREN: encabezados claros */
@@ -404,9 +429,9 @@ main{padding:100px 20px 40px;}
   height:auto;
   filter:drop-shadow(0 4px 12px rgba(0,0,0,.12));
 }
-.bracelet-preview[data-color="plata"]{background-image:url('/img/pulsera-plata.webp');}
-.bracelet-preview[data-color="dorado"]{background-image:url('/img/pulsera-dorado.webp');}
-.bracelet-preview[data-color="negro"]{background-image:url('/img/pulsera-negro.webp');}
+.bracelet-preview[data-color="plata"]{background-image:url('/img/charms/pulsera-plata.webp'); /* AUREN: ruta actualizada a /img/charms */}
+.bracelet-preview[data-color="dorado"]{background-image:url('/img/charms/pulsera-dorado.webp'); /* AUREN: ruta actualizada a /img/charms */}
+.bracelet-preview[data-color="negro"]{background-image:url('/img/charms/pulsera-negro.webp'); /* AUREN: ruta actualizada a /img/charms */}
 
 /* === AUREN: estilos landing === */
 .site-header{position:sticky;top:0;left:0;width:100%;background:rgba(43,32,28,.85);z-index:1000;border-bottom:1px solid var(--auren-surface);}/* AUREN: navbar cálida */

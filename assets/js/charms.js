@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'charms-card';
       card.innerHTML = `
-        <img src="img/charms/${charm.image}" alt="Charms lote ${charm.price} MXN" class="charms-card__image"> <!-- AUREN: actualizado a img/charms -->
+        <img src="img/charms/${charm.image}" alt="Charms lote ${charm.price} MXN" class="charms-card__image"> <!-- AUREN: ruta actualizada a /img/charms -->
         <div class="charms-card__title">Lote ${charm.price} MXN</div>
         <input type="number" min="0" max="99" value="0" class="charms-card__input" aria-label="Cantidad lote ${charm.price}" id="${charm.id}">
       `;
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       msg += `- Lote ${c.price}: ${c.qty} piezas%0A`;
     });
     msg += `Total: $${resumenTotal.textContent} MXN`;
-    window.open(`https://wa.me/?text=${msg}`);
+    window.open(getWhatsappLink(msg),'_blank'); /* AUREN: WhatsApp desde config */
   }
 
   renderCatalog();

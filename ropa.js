@@ -158,7 +158,7 @@ function openQuickView(it){
   price.querySelector('strong').textContent = `$${it.price}`;
   const actions = dlg.querySelector('.qv__actions');
   actions.innerHTML = `<button class="fav-modal">${isFav(it.id)?'Quitar de favoritos':'Añadir a favoritos'}</button>
-    <a href="https://wa.me/?text=${encodeURIComponent(it.name+' $'+it.price+' '+location.href)}" target="_blank">Compartir WhatsApp</a>`;
+    <a href="${getWhatsappLink(it.name+' $'+it.price+' '+location.href)}" target="_blank" rel="noopener noreferrer">Compartir WhatsApp</a>`; /* AUREN: WhatsApp desde config */
   actions.querySelector('.fav-modal').addEventListener('click',()=>{toggleFav(it.id);applyFilters();closeQuickView();});
 
   document.body.style.overflow = 'hidden';
