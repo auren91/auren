@@ -93,8 +93,6 @@ function restoreState(state){
   braceletColor=obj.color || braceletColor;
   localStorage.setItem('auren.braceletColor',braceletColor);
   braceletSize=obj.slotCount || obj.size || braceletSize;
-  const hero=document.getElementById('braceletHero');
-  if(hero) hero.dataset.color=braceletColor;
   renderBracelet();
   updateTotals();
 }
@@ -198,8 +196,6 @@ function setBraceletColor(color){
   slots=slots.map(id=>isBase(id)?getBaseId(color):id);
   pushState();
   for(let i=0;i<braceletSize;i++) renderSlot(i);
-  const hero=document.getElementById('braceletHero');
-  if(hero) hero.dataset.color=braceletColor;
   updateTotals();
 }
 
@@ -232,7 +228,7 @@ function getFilters(){
   const materials=[...document.querySelectorAll('#filter-material button.active')].map(b=>b.dataset.material);
   const min=parseInt(document.getElementById('price-min').value,10);
   const max=parseInt(document.getElementById('price-max').value,10);
-  const sort=document.getElementById('sort').value;
+  const sort=document.getElementById('orderBy').value;
   return {search,tags,colors,materials,min,max,sort};
 }
 
@@ -254,7 +250,7 @@ function renderCatalog(){
   catalog.innerHTML='';
   list.forEach((c,i)=>{
     const out=c.stock<=0;
-    const card=document.createElement('div');card.className='charm-card fade-in';card.dataset.id=c.id;
+    const card=document.createElement('div');card.className='catalog__card fade-in';card.dataset.id=c.id;
     card.tabIndex=0;
     card.setAttribute('aria-label',c.name);
     if(out) card.classList.add('out'); else card.draggable=true;
@@ -269,7 +265,7 @@ function renderCatalog(){
     }
     catalog.appendChild(card);
   });
-  catalog.classList.toggle('compact',document.getElementById('compact').checked);
+  catalog.classList.toggle('catalog--compact',document.getElementById('compactMode').checked);
 }
 
 function renderBracelet(){
@@ -281,15 +277,15 @@ function renderBracelet(){
 function slotKeyHandler(e){
   const i=parseInt(e.currentTarget.dataset.index,10);
   if((e.key==='Delete' || e.key==='Backspace') && !isBase(slots[i])){ e.preventDefault(); removeCharm(i); }
-  if(e.key==='ArrowLeft' && i>0){ e.preventDefault(); swapSlots(i,i-1); document.querySelector(`.slot[data-index="${i-1}"]`).focus(); }
-  if(e.key==='ArrowRight' && i<braceletSize-1){ e.preventDefault(); swapSlots(i,i+1); document.querySelector(`.slot[data-index="${i+1}"]`).focus(); }
+  if(e.key==='ArrowLeft' && i>0){ e.preventDefault(); swapSlots(i,i-1); document.querySelector(`.bracelet__slot[data-index="${i-1}"]`).focus(); }
+  if(e.key==='ArrowRight' && i<braceletSize-1){ e.preventDefault(); swapSlots(i,i+1); document.querySelector(`.bracelet__slot[data-index="${i+1}"]`).focus(); }
 }
 
 function renderSlot(i){
   const container=document.getElementById('braceletView');
-  const existing=container.querySelector(`.slot[data-index="${i}"]`);
+  const existing=container.querySelector(`.bracelet__slot[data-index="${i}"]`);
   const slot=document.createElement('div');
-  slot.className='slot fade-in';
+  slot.className='bracelet__slot fade-in';
   slot.style.animationDelay=`${i*50}ms`;
   slot.dataset.index=i;
   slot.tabIndex=0;
@@ -304,14 +300,14 @@ function renderSlot(i){
       const color = charm.id.split('-')[1];
       if(charm.isBase){
         const colorName=color.charAt(0).toUpperCase()+color.slice(1);
-        slot.classList.add('filled','base',charm.id);
+        slot.classList.add('bracelet__slot--empty',charm.id);
         slot.title=`Eslabón liso (${colorName})`;
         slot.innerHTML=`<img src="${charm.imgFront}" alt="Eslabón liso (${colorName})" onerror="this.style.display='none';this.parentElement.classList.add('no-img');">`;
       }else{
-        slot.classList.add('filled');
+        slot.classList.add('bracelet__slot--filled');
         slot.innerHTML=`<img src="${charm.imgFront}" alt="${charm.name}">`;
         const rm=document.createElement('button');
-        rm.className='remove';
+        rm.className='bracelet__remove';
         rm.textContent='x';
         rm.setAttribute('aria-label','Quitar charm');
         rm.addEventListener('click',()=>removeCharm(i));
@@ -340,7 +336,7 @@ function renderSlot(i){
 }
 
 function triggerSnap(index){
-  const el=document.querySelector(`.slot[data-index="${index}"]`);
+  const el=document.querySelector(`.bracelet__slot[data-index="${index}"]`);
   if(el){
     el.classList.add('snap');
     setTimeout(()=>el.classList.remove('snap'),200);
@@ -398,7 +394,7 @@ function updateTotals(){
 }
 
 function saveLocal(){
-  const filters={...getFilters(),compact:document.getElementById('compact').checked};
+  const filters={...getFilters(),compact:document.getElementById('compactMode').checked};
   localStorage.setItem('auren-bracelet',JSON.stringify({slotCount:braceletSize,color:braceletColor,slots,filters}));
   localStorage.setItem('auren.braceletColor',braceletColor);
 }
@@ -407,8 +403,8 @@ function applyFilters(filters={}){
   document.getElementById('search').value=filters.search||'';
   document.getElementById('price-min').value=filters.min||document.getElementById('price-min').min;
   document.getElementById('price-max').value=filters.max||document.getElementById('price-max').max;
-  document.getElementById('sort').value=filters.sort||'relevance';
-  document.getElementById('compact').checked=filters.compact||false;
+  document.getElementById('orderBy').value=filters.sort||'relevance';
+  document.getElementById('compactMode').checked=filters.compact||false;
   document.querySelectorAll('#filter-tags button').forEach(b=>b.classList.toggle('active',filters.tags?.includes(b.dataset.tag)));
   document.querySelectorAll('#filter-color button').forEach(b=>b.classList.toggle('active',filters.colors?.includes(b.dataset.color)));
   document.querySelectorAll('#filter-material button').forEach(b=>b.classList.toggle('active',filters.materials?.includes(b.dataset.material)));
@@ -432,8 +428,6 @@ function loadLocal(){
     if(!id || !getCharm(id) || isBase(id)) slots[i]=getBaseId(braceletColor);
   }
   if(slotCountEl) slotCountEl.value=braceletSize;
-  const hero=document.getElementById('braceletHero');
-  if(hero) hero.dataset.color=braceletColor;
   renderBracelet();
   updateTotals();
 }
@@ -558,14 +552,12 @@ window.addEventListener('DOMContentLoaded',async()=>{
   slots=slots.map(id=>isBase(id)?getBaseId(braceletColor):id);
   localStorage.setItem('auren.braceletColor',braceletColor);
   if(slotCountEl) slotCountEl.value=braceletSize;
-  const hero=document.getElementById('braceletHero');
-  if(hero) hero.dataset.color=braceletColor;
   applySlotCount(Number(slotCountEl.value),{from:'init'});
   document.getElementById('search').addEventListener('input',renderCatalog);
   document.getElementById('price-min').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
   document.getElementById('price-max').addEventListener('input',()=>{updatePriceDisplay();renderCatalog();});
-  document.getElementById('sort').addEventListener('change',renderCatalog);
-  document.getElementById('compact').addEventListener('change',renderCatalog);
+  document.getElementById('orderBy').addEventListener('change',renderCatalog);
+  document.getElementById('compactMode').addEventListener('change',renderCatalog);
   document.getElementById('undo').addEventListener('click',undo);
   document.getElementById('redo').addEventListener('click',redo);
   document.getElementById('clear').addEventListener('click',()=>{if(confirm('¿Vaciar pulsera?')){slots=Array(braceletSize).fill(getBaseId(braceletColor));pushState();renderBracelet();updateTotals();}});
