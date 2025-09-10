@@ -97,7 +97,7 @@
 }
 
 .bracelet__slot--empty.no-img.base-dorado {
-  background: #d4af37;
+  background: var(--auren-gold,#D6A77A); /* AUREN: reemplazo dorado */
 }
 
 .bracelet__slot--empty.no-img.base-negro {
