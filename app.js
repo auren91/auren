@@ -30,6 +30,7 @@ async function loadCharmsCatalog(){
 document.addEventListener('DOMContentLoaded',async()=>{
   await loadCharmsCatalog();
   initMenu();
+  initHeroSlider();
   initSliders();
   initPromoBar();
   initSocialBanner();
@@ -40,9 +41,12 @@ document.addEventListener('DOMContentLoaded',async()=>{
 
 function initMenu(){
   const hamburger=document.querySelector('.hamburger');
-  const nav=document.querySelector('.nav-links');
+  const nav=document.querySelector('.nav-menu')||document.querySelector('.nav-links');
   if(hamburger&&nav){
-    hamburger.addEventListener('click',()=>nav.classList.toggle('open'));
+    hamburger.addEventListener('click',()=>{
+      const open=nav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded',open); // AUREN: accesibilidad
+    });
   }
 }
 
@@ -58,6 +62,17 @@ function initSliders(){
       next.addEventListener('click',()=>track.scrollBy({left:track.clientWidth,behavior:'smooth'}));
     }
   });
+}
+
+function initHeroSlider(){
+  const slides=document.querySelectorAll('.hero-slider .slide');
+  if(slides.length<2) return;
+  let index=0;
+  setInterval(()=>{
+    slides[index].classList.remove('active');
+    index=(index+1)%slides.length;
+    slides[index].classList.add('active');
+  },5000); // AUREN: transición suave entre imágenes
 }
 
 function initPromoBar(){
