@@ -1,12 +1,22 @@
 /* Fonts & Colors */
 :root {
-  --bg:#0b0b0c;
-  --text:#f5f5f7;
-  --muted:#c9c9cf;
-  --gold:#d4af37;
-  --accent:#9b87f5;
+  --auren-bg-deep:#2B201C; /* AUREN: paleta profunda */
+  --auren-bg:#3A2C26; /* AUREN: superficie principal */
+  --auren-card:#45352E; /* AUREN: tarjetas */
+  --auren-text:#FFF7F2; /* AUREN: texto principal */
+  --auren-text-muted:#EAC7BD; /* AUREN: texto secundario */
+  --auren-primary:#C2644C; /* AUREN: acento */
+  --auren-gold:#D6A77A; /* AUREN: detalles */
+  --auren-soft:#EAC7BD; /* AUREN: suaves */
+  --auren-surface:#5D4036; /* AUREN: bordes */
+  --ring:#D6A77A; /* AUREN: foco accesible */
   --green:#25D366; /* AUREN: color WhatsApp */
   /* AUREN: variables legacy para compatibilidad */
+  --bg:var(--auren-bg);
+  --text:var(--auren-text);
+  --muted:var(--auren-text-muted);
+  --gold:var(--auren-gold);
+  --accent:var(--auren-primary);
   --fondo:var(--bg);
   --oscuro:var(--text);
   --suave:var(--muted);
@@ -26,14 +36,14 @@ html {
 
 body {
   font-family:'Inter',sans-serif;
-  background-color:var(--bg);
-  color:var(--text);
+  background:radial-gradient(1200px 600px at 50% 0%, var(--auren-bg) 0%, var(--auren-bg-deep) 55%, var(--auren-bg-deep) 100%); /* AUREN: fondo con gradiente cálido */
+  color:var(--auren-text);
   line-height:1.6;
 }
 
 h1,h2,h3 {
   font-family:'Playfair Display',serif;
-  color:var(--gold);
+  color:var(--auren-text); /* AUREN: encabezados claros */
 }
 
 .num {
@@ -42,21 +52,27 @@ h1,h2,h3 {
 
 a {
   text-decoration:none;
-  color:var(--principal);
+  color:var(--auren-gold); /* AUREN: links elegantes */
   transition:color .3s ease;
 }
 
-a:hover { color:var(--acento); }
+a:hover { color:var(--auren-primary); }
 
 /* Utilities */
 .container{max-width:1200px;margin:0 auto;padding:0 20px;}
-.btn{display:inline-block;margin:10px 0;padding:10px 20px;border-radius:1rem;background:var(--accent);color:var(--text);transition:background .3s ease;border:none;cursor:pointer;text-align:center;}/* AUREN: botón principal */
-.btn:hover{background:var(--gold);}
-.btn.whatsapp{background:var(--green);color:var(--text);}/* AUREN: CTA WhatsApp */
+.btn{display:inline-block;margin:10px 0;padding:10px 20px;border-radius:1rem;background:var(--auren-primary);color:var(--auren-text);transition:background .3s ease,transform .2s ease;border:none;cursor:pointer;text-align:center;}/* AUREN: botón principal */
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgba(0,0,0,.2);}/* AUREN: elevación sutil */
+.btn.whatsapp{background:var(--auren-primary);color:var(--auren-text);}/* AUREN: CTA principal */
+.btn.outline{background:transparent;border:1px solid var(--auren-gold);color:var(--auren-gold);}/* AUREN: CTA secundario */
+.btn.outline:hover{background:var(--auren-gold);color:var(--auren-bg-deep);}/* AUREN: hover dorado */
 .chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:16px;border:1px solid var(--acento);background:var(--fondo);cursor:pointer;font-size:.875rem;transition:.3s;margin:4px;color:var(--oscuro);}
 .chip.active,.chip:hover{background:var(--acento);color:var(--fondo);}
 .chip svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none;flex-shrink:0;}
-.chip:focus,.slider-btn:focus{outline:2px solid var(--acento);outline-offset:2px;}
+.chip:focus,.slider-btn:focus{outline:2px solid var(--ring);outline-offset:2px;}/* AUREN: foco consistente */
+
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ring);outline-offset:2px;}/* AUREN: foco global */
+
+@media(prefers-reduced-motion:reduce){.btn{transition:none;}.btn:hover{transform:none;box-shadow:none;}}/* AUREN: respeta motion */
 .badge{position:absolute;top:8px;left:8px;background:var(--principal);color:var(--fondo);padding:2px 8px;border-radius:8px;font-size:.75rem;}
 .badge-descuento{background:var(--acento,#D6A77A);color:#111;font-weight:700;padding:2px 8px;border-radius:999px;}
 .price{display:flex;gap:8px;align-items:center;}
@@ -176,10 +192,10 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
   top:0;
   left:0;
   width:100%;
-  background:var(--fondo);
-  color:var(--oscuro);
+  background:rgba(43,32,28,.85); /* AUREN: navbar cálida */
+  color:var(--auren-text);
   z-index:1000;
-  border-bottom:1px solid var(--suave);
+  border-bottom:1px solid var(--auren-surface);
 }
 .header-home{border-bottom:none;box-shadow:none;}
 
@@ -224,14 +240,9 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 }
 
 /* Hero */
-.hero{height:70vh;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;margin-top:0;color:var(--fondo);}
+.hero{height:70vh;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;margin-top:0;color:var(--auren-text);}/* AUREN: compat hero */
 
-.hero::after {
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(93,64,54,.45);
-}
+.hero::after{content:'';}/* AUREN: remueve overlay legacy */
 
 .hero-content { position:relative; }
 
@@ -256,11 +267,11 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 .intro-text{max-width:700px;margin:0 auto;}
 
 /* Destacados */
-.destacados{ padding: 32px 16px; background: var(--fondo,#FFF7F2); }
+.destacados{ padding:32px 16px; background:transparent;}/* AUREN: limpieza */
 .destacados-title{
-  font-family:"Playfair Display",serif; color:var(--oscuro,#5D4036);
-  font-size: clamp(22px,3vw,28px); text-align:center; margin-bottom: 16px;
-}
+  font-family:"Playfair Display",serif; color:var(--auren-text);
+  font-size:clamp(22px,3vw,28px); text-align:center; margin-bottom:16px;
+}/* AUREN: título actualizado */
 
 .destacados-grid{
   display:grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
@@ -290,8 +301,8 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 
 .rotator .media{
   position:relative;
-  background:#000;
-}
+  background:var(--auren-bg-deep);
+}/* AUREN: elimina negro */
 .rotator .media img{
   display:block; width:100%; height:100%; object-fit:cover;
   position:relative; z-index:1;
@@ -306,7 +317,7 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 .destacada-card h3{
   font-family:"Playfair Display",serif;
   font-size:1.05rem; text-align:center; padding: 10px 0 14px;
-  color: var(--terracota,#C2644C);
+  color: var(--auren-gold); /* AUREN: título dorado */
 }
 
 /* Carousel */
@@ -357,7 +368,7 @@ main{padding:100px 20px 40px;}
 .pagination a{margin:0 5px;}
 
 /* Footer */
-.footer{background:var(--oscuro);color:var(--fondo);text-align:center;padding:32px 20px;}
+.footer{background:var(--auren-bg-deep);color:var(--auren-text);text-align:center;padding:32px 20px;}/* AUREN: ajuste legado */
 
 /* Product page */
 .product-gallery{display:flex;gap:20px;flex-wrap:wrap;}
@@ -398,54 +409,58 @@ main{padding:100px 20px 40px;}
 .bracelet-preview[data-color="negro"]{background-image:url('/img/pulsera-negro.webp');}
 
 /* === AUREN: estilos landing === */
-.site-header{position:fixed;top:0;left:0;width:100%;background:rgba(11,11,12,.8);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid rgba(255,255,255,.08);}/* AUREN: navbar fijo */
-.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
+.site-header{position:sticky;top:0;left:0;width:100%;background:rgba(43,32,28,.85);z-index:1000;border-bottom:1px solid var(--auren-surface);}/* AUREN: navbar cálida */
+.nav-wrapper{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;}/* AUREN: altura compacta */
 .nav-menu{list-style:none;display:flex;gap:32px;}
-.nav-menu a{color:var(--text);font-weight:500;}
-.nav-menu a:hover{color:var(--gold);}
-.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;}
+.nav-menu a{color:var(--auren-text);font-weight:500;padding:4px 0;}
+.nav-menu a:hover,.nav-menu a:focus{color:var(--auren-text);text-decoration:underline;text-decoration-color:var(--auren-gold);}/* AUREN: subrayado dorado */
+.hamburger{display:none;background:none;border:none;color:var(--auren-text);font-size:1.5rem;cursor:pointer;}
+.hamburger:focus-visible{outline:2px solid var(--ring);outline-offset:2px;}/* AUREN: foco hamburguesa */
 @media(max-width:768px){
   .hamburger{display:block;}
-  .nav-menu{position:absolute;top:100%;right:0;background:var(--bg);flex-direction:column;gap:1rem;padding:1.5rem;min-width:200px;transform:translateY(-200%);transition:transform .3s ease;}
+  .nav-menu{position:absolute;top:100%;right:0;background:rgba(43,32,28,.95);flex-direction:column;gap:1rem;padding:1.5rem;min-width:200px;transform:translateY(-200%);transition:transform .3s ease;}
   .nav-menu.open{transform:translateY(0);}
 }
 
-.hero{position:relative;height:100vh;overflow:hidden;color:var(--text);}/* AUREN: hero slider */
-.hero-slider{position:absolute;inset:0;}
-.hero-slider .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
+.hero{position:relative;height:100vh;overflow:hidden;color:var(--auren-text);background:var(--auren-bg-deep);}/* AUREN: hero slider */
+.hero::after{content:'';position:absolute;inset:0;background-image:url('/img/auren-imagotipo.png');background-repeat:no-repeat;background-position:center;background-size:clamp(280px,38vw,520px);opacity:.1;mix-blend-mode:luminosity;filter:drop-shadow(0 0 24px #0006);z-index:1;pointer-events:none;}/* AUREN: marca de agua */
+.hero-slider{position:absolute;inset:0;z-index:0;}
+.hero-slider .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;background-color:var(--auren-bg-deep);}/* AUREN: fade coherente */
 .hero-slider .slide.active{opacity:1;}
-.hero-overlay{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1rem;background:rgba(11,11,12,.4);padding:0 1rem;}
+.hero-overlay{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1rem;background:rgba(58,44,38,.55);padding:0 1rem;}/* AUREN: overlay cálida */
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;}
-.btn.outline{background:transparent;border:2px solid var(--accent);color:var(--text);}/* AUREN: botón alternativo */
-.btn.outline:hover{background:var(--accent);}
 
-.destacados{padding:4rem 0;}
-.destacados-title{text-align:center;margin-bottom:2rem;color:var(--gold);}
+.destacados{padding:4rem 0;}/* AUREN: sección destacados */
+.destacados-title{text-align:center;margin-bottom:2rem;color:var(--auren-text);}/* AUREN: título sección */
 .destacados-grid{display:grid;gap:1.5rem;}
 @media(max-width:639px){.destacados-grid{grid-template-columns:1fr;}}
 @media(min-width:640px) and (max-width:1023px){.destacados-grid{grid-template-columns:repeat(2,1fr);}}
 @media(min-width:1024px){.destacados-grid{grid-template-columns:repeat(4,1fr);}}
-.destacada-card{background:var(--bg);border-radius:1rem;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .4s ease,box-shadow .4s ease;}
-.destacada-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,.6);}
-.destacada-card .media{aspect-ratio:1/1;overflow:hidden;}
-.destacada-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.destacada-card{background:var(--auren-card);border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .4s ease,box-shadow .4s ease;}/* AUREN: tarjeta destacada */
+.destacada-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 14px 28px rgba(0,0,0,.3);}/* AUREN: hover envolvente */
+.destacada-card .media{aspect-ratio:1/1;overflow:hidden;background:var(--auren-bg-deep);}/* AUREN: fondo consistente */
+.destacada-card img{width:100%;height:100%;object-fit:cover;filter:contrast(1.02) saturate(1.03);transition:transform .4s ease;}/* AUREN: imagen realzada */
 .destacada-card:hover img{transform:scale(1.05);}
-.destacada-card h3{text-align:center;margin:1rem;font-family:'Playfair Display',serif;color:var(--gold);}
+.destacada-card h3{text-align:center;margin:1rem;font-family:'Playfair Display',serif;color:var(--auren-gold);}/* AUREN: título dorado */
 
-.benefits{background:var(--accent);color:var(--bg);padding:1.5rem 0;}
+.benefits{background:linear-gradient(90deg,var(--auren-bg) 0%,var(--auren-card) 100%);color:var(--auren-text);padding:1.5rem 0;}/* AUREN: franja de beneficios */
 .benefits-list{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;font-weight:500;}
 .benefit{display:flex;align-items:center;gap:.5rem;}
-.benefit svg{width:24px;height:24px;stroke:currentColor;}
+.benefit svg{width:24px;height:24px;stroke:currentColor;color:var(--auren-gold);}/* AUREN: íconos dorados */
+.benefit:not(:last-child){border-right:1px solid rgba(214,167,122,.25);padding-right:2rem;}/* AUREN: separadores */
+@media(max-width:600px){.benefit:not(:last-child){border-right:none;border-bottom:1px solid rgba(214,167,122,.25);padding-right:0;padding-bottom:1rem;margin-bottom:1rem;}}/* AUREN: separador responsive */
 
 .testimonials{padding:4rem 0;}
-.testimonials h2{text-align:center;margin-bottom:2rem;color:var(--gold);}
+.testimonials h2{text-align:center;margin-bottom:2rem;color:var(--auren-text);}/* AUREN: título claro */
 .testimonials-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
-.testimonial{background:rgba(255,255,255,.05);border-radius:1rem;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.3);}
-.testimonial blockquote{font-style:italic;margin-bottom:1rem;}
-.stars{color:var(--gold);margin-bottom:1rem;}
+.testimonial{background:var(--auren-card);border-radius:1rem;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.3);color:var(--auren-text);}/* AUREN: tarjeta testimonio */
+.testimonial blockquote{font-style:italic;margin-bottom:1rem;position:relative;padding-left:1.5rem;}/* AUREN: texto testimonial */
+.testimonial blockquote::before{content:'\201C';position:absolute;left:0;top:0;font-size:2rem;color:var(--auren-primary);line-height:1;}/* AUREN: comilla decorativa */
+.stars{color:var(--auren-gold);margin-bottom:1rem;}/* AUREN: estrellas doradas */
 
-.footer{background:var(--bg);color:var(--text);padding:3rem 0;}
+.footer{background:var(--auren-bg-deep);color:var(--auren-text);padding:3rem 0;border-top:1px solid var(--auren-surface);}/* AUREN: pie sobrio */
 .footer-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-.footer h3{color:var(--gold);margin-bottom:1rem;}
-.footer a{color:var(--text);}
-.footer-bottom{text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.875rem;color:var(--muted);}
+.footer h3{color:var(--auren-gold);margin-bottom:1rem;}
+.footer a{color:var(--auren-text);text-decoration:none;}
+.footer a:hover,.footer a:focus{color:var(--auren-gold);text-decoration:underline;}/* AUREN: hover dorado */
+.footer-bottom{text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--auren-surface);font-size:.875rem;color:var(--auren-text-muted);}/* AUREN: nota inferior */
