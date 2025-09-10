@@ -1,0 +1,104 @@
+:root {
+  --color-principal: var(--principal);
+  --radius: 8px;
+  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.calculadora {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .calculadora {
+    grid-template-columns: 1fr;
+  }
+  .resumen {
+    position: static;
+  }
+}
+
+.configuracion,
+.resumen {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.configuracion label,
+.configuracion select,
+.configuracion input {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+#catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.charms-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.charms-card__image {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.charms-card__title {
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.charms-card__input {
+  margin-top: 0.5rem;
+  width: 60px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.resumen ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buttons button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  cursor: pointer;
+  background: var(--color-principal);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.buttons button.whatsapp {
+  background: var(--green);
+}
+
+.color-preview {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
