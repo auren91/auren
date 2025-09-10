@@ -10,6 +10,7 @@ const otherProducts=[
 
 let products=[];
 let braceletColor = localStorage.getItem('auren.braceletColor') || 'plata';
+let socialConfig={}; /* AUREN: config social global */
 
 async function loadCharmsCatalog(){
   try{
@@ -27,8 +28,54 @@ async function loadCharmsCatalog(){
   products=[...charmsCatalog,...otherProducts];
 }
 
+async function loadSocialConfig(){
+  try{
+    const res=await fetch('/data/social.json');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    socialConfig=await res.json();
+  }catch(err){
+    console.warn('No se pudo cargar configuración social.',err);
+  }
+}
+
+function getWhatsappLink(message=''){
+  const num=(socialConfig.whatsapp_number_e164||'').replace(/[^0-9]/g,'');
+  const base=`https://wa.me/${num}`;
+  return message?`${base}?text=${encodeURIComponent(message)}`:(socialConfig.whatsapp_link||base);
+}
+
+function renderFooterSocials(container){
+  if(!container||!socialConfig.whatsapp_link) return;
+  container.innerHTML=`
+    <a class="btn-whatsapp" href="${socialConfig.whatsapp_link}" target="_blank" rel="noopener noreferrer" data-cta="whatsapp" title="Escríbenos por WhatsApp" aria-label="Escríbenos por WhatsApp">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-9.95 9.05A10 10 0 0 0 4 18.91L2 22l3.24-.85A10 10 0 1 0 12 2zm0 18a7.94 7.94 0 0 1-4.2-1.21l-.3-.18-2.5.66.67-2.44-.2-.32A7.94 7.94 0 1 1 12 20zm4.38-6.32c-.24-.12-1.42-.7-1.64-.78s-.38-.12-.54.12-.62.78-.76.94-.28.18-.52.06a6.53 6.53 0 0 1-1.92-1.18 7.21 7.21 0 0 1-1.34-1.66c-.14-.24 0-.36.1-.48.1-.1.24-.28.36-.42s.16-.24.24-.4a.43.43 0 0 0 0-.42c-.06-.12-.54-1.3-.74-1.78s-.4-.42-.54-.42-.3-.06-.46-.06-.42.06-.64.3-.84.82-.84 2 1 2.26 1.14 2.42 2.02 3.08 4.9 4.32a16.7 16.7 0 0 0 1.66.6 4 4 0 0 0 1.84.12 3 3 0 0 0 2-1.4 2.4 2.4 0 0 0 .16-1.4c-.06-.12-.22-.18-.46-.3z"/></svg>
+      <span>Escríbenos por WhatsApp</span>
+    </a>
+    <a href="${socialConfig.instagram}" target="_blank" rel="noopener noreferrer" title="Abrir Instagram de Auren" aria-label="Abrir Instagram de Auren">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6zm4.5-3.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>
+    </a>
+    <a href="${socialConfig.facebook}" target="_blank" rel="noopener noreferrer" title="Abrir Facebook de Auren" aria-label="Abrir Facebook de Auren">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H16l-.5 3h-2v7A10 10 0 0 0 22 12"/></svg>
+    </a>
+    <a href="${socialConfig.twitter}" target="_blank" rel="noopener noreferrer" title="Abrir Twitter de Auren" aria-label="Abrir Twitter de Auren">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 4.01c-.77.35-1.6.58-2.46.69a4.25 4.25 0 0 0 1.88-2.35 8.48 8.48 0 0 1-2.7 1.03 4.22 4.22 0 0 0-7.2 3.85A12 12 0 0 1 3 3.79a4.21 4.21 0 0 0 1.31 5.63 4.2 4.2 0 0 1-1.91-.53v.05a4.23 4.23 0 0 0 3.39 4.14 4.2 4.2 0 0 1-1.9.07 4.23 4.23 0 0 0 3.94 2.93A8.5 8.5 0 0 1 2 19.54a12 12 0 0 0 6.29 1.84c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.35-.02-.53A8.35 8.35 0 0 0 22 4.01z"/></svg>
+    </a>`;
+}
+
+function applyWhatsAppCTAs(){
+  document.querySelectorAll('[data-cta="whatsapp"]').forEach(a=>{
+    a.href=socialConfig.whatsapp_link;
+    a.target='_blank';
+    a.rel='noopener noreferrer';
+    a.title='Escríbenos por WhatsApp';
+    a.setAttribute('aria-label','Escríbenos por WhatsApp');
+  });
+}
+
 document.addEventListener('DOMContentLoaded',async()=>{
-  await loadCharmsCatalog();
+  await Promise.all([loadCharmsCatalog(), loadSocialConfig()]); /* AUREN: carga inicial */
+  renderFooterSocials(document.getElementById('auren-socials'));
+  applyWhatsAppCTAs();
   initMenu();
   initHeroSlider();
   initSliders();
@@ -250,7 +297,7 @@ function initCatalog(category){
           `<div class="card-body"><h3>${p.name}</h3>${priceHTML}`+
           `<div class="rating" aria-label="${p.rating} estrellas">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div>`+
           `<div class="actions"><a href="producto.html?id=${p.id}&color=${braceletColor}" class="btn">Ver detalles</a>`+
-          `<a href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" class="btn whatsapp">WhatsApp</a></div>`+
+          `<a href="${getWhatsappLink('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" rel="noopener noreferrer" class="btn whatsapp">WhatsApp</a></div>`+ /* AUREN: WhatsApp desde config */
           `<button class="sr-only quick" data-id="${p.id}">Vista rápida</button></div>`;
       }else{
         card.innerHTML=`<div class="img-wrapper"><img src="${imgFront}" alt="${p.name} frontal" class="front"><img src="${imgBack}" alt="${p.name} reverso" class="back"></div>`+
@@ -258,7 +305,7 @@ function initCatalog(category){
           `<div class="card-body"><h3>${p.name}</h3>${priceHTML}`+
           `<div class="rating" aria-label="${p.rating} estrellas">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div>`+
           `<div class="actions"><a href="producto.html?id=${p.id}" class="btn">Ver detalles</a>`+
-          `<a href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" class="btn whatsapp">WhatsApp</a></div>`+
+          `<a href="${getWhatsappLink('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" rel="noopener noreferrer" class="btn whatsapp">WhatsApp</a></div>`+ /* AUREN: WhatsApp desde config */
           `<button class="sr-only quick" data-id="${p.id}">Vista rápida</button></div>`;
       }
       grid.appendChild(card);
@@ -291,7 +338,7 @@ function initCatalog(category){
       if(p){
         const imgFront=p.imgFront||(p.images?p.images[0]:'');
         const priceHTML=p.priceOriginal?`<div class="price"><span class="price-old">$${p.priceOriginal}</span><span class="price-new">$${p.price}</span></div>`:`<div class="price"><span class="price-new">$${p.price}</span></div>`;
-        quickView.innerHTML=`<form method="dialog"><div class="card"><div class="img-wrapper"><img src="${imgFront}" alt="${p.name}"></div><h3>${p.name}</h3>${priceHTML}<a class="btn whatsapp" href="https://wa.me/523142836428?text=${encodeURIComponent('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank">WhatsApp</a><button class="btn">Cerrar</button></div></form>`;
+        quickView.innerHTML=`<form method="dialog"><div class="card"><div class="img-wrapper"><img src="${imgFront}" alt="${p.name}"></div><h3>${p.name}</h3>${priceHTML}<a class="btn whatsapp" href="${getWhatsappLink('Hola Auren, me interesa: '+p.name+' a $'+p.price+' (precio con descuento).')}" target="_blank" rel="noopener noreferrer">WhatsApp</a><button class="btn">Cerrar</button></div></form>`; /* AUREN: WhatsApp desde config */
         quickView.showModal();
       }
     }
@@ -348,7 +395,8 @@ function initProductPage(){
   function updateWhats(){
     const variant=document.querySelector('input[name="variant"]:checked');
     const message=`Hola Auren, me interesa: ${product.name}${variant? ' - '+variant.value:''} x${qty.value} a $${product.price}`;
-    whats.href=`https://wa.me/523142836428?text=${encodeURIComponent(message)}`;
+    whats.href=getWhatsappLink(message); /* AUREN: WhatsApp desde config */
+    whats.target='_blank'; whats.rel='noopener noreferrer';
   }
   qty.addEventListener('input',updateWhats);
   variants.addEventListener('change',updateWhats);

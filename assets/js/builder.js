@@ -17,24 +17,24 @@ const baseCharms = {
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: 'img/pulsera-plata.webp',
-    imgBack: 'img/pulsera-plata.webp'
+    imgFront: 'img/charms/pulsera-plata.webp', /* AUREN: ruta actualizada a /img/charms */
+    imgBack: 'img/charms/pulsera-plata.webp' /* AUREN: ruta actualizada a /img/charms */
   },
   dorado: {
     id: 'base-dorado',
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: 'img/pulsera-dorado.webp',
-    imgBack: 'img/pulsera-dorado.webp'
+    imgFront: 'img/charms/pulsera-dorado.webp', /* AUREN: ruta actualizada a /img/charms */
+    imgBack: 'img/charms/pulsera-dorado.webp' /* AUREN: ruta actualizada a /img/charms */
   },
   negro: {
     id: 'base-negro',
     name: 'Eslabón liso',
     price: 0,
     isBase: true,
-    imgFront: 'img/pulsera-negro.webp',
-    imgBack: 'img/pulsera-negro.webp'
+    imgFront: 'img/charms/pulsera-negro.webp', /* AUREN: ruta actualizada a /img/charms */
+    imgBack: 'img/charms/pulsera-negro.webp' /* AUREN: ruta actualizada a /img/charms */
   }
 };
 
@@ -465,7 +465,7 @@ function sendWhatsApp(){
   const baseCount=slots.filter(id=>isBase(id)).length;
   const promo=total>=400? '%0APromo aplicada: Pulsera gratis':'';
   const msg=`Hola Auren, quiero esta pulsera italiana:%0AEslabones: ${braceletSize}%0AColor de pulsera: ${colorName}%0A${lines}${lines?'%0A':''}Eslabones lisos: ${baseCount}%0ASubtotal charms: $${total}${promo}%0ATotal a pagar: $${total}%0A¿Opciones de pago, por favor?`;
-  window.open(`https://wa.me/523142836428?text=${msg}`,'_blank');
+  window.open(getWhatsappLink(msg),'_blank'); /* AUREN: WhatsApp desde config */
 }
 
 // Descargar imagen del diseño

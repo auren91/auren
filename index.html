@@ -96,7 +96,7 @@
       <h1>Amor en cada detalle</h1>
       <p>Accesorios y experiencias para enamorar.</p>
       <div class="hero-ctas">
-        <a class="btn whatsapp" href="https://wa.me/5215555555555?text=Hola%20Auren" target="_blank" rel="noopener">WhatsApp Business</a>
+        <a class="btn whatsapp" data-cta="whatsapp">Escríbenos por WhatsApp</a> <!-- AUREN: CTA dinámico -->
         <a class="btn outline" href="#destacados">Ver Catálogo</a>
       </div>
     </div>
@@ -202,17 +202,13 @@
     <div class="container footer-grid">
       <div>
         <h3>Contacto</h3>
-        <p><a href="https://wa.me/5215555555555" class="link">WhatsApp</a></p>
+        <p><a data-cta="whatsapp" class="link">WhatsApp</a></p> <!-- AUREN: CTA dinámico -->
         <p><a href="mailto:contacto@auren.mx" class="link">contacto@auren.mx</a></p>
         <p>Manzanillo, MX</p>
       </div>
       <div>
         <h3>Redes sociales</h3>
-        <ul class="social-links">
-          <li><a href="#" class="link">Instagram</a></li>
-          <li><a href="#" class="link">Facebook</a></li>
-          <li><a href="#" class="link">TikTok</a></li>
-        </ul>
+        <div id="auren-socials" class="footer-social"></div> <!-- AUREN: footer social -->
       </div>
       <div>
         <h3>Legal</h3>
