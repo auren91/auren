@@ -66,26 +66,26 @@
         <label><input type="radio" name="braceletColor" value="negro"><span>Negro</span></label>
       </fieldset>
       <div class="sort-select">
-        <label for="sort">Ordenar por:</label>
-        <select id="sort">
+        <label for="orderBy">Ordenar por:</label>
+        <select id="orderBy">
           <option value="relevance">Relevancia</option>
           <option value="price-asc">Precio ↑</option>
           <option value="price-desc">Precio ↓</option>
           <option value="new">Nuevo</option>
         </select>
       </div>
-      <label class="compact-toggle"><input type="checkbox" id="compact"> Modo compacto</label>
+      <label class="compact-toggle"><input type="checkbox" id="compactMode"> Modo compacto</label>
     </aside>
 
     <section class="tray">
       <h2>Catálogo</h2>
-      <div id="catalog" class="catalog-grid"></div>
+      <div id="catalog" class="catalog"></div>
     </section>
 
     <aside class="bracelet-area">
       <h2>Tu Pulsera</h2>
-      <div id="braceletHero" class="bracelet-preview" data-color="plata"></div>
-      <div id="braceletView" class="bracelet-grid" aria-live="polite"></div>
+      <!-- Reemplaza imagen estática por tira dinámica de slots -->
+      <div id="braceletView" class="bracelet" aria-live="polite"></div>
       <p id="bracelet-status"></p>
       <p id="bracelet-total" class="price"></p>
       <p id="bracelet-promo" class="promo-note"></p>
@@ -94,7 +94,7 @@
 
   <div id="filter-overlay" class="filter-overlay"></div>
 
-  <div class="builder-bar">
+  <div class="actions-bar">
     <button id="undo" aria-label="Deshacer">Deshacer</button>
     <button id="redo" aria-label="Rehacer">Rehacer</button>
     <button id="clear" aria-label="Vaciar">Vaciar</button>

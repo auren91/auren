@@ -86,19 +86,21 @@
   color: #fff;
 }
 
-.slot.base {
+.bracelet__slot--empty {
   opacity: .8;
+  border-style: solid;
+  color: transparent;
 }
 
-.slot.base.no-img.base-plata {
+.bracelet__slot--empty.no-img.base-plata {
   background: #ddd;
 }
 
-.slot.base.no-img.base-dorado {
+.bracelet__slot--empty.no-img.base-dorado {
   background: #d4af37;
 }
 
-.slot.base.no-img.base-negro {
+.bracelet__slot--empty.no-img.base-negro {
   background: #333;
 }
 
@@ -111,17 +113,17 @@
   transition: all .2s ease;
 }
 
-.catalog-grid {
+.catalog {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px,1fr));
   gap: 1rem;
 }
 
-.catalog-grid.compact {
+.catalog.catalog--compact {
   grid-template-columns: repeat(auto-fill, minmax(80px,1fr));
 }
 
-.charm-card {
+.catalog__card {
   position: relative;
   background: #fff;
   border-radius: .5rem;
@@ -132,26 +134,26 @@
   transition: all .2s ease;
 }
 
-.charm-card.out {
+.catalog__card.out {
   opacity: .5;
 }
 
-.charm-card.out button {
+.catalog__card.out button {
   background: var(--suave);
   cursor: not-allowed;
 }
 
-.charm-card img {
+.catalog__card img {
   width: 100%;
   display: block;
   transition: opacity .3s ease;
 }
 
-.charm-card img.back { display:none; }
-.charm-card:hover img.front { display:none; }
-.charm-card:hover img.back { display:block; }
+.catalog__card img.back { display:none; }
+.catalog__card:hover img.front { display:none; }
+.catalog__card:hover img.back { display:block; }
 
-.charm-card button {
+.catalog__card button {
   margin-top: .25rem;
   background: var(--principal);
   color: #fff;
@@ -166,14 +168,14 @@
   background: #E74C3C;
 }
 
-.bracelet-grid {
+.bracelet {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(60px,1fr));
   gap: .5rem;
   min-height: 70px;
 }
 
-.slot {
+.bracelet__slot {
   position: relative;
   width: 60px;
   height: 60px;
@@ -187,22 +189,22 @@
   transition: all .2s ease;
 }
 
-.slot.out {
+.bracelet__slot.out {
   border-color: #E74C3C;
 }
 
-.slot.filled {
+.bracelet__slot--filled {
   border-style: solid;
   color: transparent;
 }
 
-.slot img {
+.bracelet__slot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.slot button.remove {
+.bracelet__remove {
   position: absolute;
   top: -6px;
   right: -6px;
@@ -217,7 +219,7 @@
   transition: all .2s ease;
 }
 
-.builder-bar {
+.actions-bar {
   position: sticky;
   bottom: 0;
   background: rgba(255,255,255,0.9);
@@ -228,7 +230,7 @@
   margin-top: 2rem;
 }
 
-.builder-bar button {
+.actions-bar button {
   padding: .5rem 1rem;
   border-radius: 999px;
   border: none;
@@ -238,16 +240,16 @@
   transition: all .2s ease;
 }
 
-.builder-bar button.whatsapp {
+.actions-bar button.whatsapp {
   background: var(--green);
 }
 
 /* Hover shadows */
-.charm-card:hover,
+.catalog__card:hover,
 .chips button:hover,
-.charm-card button:hover,
-.builder-bar button:hover,
-.slot button.remove:hover {
+.catalog__card button:hover,
+.actions-bar button:hover,
+.bracelet__remove:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
@@ -263,7 +265,7 @@
 }
 
 /* Snap animation when dropping charms */
-.slot.snap {
+.bracelet__slot.snap {
   animation: snap .15s ease-out;
 }
 
@@ -273,7 +275,7 @@
   100% { transform: scale(1); }
 }
 
-.bracelet-grid.grid-bounce{ animation:grid-bounce .25s ease; }
+.bracelet.grid-bounce{ animation:grid-bounce .25s ease; }
 @keyframes grid-bounce{
   0%{transform:scale(1);}
   50%{transform:scale(1.03);}
@@ -308,12 +310,11 @@
 }
 
 @media(max-width:480px){
-  .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); }
-  .charm-card { font-size:.9rem; }
-  .charm-card button { font-size:.85rem; }
-  .bracelet-grid { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
-  .slot { width:80px; height:80px; }
+  .catalog { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); }
+  .catalog__card { font-size:.9rem; }
+  .catalog__card button { font-size:.85rem; }
+  .bracelet { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); }
+  .bracelet__slot { width:80px; height:80px; }
 }
 
-#braceletHero{margin-bottom:12px;}
 #bracelet-color[hidden]{display:none;}
