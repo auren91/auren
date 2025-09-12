@@ -41,7 +41,7 @@
   }
   </script>
 </head>
-<body>
+<body class="page-home">
   <!-- AUREN: Navbar fijo y responsive -->
   <header class="header site-header">
     <div class="nav-wrapper container">
@@ -89,8 +89,10 @@
   <!-- AUREN: Hero con slider de fondo -->
   <section class="hero" aria-label="Auren">
     <div class="hero-slider">
-      <div class="slide active" style="background-image:url('img/heroes/hero-01.jpg');"></div>
-      <div class="slide" style="background-image:url('img/heroes/hero-02.jpg');"></div>
+      <picture class="slide active">
+        <source srcset="img/heroes/hero-01.webp" type="image/webp">
+        <img src="img/heroes/hero-01.jpg" alt="" loading="eager" decoding="async" fetchpriority="high">
+      </picture>
     </div>
     <div class="hero-overlay">
       <h1>Amor en cada detalle</h1>

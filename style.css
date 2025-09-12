@@ -41,6 +41,14 @@ body {
   line-height:1.6;
 }
 
+/* AUREN: page color tokens */
+.page-home{--hero-logo-tint:var(--auren-gold);--hero-logo-opacity:.15;}
+.page-charms{--hero-logo-tint:var(--auren-primary);--hero-logo-opacity:.12;}
+.page-joyeria{--hero-logo-tint:var(--auren-gold);--hero-logo-opacity:.18;}
+.page-ropa{--hero-logo-tint:var(--auren-soft);--hero-logo-opacity:.12;}
+.page-first{--hero-logo-tint:var(--auren-primary);--hero-logo-opacity:.18;}
+.page-builder{--hero-logo-tint:var(--auren-gold);--hero-logo-opacity:.1;}
+
 /* AUREN: tokens */
 :root{
   --auren-primary:#C2644C;
@@ -448,12 +456,19 @@ main{padding:100px 20px 40px;}
 }
 
 .hero{position:relative;height:100vh;overflow:hidden;color:var(--auren-text);background:var(--auren-bg-deep);}/* AUREN: hero slider */
-.hero::after{content:'';position:absolute;inset:0;background-image:url('/img/auren-imagotipo.png');background-repeat:no-repeat;background-position:center;background-size:clamp(280px,38vw,520px);opacity:.1;mix-blend-mode:luminosity;filter:drop-shadow(0 0 24px #0006);z-index:1;pointer-events:none;}/* AUREN: marca de agua */
+/* AUREN: hero imagotipo */
+.hero::before{content:'';position:absolute;inset:0;background-color:var(--hero-logo-tint);mask:url('/img/logos/imagotipo.png') no-repeat center/ clamp(280px,38vw,520px);-webkit-mask:url('/img/logos/imagotipo.png') no-repeat center/ clamp(280px,38vw,520px);opacity:var(--hero-logo-opacity);animation:aurenHeroIn 1.2s ease both;pointer-events:none;mix-blend-mode:luminosity;}
 .hero-slider{position:absolute;inset:0;z-index:0;}
-.hero-slider .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;background-color:var(--auren-bg-deep);}/* AUREN: fade coherente */
+.hero-slider .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;}/* AUREN: fade coherente */
+.hero-slider .slide img{width:100%;height:100%;object-fit:cover;display:block;}
 .hero-slider .slide.active{opacity:1;}
 .hero-overlay{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1rem;background:rgba(58,44,38,.55);padding:0 1rem;}/* AUREN: overlay cálida */
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;}
+
+@keyframes aurenHeroIn{
+  from{opacity:0;transform:scale(1.05);}
+  to{opacity:var(--hero-logo-opacity);transform:scale(1);}
+}
 
 .destacados{padding:4rem 0;}/* AUREN: sección destacados */
 .destacados-title{text-align:center;margin-bottom:2rem;color:var(--auren-text);}/* AUREN: título sección */

@@ -114,8 +114,9 @@ function initSliders(){
 function initHeroSlider(){
   const slides=document.querySelectorAll('.hero-slider .slide');
   const hero=document.querySelector('.hero');
-  const bg=getComputedStyle(document.documentElement).getPropertyValue('--auren-bg-deep').trim(); // AUREN: color de fade
-  if(hero) hero.style.backgroundColor=bg; /* AUREN: fondo coherente */
+  const rootStyles=getComputedStyle(document.documentElement);
+  const fadeColor=rootStyles.getPropertyValue('--auren-bg-deep').trim(); // AUREN: color de fade
+  if(hero) hero.style.backgroundColor=fadeColor; /* AUREN: fondo coherente */
   if(slides.length<2) return;
   let index=0;
   setInterval(()=>{
