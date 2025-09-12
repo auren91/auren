@@ -23,7 +23,7 @@
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "email": "contacto@auren.mx"
+      "email": "auren@arturoyenrique.com"
     },
     "address": {
       "@type": "PostalAddress",
@@ -42,23 +42,7 @@
   </script>
 </head>
 <body class="page-home">
-  <!-- AUREN: Navbar fijo y responsive -->
-  <header class="header site-header">
-    <div class="nav-wrapper container">
-      <a href="index.html" class="logo"><img src="img/logos/isotipo.png" alt="Auren" class="logo-header" loading="lazy" decoding="async"></a>
-      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
-      <nav class="nav" aria-label="principal">
-        <ul class="nav-menu">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="ropa.html">Ropa</a></li>
-          <li><a href="joyeria.html">Joyería</a></li>
-          <li><a href="charms.html">Charms</a></li>
-          <li><a href="firstdate.html">First Date</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div id="site-header"></div>
 
   <!-- AUREN: Barra de promoción reutilizada -->
   <div id="promoBar" class="promo-bar promo-bar--hidden" role="region" aria-label="Promoción" aria-live="polite">
@@ -86,21 +70,9 @@
     </div>
   </div>
 
-  <!-- AUREN: Hero con slider de fondo -->
-  <section class="hero" aria-label="Auren">
-    <div class="hero-slider">
-      <picture class="slide active">
-        <source srcset="img/heroes/hero-01.webp" type="image/webp">
-        <img src="img/heroes/hero-01.jpg" alt="" loading="eager" decoding="async" fetchpriority="high">
-      </picture>
-    </div>
-    <div class="hero-overlay">
-      <h1>Amor en cada detalle</h1>
-      <p>Accesorios y experiencias para enamorar.</p>
-      <div class="hero-ctas">
-        <a class="btn whatsapp" data-cta="whatsapp">Escríbenos por WhatsApp</a> <!-- AUREN: CTA dinámico -->
-        <a class="btn outline" href="#destacados">Ver Catálogo</a>
-      </div>
+  <section class="hero" style="background-image:url('img/heroes/hero-04.jpg');">
+    <div class="hero-content">
+      <img src="img/logos/logotipo.png" alt="Auren logotipo" class="logo-hero">
     </div>
   </section>
 
@@ -229,28 +201,7 @@
   </main>
 
   <!-- AUREN: Footer con información de contacto -->
-  <footer class="footer" id="contacto">
-    <div class="container footer-grid">
-      <div>
-        <h3>Contacto</h3>
-        <p><a data-cta="whatsapp" class="link">WhatsApp</a></p> <!-- AUREN: CTA dinámico -->
-        <p><a href="mailto:contacto@auren.mx" class="link">contacto@auren.mx</a></p>
-        <p>Manzanillo, MX</p>
-      </div>
-      <div>
-        <h3>Redes sociales</h3>
-        <div id="auren-socials" class="footer-social"></div> <!-- AUREN: footer social -->
-      </div>
-      <div>
-        <h3>Legal</h3>
-        <ul class="legal-links">
-          <li><a href="#" class="link">Aviso de privacidad</a></li>
-          <li><a href="#" class="link">Términos y condiciones</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">&copy; 2025 Auren. Todos los derechos reservados.</div>
-  </footer>
+  <div id="site-footer"></div>
 
   <dialog id="quick-view" class="glass"></dialog>
   <script src="scripts/destacados.js" defer></script>
