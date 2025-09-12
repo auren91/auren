@@ -12,6 +12,20 @@ let products=[];
 let braceletColor = localStorage.getItem('auren.braceletColor') || 'plata';
 let socialConfig={}; /* AUREN: config social global */
 
+// AUREN: carga de header y footer
+async function injectPartials(){
+  const [h,f]=await Promise.all([
+    fetch('/partials/header.html').then(r=>r.text()),
+    fetch('/partials/footer.html').then(r=>r.text())
+  ]);
+  document.querySelector('#site-header')?.replaceWith(
+    Object.assign(document.createElement('div'),{id:'site-header',innerHTML:h})
+  );
+  document.querySelector('#site-footer')?.replaceWith(
+    Object.assign(document.createElement('div'),{id:'site-footer',innerHTML:f})
+  );
+}
+
 async function loadCharmsCatalog(){
   try{
     const res=await fetch('data/charms.json');
@@ -73,7 +87,7 @@ function applyWhatsAppCTAs(){
 }
 
 document.addEventListener('DOMContentLoaded',async()=>{
-  await Promise.all([loadCharmsCatalog(), loadSocialConfig()]); /* AUREN: carga inicial */
+  await Promise.all([injectPartials(),loadCharmsCatalog(),loadSocialConfig()]); /* AUREN: carga inicial */
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
   initMenu();
