@@ -475,13 +475,26 @@ main{padding:100px 20px 40px;}
 .benefit:not(:last-child){border-right:1px solid rgba(214,167,122,.25);padding-right:2rem;}/* AUREN: separadores */
 @media(max-width:600px){.benefit:not(:last-child){border-right:none;border-bottom:1px solid rgba(214,167,122,.25);padding-right:0;padding-bottom:1rem;margin-bottom:1rem;}}/* AUREN: separador responsive */
 
-.testimonials{padding:4rem 0;}
-.testimonials h2{text-align:center;margin-bottom:2rem;color:var(--auren-text);}/* AUREN: título claro */
-.testimonials-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
-.testimonial{background:var(--auren-card);border-radius:1rem;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.3);color:var(--auren-text);}/* AUREN: tarjeta testimonio */
-.testimonial blockquote{font-style:italic;margin-bottom:1rem;position:relative;padding-left:1.5rem;}/* AUREN: texto testimonial */
-.testimonial blockquote::before{content:'\201C';position:absolute;left:0;top:0;font-size:2rem;color:var(--auren-primary);line-height:1;}/* AUREN: comilla decorativa */
-.stars{color:var(--auren-gold);margin-bottom:1rem;}/* AUREN: estrellas doradas */
+/* AUREN: reviews */
+.reviews{padding:4rem 0;}
+.reviews-grid{display:grid;gap:2rem;grid-template-columns:1fr;}
+@media(min-width:481px){.reviews-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:901px){.reviews-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:1100px){.reviews-grid{grid-template-columns:repeat(4,1fr);}}
+.review-card{background:var(--auren-card);border:1px solid rgba(214,167,122,.35);border-radius:22px;box-shadow:0 10px 28px rgba(0,0,0,.35);overflow:hidden;position:relative;transition:transform .3s ease,box-shadow .3s ease;}
+.review-card::before{content:"";position:absolute;inset:0;border-radius:22px;padding:1px;background:linear-gradient(135deg,rgba(214,167,122,.25),rgba(214,167,122,.05));pointer-events:none;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;}
+.review-card:hover,.review-card:focus-visible{box-shadow:0 16px 40px rgba(214,167,122,.18),inset 0 0 0 1px rgba(214,167,122,.55);transform:translateY(-4px) scale(1.01);}
+.review-card:focus-visible{outline:2px solid var(--ring);outline-offset:3px;}
+.review-media img{width:100%;height:180px;object-fit:cover;border-top-left-radius:22px;border-top-right-radius:22px;transition:filter .3s ease;}
+.review-card:hover .review-media img,.review-card:focus-visible .review-media img{filter:brightness(1.05) saturate(1.03);}
+@media(min-width:481px){.review-media img{height:220px;}}
+@media(min-width:1100px){.review-media img{height:260px;}}
+.review-body{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;}
+.review-title{font-family:'Playfair Display',serif;color:var(--auren-gold);font-size:1.25rem;}
+.review-quote{color:var(--auren-text);line-height:1.7;}
+.review-stars{color:var(--auren-gold);}
+.review-author{color:var(--auren-text-muted);font-size:.875rem;}
+@media(prefers-reduced-motion:reduce){.review-card{transition:none;}.review-card:hover,.review-card:focus-visible{transform:none;}}
 
 .footer{background:var(--auren-bg-deep);color:var(--auren-text);padding:3rem 0;border-top:1px solid var(--auren-surface);}/* AUREN: pie sobrio */
 .footer-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
