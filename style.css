@@ -43,16 +43,7 @@ body {
   line-height:1.6;
 }
 
-/* AUREN: tokens de tinte para imagotipo */
-.page-home   { --hero-logo-tint:#C2644C; --hero-logo-opacity:.12; }
-.page-charms { --hero-logo-tint:#D6A77A; --hero-logo-opacity:.12; }
-.page-ropa   { --hero-logo-tint:#EAC7BD; --hero-logo-opacity:.12; }
-.page-first  { --hero-logo-tint:#C2644C; --hero-logo-opacity:.11; }
-.page-builder{ --hero-logo-tint:#FFF7F2; --hero-logo-opacity:.09; }
-.page-product{ --hero-logo-tint:#D6A77A; --hero-logo-opacity:.10; }
-.page-coupon { --hero-logo-tint:#EAC7BD; --hero-logo-opacity:.11; }
 
-/* AUREN: tokens */
 :root{
   --auren-primary:#C2644C;
   --auren-gold:#D6A77A;
@@ -276,38 +267,8 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 }
 
 /* Hero */
-.hero{ 
-  position:relative;overflow:hidden;isolation:isolate;
-  height:70vh;background-size:cover;background-position:center;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  margin-top:0;color:var(--auren-text);
-}
-.hero>*{position:relative;z-index:1;}
-.hero img{width:clamp(180px,30vw,360px);opacity:0;animation:aurenHeroLogoIn .9s ease-out forwards;}
-.hero::after{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background-repeat:no-repeat;background-position:center;
-  background-size:clamp(280px,38vw,560px);
-  opacity:0;filter:drop-shadow(0 0 28px rgba(0,0,0,.25));mix-blend-mode:screen;
-  --t:var(--hero-logo-tint,#D6A77A);
-  background-image:
-    radial-gradient(circle at 50% 50%,var(--t) 0 70%,transparent 71%),
-    url("/img/logos/imagotipo.png");
-  background-blend-mode:color,normal;
-  animation:aurenHeroIn .9s ease-out forwards;animation-delay:.15s;
-}
-@keyframes aurenHeroIn{
-  0%{opacity:0;transform:scale(.96);}
-  100%{opacity:var(--hero-logo-opacity,.10);transform:scale(1);}
-}
-@keyframes aurenHeroLogoIn{
-  0%{opacity:0;transform:scale(.92);}
-  100%{opacity:1;transform:scale(1);}
-}
-@media(prefers-reduced-motion:reduce){
-  .hero::after{animation:none;opacity:var(--hero-logo-opacity,.10);}
-  .hero img{animation:none;opacity:1;}
-}
+.hero-content{position:relative;z-index:1;}
+.logo-hero{width:clamp(160px,40vw,240px);height:auto;}
 
 .categories{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
 

@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
   initMenu();
-  initHeroSlider();
   initSliders();
   initPromoBar();
   initSocialBanner();
@@ -125,20 +124,6 @@ function initSliders(){
   });
 }
 
-function initHeroSlider(){
-  const slides=document.querySelectorAll('.hero-slider .slide');
-  const hero=document.querySelector('.hero');
-  const rootStyles=getComputedStyle(document.documentElement);
-  const fadeColor=rootStyles.getPropertyValue('--auren-bg-deep').trim(); // AUREN: color de fade
-  if(hero) hero.style.backgroundColor=fadeColor; /* AUREN: fondo coherente */
-  if(slides.length<2) return;
-  let index=0;
-  setInterval(()=>{
-    slides[index].classList.remove('active');
-    index=(index+1)%slides.length;
-    slides[index].classList.add('active');
-  },5000); // AUREN: transición suave entre imágenes
-}
 
 function initPromoBar(){
   const bar=document.getElementById('promoBar');
