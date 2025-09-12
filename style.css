@@ -11,6 +11,8 @@
   --auren-surface:#5D4036; /* AUREN: bordes */
   --ring:#D6A77A; /* AUREN: foco accesible */
   --green:#25D366; /* AUREN: color WhatsApp */
+  --hero-logo-tint:#D6A77A; /* AUREN: default (joyería) */
+  --hero-logo-opacity:.10;
   /* AUREN: variables legacy para compatibilidad */
   --bg:var(--auren-bg);
   --text:var(--auren-text);
@@ -41,7 +43,7 @@ body {
   line-height:1.6;
 }
 
-/* AUREN: tokens */
+
 :root{
   --auren-primary:#C2644C;
   --auren-gold:#D6A77A;
@@ -265,30 +267,6 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 }
 
 /* Hero */
-.hero{
-  position:relative;
-  overflow:hidden;
-  height:70vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  color:var(--auren-text);
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:inherit;
-  background-size:inherit;
-  background-position:inherit;
-  background-repeat:inherit;
-  opacity:.3; /* 70% transparent */
-  z-index:0;
-}
 .hero-content{position:relative;z-index:1;}
 .logo-hero{width:clamp(160px,40vw,240px);height:auto;}
 
