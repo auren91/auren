@@ -1,0 +1,18 @@
+{
+  "instagram": [
+    "https://www.instagram.com/p/XXXXXXXXX/",
+    "https://www.instagram.com/p/YYYYYYYYY/",
+    "https://www.instagram.com/p/ZZZZZZZZZ/"
+  ],
+  "facebook": [
+    "https://www.facebook.com/<PAGE_ID>/posts/<POST_ID>",
+    "https://www.facebook.com/<PAGE_ID>/posts/<POST_ID>"
+  ],
+  "twitter": [
+    "https://twitter.com/auren2025/status/1234567890",
+    "https://twitter.com/auren2025/status/0987654321"
+  ],
+  "tiktok": [
+    "https://www.tiktok.com/@arturoyenrique/video/1234567890"
+  ]
+}

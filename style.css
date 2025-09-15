@@ -201,6 +201,55 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
   .social-banner--enter,.social-banner--visible,.social-banner--exit{transform:none;}
   body.social-banner-visible .header{transition:margin-top .2s ease;}
 }
+
+/* AUREN: social */
+.social-section{ padding:48px 0 24px; }
+.social-section h2{
+  font-family:"Playfair Display",serif;
+  color:var(--auren-gold);
+  margin-bottom:18px;
+}
+.social-actions{
+  display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;
+}
+.btn-follow{
+  display:inline-flex; align-items:center; gap:.5rem;
+  background: var(--auren-card);
+  border: 1px solid rgba(214,167,122,.35);
+  color: var(--auren-text);
+  padding:.55rem .9rem; border-radius:999px;
+  text-decoration:none; transition:transform .2s ease, box-shadow .2s ease, color .2s ease;
+}
+.btn-follow:hover,.btn-follow:focus-visible{
+  transform: translateY(-1px);
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  outline:2px solid var(--ring); outline-offset:2px;
+}
+.social-wall{
+  display:grid; gap:22px; grid-template-columns:1fr;
+}
+@media (min-width: 800px){
+  .social-wall{ grid-template-columns: repeat(3,1fr); }
+}
+/* Contenedor de cada embed */
+.embed-card{
+  background: var(--auren-card);
+  border: 1px solid rgba(214,167,122,.35);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .btn-follow{
+    transition:none;
+  }
+  .btn-follow:hover,
+  .btn-follow:focus-visible{
+    transform:none;
+    box-shadow:none;
+  }
+}
 .card{position:relative;background:rgba(255,247,242,.8);border:1px solid var(--suave);border-radius:16px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.08);transition:transform .3s;}
 .card:hover{transform:translateY(-4px);}
 .card .img-wrapper{position:relative;overflow:hidden;}
