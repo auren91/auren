@@ -267,8 +267,36 @@ body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo
 }
 
 /* Hero */
-.hero-content{position:relative;z-index:1;}
-.logo-hero{width:clamp(160px,40vw,240px);height:auto;}
+.hero{
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.3);
+  z-index:0;
+}
+.hero-content{
+  position: relative;
+  z-index:1;
+  text-align:center;
+}
+.logo-hero{
+  max-width: 280px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.45));
+  animation: fadeInUp 1s ease-out forwards;
+}
+@keyframes fadeInUp{
+  0%{ opacity:0; transform: translateY(20px); }
+  100%{ opacity:1; transform: translateY(0); }
+}
 
 .categories{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
 
