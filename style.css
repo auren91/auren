@@ -105,63 +105,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .price{display:flex;gap:8px;align-items:center;}
 .price-old{text-decoration:line-through;opacity:.6;}
 .price-new{font-weight:800;font-size:1.1em;}
-.promo-banner{background:var(--acento,#D6A77A);color:#111;text-align:center;padding:4px 10px;font-weight:700;font-size:.9rem;}
-.promo-banner a{color:#111;text-decoration:underline;}
-
-/* Promo Bar */
-.promo-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  background:var(--acento,#D6A77A);
-  color:#111;
-  font-size:.9rem;
-  font-weight:500;
-  padding:8px 16px;
-  z-index:1100;
-  box-shadow:0 2px 4px rgba(0,0,0,.08);
-  border-radius:0 0 8px 8px;
-  opacity:0;
-  transform:translateY(-8px);
-  transition:opacity .3s ease,transform .3s ease;
-}
-.promo-bar__content{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;}
-.promo-bar__icon{font-size:1rem;}
-.promo-bar__text{text-align:center;}
-.promo-bar__text--underline{text-decoration:underline;text-underline-offset:2px;}
-.promo-bar__close{
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-size:1rem;
-  line-height:1;
-  width:44px;
-  height:44px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:4px;
-  opacity:0;
-  transition:opacity .2s ease;
-  color:inherit;
-}
-.promo-bar__close:hover,
-.promo-bar__close:focus,
-.promo-bar:hover .promo-bar__close{opacity:1;}
-.promo-bar__close:focus{outline:2px solid var(--oscuro);outline-offset:2px;}
-
-.promo-bar--visible{opacity:1;transform:translateY(0);}
-.promo-bar--hiding{opacity:0;transform:translateY(-8px);}
-.promo-bar--hidden{display:none;}
-
-body.promo-bar-visible .header{margin-top:var(--promo-bar-height);transition:margin-top .3s ease;}
-
-@media(prefers-reduced-motion:reduce){
-  .promo-bar{transition:opacity .2s ease;transform:none;}
-  .promo-bar--hiding{transform:none;}
-  body.promo-bar-visible .header{transition:margin-top .2s ease;}
-}
 .promo-note{color:var(--principal);font-weight:700;}
 
 /* Social Banner */
@@ -191,7 +134,6 @@ body.promo-bar-visible .header{margin-top:var(--promo-bar-height);transition:mar
 .social-banner--visible{opacity:1;transform:translateY(0);}
 .social-banner--exit{opacity:0;transform:translateY(-8px);}
 body.social-banner-visible .header{margin-top:var(--social-banner-height);transition:margin-top .3s ease;}
-body.promo-bar-visible.social-banner-visible .header{margin-top:calc(var(--promo-bar-height)+var(--social-banner-height));}
 @media(max-width:600px){
   .social-banner__text{font-size:.8rem;}
   .social-banner__actions .btn{padding:6px 12px;font-size:.8rem;margin:0;}
