@@ -52,84 +52,58 @@ async function loadSocialConfig(){
   }
 }
 
-// AUREN: cargar posts del muro social (el cliente reemplazará los ejemplos del JSON)
+// AUREN: cargar sección social centrada en Facebook
 async function loadSocialWall(){
   const wall=document.getElementById('social-wall');
   if(!wall) return;
-  try{
-    const res=await fetch('/data/social_posts.json');
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data=await res.json();
-    wall.innerHTML='';
-
-    // X/Twitter
-    (data.twitter||[]).slice(0,3).forEach(url=>{
-      const wrap=document.createElement('div');
-      wrap.className='embed-card';
-      wrap.innerHTML=`<blockquote class="twitter-tweet"><a href="${url}"></a></blockquote>`;
-      wall.appendChild(wrap);
-    });
-
-    // TikTok
-    (data.tiktok||[]).slice(0,3).forEach(url=>{
-      const wrap=document.createElement('div');
-      wrap.className='embed-card';
-      wrap.innerHTML=`<blockquote class="tiktok-embed" cite="${url}" data-video-id="" style="max-width: 100%;min-width: 250px;"><section><a href="${url}" target="_blank" rel="noopener">Ver en TikTok</a></section></blockquote>`;
-      wall.appendChild(wrap);
-    });
-
-    // Facebook
-    (data.facebook||[]).slice(0,3).forEach(url=>{
-      const wrap=document.createElement('div');
-      wrap.className='embed-card';
-      wrap.innerHTML=`<div class="fb-post" data-href="${url}" data-width=""></div>`;
-      wall.appendChild(wrap);
-    });
-
-    // Instagram (fallback sin token)
-    (data.instagram||[]).slice(0,3).forEach(url=>{
-      const wrap=document.createElement('div');
-      wrap.className='embed-card';
-      wrap.innerHTML=`
-        <div style="display:grid;gap:8px;">
-          <span style="color:var(--auren-gold);font-weight:600;">Instagram</span>
-          <a class="btn-follow" href="${url}" target="_blank" rel="noopener noreferrer">Abrir publicación</a>
-        </div>`;
-      wall.appendChild(wrap);
-    });
-
-  }catch(err){
-    console.error('AUREN social wall error',err);
-  }finally{
-    loadPlatformScripts();
-  }
+  await ensureFacebookSDK(wall);
 }
 
-function loadPlatformScripts(){
-  // Twitter
-  if(!document.getElementById('twitter-wjs')){
-    const s=document.createElement('script');
-    s.id='twitter-wjs'; s.async=true; s.src='https://platform.twitter.com/widgets.js';
-    document.body.appendChild(s);
-  }
-  // TikTok
-  if(!document.getElementById('tiktok-embed')){
-    const t=document.createElement('script');
-    t.id='tiktok-embed'; t.async=true; t.src='https://www.tiktok.com/embed.js';
-    document.body.appendChild(t);
-  }
-  // Facebook
-  if(!document.getElementById('facebook-jssdk')){
+function ensureFacebookSDK(target){
+  return new Promise(resolve=>{
+    const parse=()=>{
+      if(window.FB&&window.FB.XFBML){
+        window.FB.XFBML.parse(target||undefined);
+      }
+      resolve();
+    };
+
+    if(window.FB&&window.FB.XFBML){
+      parse();
+      return;
+    }
+
+    const existing=document.getElementById('facebook-jssdk');
+    if(existing){
+      if(existing.dataset.loaded==='true'){
+        parse();
+        return;
+      }
+      existing.addEventListener('load',()=>{
+        existing.dataset.loaded='true';
+        parse();
+      },{once:true});
+      existing.addEventListener('error',resolve,{once:true});
+      return;
+    }
+
     if(!document.getElementById('fb-root')){
       const fb=document.createElement('div');
       fb.id='fb-root';
       document.body.appendChild(fb);
     }
-    const s=document.createElement('script');
-    s.id='facebook-jssdk'; s.async=true;
-    s.src='https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0';
-    document.body.appendChild(s);
-  }
+
+    const script=document.createElement('script');
+    script.id='facebook-jssdk';
+    script.async=true;
+    script.src='https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0';
+    script.onload=()=>{
+      script.dataset.loaded='true';
+      parse();
+    };
+    script.onerror=resolve;
+    document.body.appendChild(script);
+  });
 }
 
 function getWhatsappLink(message=''){
