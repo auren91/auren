@@ -118,24 +118,24 @@ function renderFooterSocials(container){
   const links=[
     social.whatsapp_link?`
     <a class="btn-whatsapp" href="${social.whatsapp_link}" target="_blank" rel="noopener noreferrer" data-cta="whatsapp" title="Escríbenos por WhatsApp" aria-label="Escríbenos por WhatsApp">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-9.95 9.05A10 10 0 0 0 4 18.91L2 22l3.24-.85A10 10 0 1 0 12 2zm0 18a7.94 7.94 0 0 1-4.2-1.21l-.3-.18-2.5.66.67-2.44-.2-.32A7.94 7.94 0 1 1 12 20zm4.38-6.32c-.24-.12-1.42-.7-1.64-.78s-.38-.12-.54.12-.62.78-.76.94-.28.18-.52.06a6.53 6.53 0 0 1-1.92-1.18 7.21 7.21 0 0 1-1.34-1.66c-.14-.24 0-.36.1-.48.1-.1.24-.28.36-.42s.16-.24.24-.4a.43.43 0 0 0 0-.42c-.06-.12-.54-1.3-.74-1.78s-.4-.42-.54-.42-.3-.06-.46-.06-.42.06-.64.3-.84.82-.84 2 1 2.26 1.14 2.42 2.02 3.08 4.9 4.32a16.7 16.7 0 0 0 1.66.6 4 4 0 0 0 1.84.12 3 3 0 0 0 2-1.4 2.4 2.4 0 0 0 .16-1.4c-.06-.12-.22-.18-.46-.3z"/></svg>
+      <svg viewBox="0 0 32 32" class="icon" aria-hidden="true"><path fill="currentColor" d="M16 2.9C8.5 2.9 2.4 8.9 2.4 16.3c0 2.8.8 5.4 2.3 7.7L2 30l6.2-2.6c2.2 1.2 4.7 1.8 7.2 1.8 7.5 0 13.6-6.1 13.6-13.6S23.5 2.9 16 2.9zM16 26c-2.2 0-4.3-.6-6.1-1.7l-.4-.2-3.7 1.5.7-3.9-.3-.4c-1.3-1.9-2-4.2-2-6.6 0-6.5 5.3-11.8 11.8-11.8S27.8 9.3 27.8 15.8 22.5 26 16 26zm6.5-8.4c-.4-.2-2.2-1.1-2.5-1.2s-.6-.2-.9.2-1 1.2-1.2 1.5c-.2.2-.5.3-.9.1s-1.7-.6-3.2-2c-1.2-1.1-2-2.5-2.3-2.9-.2-.4 0-.6.2-.8s.4-.5.6-.7c.2-.2.3-.4.5-.6.2-.2.1-.5 0-.7s-.9-2.1-1.3-2.9c-.3-.7-.7-.6-1-.6h-.9c-.3 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 3.9c.2.2 2.7 4.1 6.6 5.7.9.4 1.6.6 2.2.8.9.2 1.7.1 2.3.1.7-.1 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.2-.4-.4-.5-.8-.6z"/></svg>
       <span>Escríbenos por WhatsApp</span>
     </a>`:'',
     social.instagram?`
-    <a href="${social.instagram}" target="_blank" rel="noopener noreferrer" title="Abrir Instagram de Auren" aria-label="Abrir Instagram de Auren">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6zm4.5-3.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>
+    <a class="social-btn" href="${social.instagram}" target="_blank" rel="noopener noreferrer" title="Abrir Instagram de Auren" aria-label="Abrir Instagram de Auren">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path fill="currentColor" d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2.2a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6zm4.5-3.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>
     </a>`:'',
     social.facebook?`
-    <a href="${social.facebook}" target="_blank" rel="noopener noreferrer" title="Abrir Facebook de Auren" aria-label="Abrir Facebook de Auren">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H16l-.5 3h-2v7A10 10 0 0 0 22 12"/></svg>
+    <a class="social-btn" href="${social.facebook}" target="_blank" rel="noopener noreferrer" title="Abrir Facebook de Auren" aria-label="Abrir Facebook de Auren">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H16l-.5 3h-2v7A10 10 0 0 0 22 12"/></svg>
     </a>`:'',
     social.twitter?`
-    <a href="${social.twitter}" target="_blank" rel="noopener noreferrer" title="Abrir Twitter de Auren" aria-label="Abrir Twitter de Auren">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 4.01c-.77.35-1.6.58-2.46.69a4.25 4.25 0 0 0 1.88-2.35 8.48 8.48 0 0 1-2.7 1.03 4.22 4.22 0 0 0-7.2 3.85A12 12 0 0 1 3 3.79a4.21 4.21 0 0 0 1.31 5.63 4.2 4.2 0 0 1-1.91-.53v.05a4.23 4.23 0 0 0 3.39 4.14 4.2 4.2 0 0 1-1.9.07 4.23 4.23 0 0 0 3.94 2.93A8.5 8.5 0 0 1 2 19.54a12 12 0 0 0 6.29 1.84c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.35-.02-.53A8.35 8.35 0 0 0 22 4.01z"/></svg>
+    <a class="social-btn" href="${social.twitter}" target="_blank" rel="noopener noreferrer" title="Abrir Twitter de Auren" aria-label="Abrir Twitter de Auren">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path fill="currentColor" d="M22 4.01c-.77.35-1.6.58-2.46.69a4.25 4.25 0 0 0 1.88-2.35 8.48 8.48 0 0 1-2.7 1.03 4.22 4.22 0 0 0-7.2 3.85A12 12 0 0 1 3 3.79a4.21 4.21 0 0 0 1.31 5.63 4.2 4.2 0 0 1-1.91-.53v.05a4.23 4.23 0 0 0 3.39 4.14 4.2 4.2 0 0 1-1.9.07 4.23 4.23 0 0 0 3.94 2.93A8.5 8.5 0 0 1 2 19.54a12 12 0 0 0 6.29 1.84c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.35-.02-.53A8.35 8.35 0 0 0 22 4.01z"/></svg>
     </a>`:'',
     social.tiktok?`
-    <a href="${social.tiktok}" target="_blank" rel="noopener noreferrer" title="Abrir TikTok de Auren" aria-label="Abrir TikTok de Auren">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2h3.5a4.5 4.5 0 0 0 4.5 4.5V10a7.5 7.5 0 0 1-4-1.1v6.6a5.8 5.8 0 1 1-5.8-5.8 5.7 5.7 0 0 1 2 .36V13a3 3 0 1 0 2-2.83z"/></svg>
+    <a class="social-btn" href="${social.tiktok}" target="_blank" rel="noopener noreferrer" title="Abrir TikTok de Auren" aria-label="Abrir TikTok de Auren">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path fill="currentColor" d="M12.9 2h3.1c.2 2 1.7 3.7 3.6 4v3.2c-1.4 0-2.8-.4-4-1.1v5.9a6.9 6.9 0 11-6.9-6.9c.4 0 .8 0 1.2.1v3.4a3.5 3.5 0 103.1 3.5V2z"/></svg>
     </a>`:''
   ].filter(Boolean);
   const markup=links.map(link=>link.trim()).join('\n');
