@@ -49,23 +49,61 @@ body {
   --auren-gold:#D6A77A;
   --auren-text:#FFF7F2;
 }
-.footer-social a{
-  color: var(--auren-text);
-  text-decoration: none;
-  transition: transform .2s ease, color .2s ease;
-  outline-offset: 2px;
+/* AUREN: botones sociales */
+.footer-social { 
+  display:flex; 
+  gap:12px; 
+  align-items:center; 
+  justify-content:center;
+  flex-wrap:wrap;
 }
-.footer-social a:hover,
-.footer-social a:focus-visible{
-  color: var(--auren-gold);
-  transform: translateY(-1px);
+
+.social-btn {
+  width:42px; height:42px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:999px;
+  background: var(--auren-card, #3c2c27);
+  border: 1px solid rgba(214,167,122,0.4);
+  color: var(--auren-text, #fff);
+  transition: transform .2s ease, box-shadow .2s ease, color .2s ease;
+  text-decoration:none;
 }
-.btn-whatsapp{
-  background: var(--auren-primary);
-  color: var(--auren-text);
-  border-radius: 999px;
-  padding: .7rem 1.1rem;
-  display: inline-flex; align-items: center; gap: .5rem;
+
+.social-btn:hover,
+.social-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  color: var(--auren-gold, #D6A77A);
+  outline: none;
+}
+
+.social-btn .icon {
+  width:22px; height:22px;
+  display:block;
+}
+
+.btn-whatsapp {
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  padding:10px 20px;
+  border-radius:999px;   /* redondeado */
+  background: var(--auren-main, #C2644C);
+  color:#fff;
+  font-weight:500;
+  text-decoration:none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn-whatsapp .icon {
+  width:20px; height:20px;
+  display:block;
+}
+
+.btn-whatsapp:hover,
+.btn-whatsapp:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  outline:none;
 }
 
 h1,h2,h3 {
