@@ -20,55 +20,60 @@
   </section>
 
   <main class="container">
-    <div class="calculadora">
-      <section class="configuracion">
-        <h2>Configura tu pulsera</h2>
+    <section class="builder-wrap" aria-label="Constructor de pulsera">
+      <aside class="builder-panel" aria-labelledby="builder-title">
+        <h2 id="builder-title">Configura tu pulsera</h2>
+
         <label for="eslabones">Eslabones</label>
-        <input type="number" id="eslabones" min="15" max="23" value="18">
-        <label for="pulseraTipo">Tipo</label>
-        <select id="pulseraTipo">
+        <input id="eslabones" type="number" min="15" max="23" step="1" value="18">
+
+        <label for="tipoPulsera">Tipo</label>
+        <select id="tipoPulsera">
           <option value="plata">Plata</option>
           <option value="dorada">Dorada</option>
           <option value="negra">Negra</option>
-          <option value="plata con grabado">Plata con grabado</option>
         </select>
-        <label for="pulseraColor">Color</label>
-        <select id="pulseraColor">
-          <option value="rojo">Rojo</option>
-          <option value="rosa">Rosa</option>
-          <option value="morado">Morado</option>
-          <option value="azul">Azul</option>
-          <option value="turquesa">Turquesa</option>
-          <option value="verde">Verde</option>
-          <option value="amarillo">Amarillo</option>
-          <option value="naranja">Naranja</option>
-          <option value="negro">Negro</option>
-          <option value="blanco">Blanco</option>
-          <option value="gris">Gris</option>
-          <option value="plata grabada">Plata grabada</option>
-        </select>
+
+        <label for="colorPulsera">Color</label>
+        <select id="colorPulsera" aria-label="Color del hilo/acento"></select>
         <span id="colorPreview" class="color-preview" aria-hidden="true"></span>
-      </section>
 
-      <section id="catalog" aria-label="Catálogo de charms"></section>
-
-      <aside id="resumen" class="resumen" aria-live="polite">
-        <h2>Resumen</h2>
-        <p id="resumenPulsera">Pulsera: plata - rojo (18 eslabones)</p>
-        <p>Pulsera base: $150 MXN</p>
-        <ul id="resumenLista"></ul>
-        <p>Charms: <span id="resumenCantidad">0</span></p>
-        <p>Subtotal charms: $<span id="resumenSubtotal">0</span> MXN</p>
-        <p>Total: $<span id="resumenTotal">150</span> MXN</p>
-        <div class="buttons">
-          <button id="btnVaciar">Vaciar</button>
-          <button id="btnGuardar">Guardar</button>
-          <button id="btnCargar">Cargar</button>
-          <button id="btnPDF">PDF</button>
-          <button id="btnWhatsApp" class="whatsapp">Escríbenos por WhatsApp</button> <!-- AUREN: CTA dinámico -->
+        <div class="panel-actions">
+          <button id="btnVaciar" class="btn ghost">Vaciar</button>
+          <button id="btnGuardar" class="btn">Guardar</button>
+          <button id="btnCargar"  class="btn">Cargar</button>
+          <button id="btnPDF"     class="btn outline">PDF</button>
+          <a id="btnWA" class="btn brand" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
         </div>
       </aside>
-    </div>
+
+      <main class="builder-main">
+        <h3>Lotes de charms</h3>
+        <div id="lotesGrid" class="lotes-grid" aria-live="polite"></div>
+
+        <h3 class="mt">Catálogo completo <span id="catalogCount" class="catalog-count" aria-live="polite"></span></h3>
+        <div class="catalog-toolbar">
+          <input id="buscadorCharm" type="search" placeholder="Buscar (p. ej. flor, corazón, #123)">
+          <span id="paginInfo"></span>
+          <div class="pager">
+            <button id="prevPage" class="btn sm outline" type="button" aria-label="Página anterior">←</button>
+            <button id="nextPage" class="btn sm outline" type="button" aria-label="Página siguiente">→</button>
+          </div>
+        </div>
+        <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+      </main>
+
+      <aside class="builder-summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Resumen</h2>
+        <ul class="resume-list">
+          <li><span>Pulsera</span><strong id="resPulsera">$0.00</strong></li>
+          <li><span>Charms</span><strong id="resCharms">$0.00</strong></li>
+          <li class="sub"><span>Subtotal charms</span><strong id="resSubCharms">$0.00</strong></li>
+          <li class="total"><span>Total</span><strong id="resTotal">$0.00</strong></li>
+        </ul>
+        <div id="resumenDetalle" class="resume-detail"></div>
+      </aside>
+    </section>
   </main>
 
   <section id="nuevos-charms" class="charms-grid-section" aria-labelledby="nuevos-charms-title">
