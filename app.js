@@ -68,103 +68,6 @@ async function loadSocialConfig(){
   }
 }
 
-async function renderSocialEmbeds(){
-  const socialGrid=document.getElementById('social-grid');
-  if(!socialGrid) return;
-
-  try{
-    const response=await fetch('data/social_embeds.json',{cache:'no-store'});
-    if(!response.ok) throw new Error('HTTP '+response.status);
-    const cfg=await response.json();
-
-    socialGrid.innerHTML='';
-
-    const instagramPosts=Array.isArray(cfg.instagram_posts)?cfg.instagram_posts:[];
-    instagramPosts.forEach(url=>{
-      const card=createEmbedCard(url,'ig',`
-        <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0 auto; max-width:540px; min-width:326px;">
-        </blockquote>
-      `);
-      socialGrid.appendChild(card);
-      setupEmbedFallback(card);
-    });
-
-    const facebookPosts=Array.isArray(cfg.facebook_posts)?cfg.facebook_posts:[];
-    facebookPosts.forEach(url=>{
-      const card=createEmbedCard(url,'fb',`<div class="fb-post" data-href="${url}" data-width=""></div>`);
-      socialGrid.appendChild(card);
-      setupEmbedFallback(card);
-    });
-
-    if(window.instgrm&&window.instgrm.Embeds){
-      window.instgrm.Embeds.process();
-    }else{
-      setTimeout(()=>{
-        if(window.instgrm&&window.instgrm.Embeds){
-          window.instgrm.Embeds.process();
-        }
-      },1200);
-    }
-
-    if(window.FB&&window.FB.XFBML&&window.FB.XFBML.parse){
-      window.FB.XFBML.parse();
-    }else{
-      document.addEventListener('fb_init',()=>window.FB&&window.FB.XFBML&&window.FB.XFBML.parse&&window.FB.XFBML.parse(),{once:true});
-    }
-
-  }catch(err){
-    console.error('AUREN social embeds error:',err);
-    socialGrid.innerHTML='';
-    const card=document.createElement('article');
-    card.className='embed-card show-fallback';
-    const fallback=document.createElement('div');
-    fallback.className='embed-fallback';
-    fallback.innerHTML='<p>No se pudieron cargar las publicaciones.</p>';
-    card.appendChild(fallback);
-    socialGrid.appendChild(card);
-  }
-}
-
-function createEmbedCard(url,type,html){
-  const card=document.createElement('article');
-  card.className='embed-card';
-  if(type){
-    card.classList.add(type);
-  }
-  if(html){
-    card.insertAdjacentHTML('afterbegin',html.trim());
-  }
-  const fallback=document.createElement('div');
-  fallback.className='embed-fallback';
-  fallback.innerHTML=`<p>No se pudo mostrar la publicación.</p><a href="${url}" target="_blank" rel="noopener noreferrer">Abrir publicación</a>`;
-  card.appendChild(fallback);
-  return card;
-}
-
-function setupEmbedFallback(card){
-  const timer=setTimeout(()=>{
-    if(!card.querySelector('iframe')){
-      card.classList.add('show-fallback');
-    }
-  },5000);
-  const observer=new MutationObserver(()=>{
-    if(card.querySelector('iframe')){
-      card.classList.remove('show-fallback');
-      clearTimeout(timer);
-      observer.disconnect();
-    }
-  });
-  observer.observe(card,{childList:true,subtree:true});
-}
-
-(function waitFB(){
-  if(window.FB&&window.FB.XFBML&&window.FB.XFBML.parse){
-    document.dispatchEvent(new Event('fb_init'));
-  }else{
-    setTimeout(waitFB,400);
-  }
-})();
-
 function getWhatsappLink(message=''){
   const num=(socialConfig.whatsapp_number_e164||'').replace(/[^0-9]/g,'');
   const base=`https://wa.me/${num}`;
@@ -215,7 +118,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
   await Promise.all([injectPartials(),loadCharmsCatalog(),loadSocialConfig()]); /* AUREN: carga inicial */
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
-  renderSocialEmbeds();
   setupLightbox();
   initMenu();
   initSliders();

@@ -217,61 +217,28 @@ body.social-banner-visible .header{margin-top:var(--social-banner-height);transi
 
 /* AUREN: social */
 .social-section{
-  max-width:1100px;
-  margin:0 auto 64px;
-  padding:0 16px;
+  max-width:1200px;
+  margin:20px auto 64px;
+  padding:0 20px;
 }
 .social-title{
+  color:#D6A77A;
+  margin:8px 0 20px;
+  font-weight:800;
   text-align:center;
-  color:var(--auren-gold,#D6A77A);
-  margin:8px 0 18px;
-  font-weight:700;
-  letter-spacing:.5px;
-  font-family:"Playfair Display",serif;
 }
-.social-grid{
+.ig-grid{
   display:grid;
   gap:22px;
   grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:start;
 }
-@media (max-width:1024px){
-  .social-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (max-width:1100px){
+  .ig-grid{grid-template-columns:repeat(2,1fr);}
 }
-@media (max-width:640px){
-  .social-grid{grid-template-columns:1fr;}
+@media (max-width:680px){
+  .ig-grid{grid-template-columns:1fr;}
 }
-.embed-card{
-  background:var(--auren-card,#3a2a25);
-  border:1px solid rgba(214,167,122,.25);
-  border-radius:14px;
-  box-shadow:0 14px 38px rgba(0,0,0,.35);
-  padding:12px;
-  display:grid;
-  align-content:start;
-  gap:12px;
-}
-.embed-card.ig{padding-bottom:10px;}
-.embed-card.fb{padding-bottom:10px;}
-.embed-card .instagram-media{
-  margin:0!important;
-  width:100%!important;
-  max-width:520px!important;
-}
-.embed-card iframe{
-  width:100%!important;
-  max-width:520px!important;
-  border-radius:10px;
-}
-.embed-card>*{
-  justify-self:center;
-  width:100%;
-}
-.embed-card,
-.embed-card *{
-  box-sizing:border-box;
-}
-.embed-card.ig{order:1;}
-.embed-card.fb{order:2;}
 .social-actions{
   display:flex;
   justify-content:center;
@@ -1145,20 +1112,4 @@ main{padding:100px 20px 40px;}
   position: absolute; top: 14px; right: 18px;
   background: transparent; border: none; color: #fff;
   font-size: 32px; line-height: 1; cursor: pointer;
-}
-/* Tarjeta contenedora por si algún embed falla */
-.embed-card .embed-fallback{display:none;}
-.embed-card.show-fallback .embed-fallback{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:24px;
-  text-align:center;
-  color:#fff;
-}
-.embed-fallback a{
-  color:#D6A77A;
-  text-decoration:underline;
 }
