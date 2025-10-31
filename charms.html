@@ -19,7 +19,7 @@
     </div>
   </section>
 
-  <main class="container">
+  <main class="charms-main">
     <section class="builder-wrap" aria-label="Constructor de pulsera">
       <aside class="builder-panel" aria-labelledby="builder-title">
         <h2 id="builder-title">Configura tu pulsera</h2>
@@ -50,17 +50,6 @@
       <main class="builder-main">
         <h3>Lotes de charms</h3>
         <div id="lotesGrid" class="lotes-grid" aria-live="polite"></div>
-
-        <h3 class="mt">Catálogo completo <span id="catalogCount" class="catalog-count" aria-live="polite"></span></h3>
-        <div class="catalog-toolbar">
-          <input id="buscadorCharm" type="search" placeholder="Buscar (p. ej. flor, corazón, #123)">
-          <span id="paginInfo"></span>
-          <div class="pager">
-            <button id="prevPage" class="btn sm outline" type="button" aria-label="Página anterior">←</button>
-            <button id="nextPage" class="btn sm outline" type="button" aria-label="Página siguiente">→</button>
-          </div>
-        </div>
-        <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
       </main>
 
       <aside class="builder-summary" aria-labelledby="summary-title">
@@ -74,13 +63,26 @@
         <div id="resumenDetalle" class="resume-detail"></div>
       </aside>
     </section>
-  </main>
 
-  <section id="nuevos-charms" class="charms-grid-section" aria-labelledby="nuevos-charms-title">
-    <h2 id="nuevos-charms-title">Nuevos charms</h2>
-    <p class="charms-sub">Colección actualizada · Pasa el cursor para ver el detalle</p>
-    <div id="charms-grid" class="charms-grid" aria-live="polite"></div>
-  </section>
+    <section class="charms-hero"></section>
+
+    <section id="charms-gallery" class="charms-gallery">
+      <header class="cg-header">
+        <h2 class="cg-title">Nuevos charms</h2>
+        <p class="cg-sub">Colección actualizada · Pasa el cursor para ver el detalle</p>
+        <div class="cg-controls">
+          <input id="cg-search" type="search" placeholder="Buscar (p. ej. flor, corazón, #123)" aria-label="Buscar charms" />
+          <div class="cg-pager">
+            <button class="cg-prev" aria-label="Anterior">←</button>
+            <span class="cg-pageinfo" aria-live="polite">Página 1 de N</span>
+            <button class="cg-next" aria-label="Siguiente">→</button>
+          </div>
+        </div>
+      </header>
+
+      <div id="cg-grid" class="cg-grid" aria-live="polite" aria-busy="false"></div>
+    </section>
+  </main>
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
@@ -91,7 +93,9 @@
   <div id="site-footer"></div>
 
   <script src="app.js"></script>
+  <script src="data/charms.manifest.js" defer></script>
+  <script src="scripts/charms-gallery.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="assets/js/charms.js"></script>
+  <script src="assets/js/charms.js" defer></script>
 </body>
 </html>

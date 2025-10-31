@@ -57,13 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPDF = document.getElementById('btnPDF');
   const btnWA = document.getElementById('btnWA');
 
-  const catalogGrid = document.getElementById('catalogGrid');
-  const catalogCount = document.getElementById('catalogCount');
-  const paginInfo = document.getElementById('paginInfo');
-  const prevPageBtn = document.getElementById('prevPage');
-  const nextPageBtn = document.getElementById('nextPage');
-  const buscadorCharm = document.getElementById('buscadorCharm');
-
   if (!eslabonesInput || !tipoSelect || !colorSelect) {
     return;
   }
@@ -74,11 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
     price: parseInt((file.match(/\d+/) || ['0'])[0], 10),
     qty: 0
   }));
-
-  let catalog = [];
-  let filteredCatalog = [];
-  let page = 1;
-  const pageSize = 20;
 
   function formatMXN(value) {
     return Number(value || 0).toLocaleString('es-MX', {
@@ -303,94 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function cargarCatalogo() {
-    try {
-      const response = await fetch('data/charm_photos.json', { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      catalog = await response.json();
-      if (Array.isArray(catalog) && catalog.length > 261) {
-        catalog = catalog.slice(0, 261);
-      }
-    } catch (error) {
-      console.error('AUREN charms: no se pudo cargar el catálogo', error);
-      catalog = [];
-    }
-    filteredCatalog = [...catalog];
-    page = 1;
-    renderCatalog();
-    if (catalogCount) {
-      catalogCount.textContent = catalog.length ? `(${catalog.length})` : '(0)';
-    }
-  }
-
-  function clampPage() {
-    const totalPages = Math.max(1, Math.ceil(filteredCatalog.length / pageSize));
-    page = Math.min(Math.max(1, page), totalPages);
-    return totalPages;
-  }
-
-  function currentSlice() {
-    const start = (page - 1) * pageSize;
-    return filteredCatalog.slice(start, start + pageSize);
-  }
-
-  function renderCatalog() {
-    if (!catalogGrid) {
-      return;
-    }
-
-    catalogGrid.innerHTML = '';
-    const totalPages = clampPage();
-    const slice = currentSlice();
-
-    if (!slice.length) {
-      const empty = document.createElement('p');
-      empty.textContent = buscadorCharm && buscadorCharm.value.trim()
-        ? 'No encontramos charms con ese término.'
-        : 'El catálogo se está cargando…';
-      catalogGrid.appendChild(empty);
-    } else {
-      const fragment = document.createDocumentFragment();
-      slice.forEach(src => {
-        const card = document.createElement('article');
-        card.className = 'charm-card';
-        card.innerHTML = `
-          <a class="charm-frame" href="${src}" data-full="${src}" aria-label="Ver charm">
-            <img class="charm-img" src="${src}" loading="lazy" decoding="async" alt="Charm Auren">
-          </a>
-        `;
-        fragment.appendChild(card);
-      });
-      catalogGrid.appendChild(fragment);
-    }
-
-    if (paginInfo) {
-      const totalItems = filteredCatalog.length;
-      paginInfo.textContent = `Página ${page} de ${Math.max(1, totalPages)} (${totalItems} ítems)`;
-    }
-    if (prevPageBtn) prevPageBtn.disabled = page <= 1;
-    if (nextPageBtn) nextPageBtn.disabled = page >= totalPages;
-  }
-
-  function handleSearch(term) {
-    const query = term.trim().toLowerCase();
-    if (!query) {
-      filteredCatalog = [...catalog];
-    } else {
-      filteredCatalog = catalog.filter(src => src.toLowerCase().includes(query));
-    }
-    page = 1;
-    renderCatalog();
-  }
-
   initColorOptions();
   renderLotes();
   loadState();
   hydrateStepperValues();
   updateResumen();
-  cargarCatalogo();
 
   colorSelect.addEventListener('change', () => {
     updateColorPreview();
@@ -413,29 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnPDF?.addEventListener('click', generatePDF);
-
-  if (prevPageBtn && nextPageBtn) {
-    prevPageBtn.addEventListener('click', () => {
-      if (page > 1) {
-        page -= 1;
-        renderCatalog();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-
-    nextPageBtn.addEventListener('click', () => {
-      const totalPages = Math.max(1, Math.ceil(filteredCatalog.length / pageSize));
-      if (page < totalPages) {
-        page += 1;
-        renderCatalog();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  }
-
-  buscadorCharm?.addEventListener('input', (event) => {
-    handleSearch(event.target.value);
-  });
 
   window.addEventListener('beforeunload', saveState);
 });

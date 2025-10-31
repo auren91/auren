@@ -216,7 +216,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
   renderSocialEmbeds();
-  renderCharmGallery();
   setupLightbox();
   initMenu();
   initSliders();
@@ -499,67 +498,44 @@ function initProductPage(){
   });
 }
 
-async function renderCharmGallery(){
-  const grid=document.getElementById('charms-grid');
-  if(!grid) return;
-
-  try{
-    const res=await fetch('data/charm_photos.json',{cache:'no-store'});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const files=await res.json();
-
-    const frag=document.createDocumentFragment();
-    files.forEach(src=>{
-      const card=document.createElement('article');
-      card.className='charm-card';
-
-      const frame=document.createElement('a');
-      frame.className='charm-frame';
-      frame.href=src;
-      frame.setAttribute('data-full',src);
-      frame.setAttribute('aria-label','Ver charm ampliado');
-
-      const img=document.createElement('img');
-      img.className='charm-img';
-      img.src=src;
-      img.loading='lazy';
-      img.decoding='async';
-      img.alt='Charm Auren';
-
-      frame.appendChild(img);
-      card.appendChild(frame);
-      frag.appendChild(card);
-    });
-    grid.appendChild(frag);
-  }catch(err){
-    console.error('AUREN charms: no se pudo cargar el manifiesto',err);
-  }
-}
-
 function setupLightbox(){
   const lb=document.getElementById('lightbox');
   const lbImg=document.getElementById('lightbox-img');
   const closeBtn=lb?.querySelector('.lightbox-close');
   if(!lb || !lbImg) return;
 
-  document.addEventListener('click',e=>{
-    const trigger=e.target.closest?.('.charm-frame');
-    if(trigger){
-      e.preventDefault();
-      lbImg.src=trigger.dataset.full||trigger.href;
-      lb.classList.add('open');
-      lb.setAttribute('aria-hidden','false');
-    }
-    if(e.target===lb){
-      lb.classList.remove('open');
-      lb.setAttribute('aria-hidden','true');
-      lbImg.src='';
-    }
-  });
+  const open=src=>{
+    if(!src) return;
+    lbImg.src=src;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+  };
 
-  closeBtn?.addEventListener('click',()=>{
+  const close=()=>{
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden','true');
     lbImg.src='';
+  };
+
+  document.addEventListener('click',e=>{
+    const trigger=e.target.closest?.('[data-lightbox-src], .charm-frame');
+    if(trigger){
+      e.preventDefault();
+      open(trigger.dataset.lightboxSrc||trigger.dataset.full||trigger.getAttribute('href'));
+    }
+    if(e.target===lb){
+      close();
+    }
   });
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ close(); }
+    if((e.key==='Enter'||e.key===' ') && document.activeElement?.hasAttribute('data-lightbox-src')){
+      e.preventDefault();
+      const src=document.activeElement.dataset.lightboxSrc;
+      open(src);
+    }
+  });
+
+  closeBtn?.addEventListener('click',close);
 }
