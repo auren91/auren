@@ -1,43 +1,39 @@
 <section id="social" class="social-section" aria-labelledby="social-title">
-  <div class="container">
-    <h2 id="social-title">Síguenos</h2>
-    <section id="social-embeds" class="social-embeds">
-      <div class="embed-row" id="ig-embeds" aria-label="Instagram"></div>
-      <div class="embed-row" id="fb-embeds" aria-label="Facebook"></div>
-    </section>
+  <h2 id="social-title" class="social-title">Síguenos</h2>
 
-    <!-- SDKs (una sola vez en todo el sitio) -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
-      src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0"></script>
-    <script async defer src="https://www.instagram.com/embed.js"></script>
+  <div id="social-grid" class="social-grid" aria-label="Publicaciones de Instagram y Facebook"></div>
 
-    <div class="social-actions" aria-label="Redes sociales de Auren">
-      <a class="social-follow-btn" href="https://www.facebook.com/profile.php?id=615785765150563" target="_blank" rel="noopener noreferrer" aria-label="Seguir en Facebook" title="Seguir en Facebook">
-        <span class="sr-only">Seguir en Facebook</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.98 3.64 9.12 8.4 9.88v-6.99H7.9v-2.89h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9h2.7l-.44 2.9h-2.27v6.99c4.77-.76 8.4-4.9 8.4-9.88 0-5.5-4.46-9.96-9.96-9.96z"/>
-        </svg>
-      </a>
-      <a class="social-follow-btn" href="https://x.com/auren2025" target="_blank" rel="noopener noreferrer" aria-label="Seguir en X" title="Seguir en X">
-        <span class="sr-only">Seguir en X</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M4 4h4.56l3.44 4.86L15.44 4H20l-6.56 9.07L20 20h-4.56l-3.44-4.86L8.56 20H4l6.56-9.07z"/>
-        </svg>
-      </a>
-      <a class="social-follow-btn" href="https://www.instagram.com/arturoyenrique/" target="_blank" rel="noopener noreferrer" aria-label="Seguir en Instagram" title="Seguir en Instagram">
-        <span class="sr-only">Seguir en Instagram</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm5.75-3.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/>
-        </svg>
-      </a>
-      <a class="social-follow-btn" href="https://www.tiktok.com/@arturoyenrique?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="Seguir en TikTok" title="Seguir en TikTok">
-        <span class="sr-only">Seguir en TikTok</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M13.5 2h3.25A4.25 4.25 0 0 0 21 6.25V10a7.25 7.25 0 0 1-4-1.2v6.2a5.5 5.5 0 1 1-5.5-5.5 5.4 5.4 0 0 1 1.75.29V13a3 3 0 1 0 2-2.82z"/>
-        </svg>
-      </a>
-    </div>
+  <!-- SDKs (una sola vez en todo el sitio) -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0"></script>
+  <script async defer src="https://www.instagram.com/embed.js"></script>
+
+  <div class="social-actions" aria-label="Redes sociales de Auren">
+    <a class="social-follow-btn" href="https://www.facebook.com/profile.php?id=615785765150563" target="_blank" rel="noopener noreferrer" aria-label="Seguir en Facebook" title="Seguir en Facebook">
+      <span class="sr-only">Seguir en Facebook</span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.98 3.64 9.12 8.4 9.88v-6.99H7.9v-2.89h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6v1.9h2.7l-.44 2.9h-2.27v6.99c4.77-.76 8.4-4.9 8.4-9.88 0-5.5-4.46-9.96-9.96-9.96z"/>
+      </svg>
+    </a>
+    <a class="social-follow-btn" href="https://x.com/auren2025" target="_blank" rel="noopener noreferrer" aria-label="Seguir en X" title="Seguir en X">
+      <span class="sr-only">Seguir en X</span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4 4h4.56l3.44 4.86L15.44 4H20l-6.56 9.07L20 20h-4.56l-3.44-4.86L8.56 20H4l6.56-9.07z"/>
+      </svg>
+    </a>
+    <a class="social-follow-btn" href="https://www.instagram.com/arturoyenrique/" target="_blank" rel="noopener noreferrer" aria-label="Seguir en Instagram" title="Seguir en Instagram">
+      <span class="sr-only">Seguir en Instagram</span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm5.75-3.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0z"/>
+      </svg>
+    </a>
+    <a class="social-follow-btn" href="https://www.tiktok.com/@arturoyenrique?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="Seguir en TikTok" title="Seguir en TikTok">
+      <span class="sr-only">Seguir en TikTok</span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M13.5 2h3.25A4.25 4.25 0 0 0 21 6.25V10a7.25 7.25 0 0 1-4-1.2v6.2a5.5 5.5 0 1 1-5.5-5.5 5.4 5.4 0 0 1 1.75.29V13a3 3 0 1 0 2-2.82z"/>
+      </svg>
+    </a>
   </div>
 </section>
 

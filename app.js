@@ -69,32 +69,30 @@ async function loadSocialConfig(){
 }
 
 async function renderSocialEmbeds(){
-  const igWrap=document.getElementById('ig-embeds');
-  const fbWrap=document.getElementById('fb-embeds');
-  if(!igWrap||!fbWrap) return;
+  const socialGrid=document.getElementById('social-grid');
+  if(!socialGrid) return;
 
   try{
     const response=await fetch('data/social_embeds.json',{cache:'no-store'});
     if(!response.ok) throw new Error('HTTP '+response.status);
     const cfg=await response.json();
 
-    igWrap.innerHTML='';
-    fbWrap.innerHTML='';
+    socialGrid.innerHTML='';
 
     const instagramPosts=Array.isArray(cfg.instagram_posts)?cfg.instagram_posts:[];
     instagramPosts.forEach(url=>{
-      const card=createEmbedCard(url,`
+      const card=createEmbedCard(url,'ig',`
         <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0 auto; max-width:540px; min-width:326px;">
         </blockquote>
       `);
-      igWrap.appendChild(card);
+      socialGrid.appendChild(card);
       setupEmbedFallback(card);
     });
 
     const facebookPosts=Array.isArray(cfg.facebook_posts)?cfg.facebook_posts:[];
     facebookPosts.forEach(url=>{
-      const card=createEmbedCard(url,`<div class="fb-post" data-href="${url}" data-width=""></div>`);
-      fbWrap.appendChild(card);
+      const card=createEmbedCard(url,'fb',`<div class="fb-post" data-href="${url}" data-width=""></div>`);
+      socialGrid.appendChild(card);
       setupEmbedFallback(card);
     });
 
@@ -116,21 +114,23 @@ async function renderSocialEmbeds(){
 
   }catch(err){
     console.error('AUREN social embeds error:',err);
-    [igWrap,fbWrap].forEach(wrap=>{
-      const card=document.createElement('div');
-      card.className='embed-card show-fallback';
-      const fallback=document.createElement('div');
-      fallback.className='embed-fallback';
-      fallback.innerHTML='<p>No se pudieron cargar las publicaciones.</p>';
-      card.appendChild(fallback);
-      wrap.appendChild(card);
-    });
+    socialGrid.innerHTML='';
+    const card=document.createElement('article');
+    card.className='embed-card show-fallback';
+    const fallback=document.createElement('div');
+    fallback.className='embed-fallback';
+    fallback.innerHTML='<p>No se pudieron cargar las publicaciones.</p>';
+    card.appendChild(fallback);
+    socialGrid.appendChild(card);
   }
 }
 
-function createEmbedCard(url,html){
-  const card=document.createElement('div');
+function createEmbedCard(url,type,html){
+  const card=document.createElement('article');
   card.className='embed-card';
+  if(type){
+    card.classList.add(type);
+  }
   if(html){
     card.insertAdjacentHTML('afterbegin',html.trim());
   }
