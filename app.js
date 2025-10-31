@@ -18,12 +18,28 @@ async function injectPartials(){
     fetch('/partials/header.html').then(r=>r.text()),
     fetch('/partials/footer.html').then(r=>r.text())
   ]);
-  document.querySelector('#site-header')?.replaceWith(
-    Object.assign(document.createElement('div'),{id:'site-header',innerHTML:h})
-  );
-  document.querySelector('#site-footer')?.replaceWith(
-    Object.assign(document.createElement('div'),{id:'site-footer',innerHTML:f})
-  );
+  replacePartial('#site-header','site-header',h);
+  replacePartial('#site-footer','site-footer',f);
+}
+
+function replacePartial(selector,id,html){
+  const container=document.createElement('div');
+  container.id=id;
+  container.innerHTML=html;
+  const target=document.querySelector(selector);
+  if(target){
+    target.replaceWith(container);
+    activateInlineScripts(container);
+  }
+}
+
+function activateInlineScripts(root){
+  root.querySelectorAll('script').forEach(script=>{
+    const clone=document.createElement('script');
+    [...script.attributes].forEach(attr=>clone.setAttribute(attr.name,attr.value));
+    clone.textContent=script.textContent;
+    script.replaceWith(clone);
+  });
 }
 
 async function loadCharmsCatalog(){
@@ -52,59 +68,102 @@ async function loadSocialConfig(){
   }
 }
 
-// AUREN: cargar sección social centrada en Facebook
-async function loadSocialWall(){
-  const wall=document.getElementById('social-wall');
-  if(!wall) return;
-  await ensureFacebookSDK(wall);
+async function renderSocialEmbeds(){
+  const igWrap=document.getElementById('ig-embeds');
+  const fbWrap=document.getElementById('fb-embeds');
+  if(!igWrap||!fbWrap) return;
+
+  try{
+    const response=await fetch('data/social_embeds.json',{cache:'no-store'});
+    if(!response.ok) throw new Error('HTTP '+response.status);
+    const cfg=await response.json();
+
+    igWrap.innerHTML='';
+    fbWrap.innerHTML='';
+
+    const instagramPosts=Array.isArray(cfg.instagram_posts)?cfg.instagram_posts:[];
+    instagramPosts.forEach(url=>{
+      const card=createEmbedCard(url,`
+        <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="margin:0 auto; max-width:540px; min-width:326px;">
+        </blockquote>
+      `);
+      igWrap.appendChild(card);
+      setupEmbedFallback(card);
+    });
+
+    const facebookPosts=Array.isArray(cfg.facebook_posts)?cfg.facebook_posts:[];
+    facebookPosts.forEach(url=>{
+      const card=createEmbedCard(url,`<div class="fb-post" data-href="${url}" data-width=""></div>`);
+      fbWrap.appendChild(card);
+      setupEmbedFallback(card);
+    });
+
+    if(window.instgrm&&window.instgrm.Embeds){
+      window.instgrm.Embeds.process();
+    }else{
+      setTimeout(()=>{
+        if(window.instgrm&&window.instgrm.Embeds){
+          window.instgrm.Embeds.process();
+        }
+      },1200);
+    }
+
+    if(window.FB&&window.FB.XFBML&&window.FB.XFBML.parse){
+      window.FB.XFBML.parse();
+    }else{
+      document.addEventListener('fb_init',()=>window.FB&&window.FB.XFBML&&window.FB.XFBML.parse&&window.FB.XFBML.parse(),{once:true});
+    }
+
+  }catch(err){
+    console.error('AUREN social embeds error:',err);
+    [igWrap,fbWrap].forEach(wrap=>{
+      const card=document.createElement('div');
+      card.className='embed-card show-fallback';
+      const fallback=document.createElement('div');
+      fallback.className='embed-fallback';
+      fallback.innerHTML='<p>No se pudieron cargar las publicaciones.</p>';
+      card.appendChild(fallback);
+      wrap.appendChild(card);
+    });
+  }
 }
 
-function ensureFacebookSDK(target){
-  return new Promise(resolve=>{
-    const parse=()=>{
-      if(window.FB&&window.FB.XFBML){
-        window.FB.XFBML.parse(target||undefined);
-      }
-      resolve();
-    };
+function createEmbedCard(url,html){
+  const card=document.createElement('div');
+  card.className='embed-card';
+  if(html){
+    card.insertAdjacentHTML('afterbegin',html.trim());
+  }
+  const fallback=document.createElement('div');
+  fallback.className='embed-fallback';
+  fallback.innerHTML=`<p>No se pudo mostrar la publicación.</p><a href="${url}" target="_blank" rel="noopener noreferrer">Abrir publicación</a>`;
+  card.appendChild(fallback);
+  return card;
+}
 
-    if(window.FB&&window.FB.XFBML){
-      parse();
-      return;
+function setupEmbedFallback(card){
+  const timer=setTimeout(()=>{
+    if(!card.querySelector('iframe')){
+      card.classList.add('show-fallback');
     }
-
-    const existing=document.getElementById('facebook-jssdk');
-    if(existing){
-      if(existing.dataset.loaded==='true'){
-        parse();
-        return;
-      }
-      existing.addEventListener('load',()=>{
-        existing.dataset.loaded='true';
-        parse();
-      },{once:true});
-      existing.addEventListener('error',resolve,{once:true});
-      return;
+  },5000);
+  const observer=new MutationObserver(()=>{
+    if(card.querySelector('iframe')){
+      card.classList.remove('show-fallback');
+      clearTimeout(timer);
+      observer.disconnect();
     }
-
-    if(!document.getElementById('fb-root')){
-      const fb=document.createElement('div');
-      fb.id='fb-root';
-      document.body.appendChild(fb);
-    }
-
-    const script=document.createElement('script');
-    script.id='facebook-jssdk';
-    script.async=true;
-    script.src='https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0';
-    script.onload=()=>{
-      script.dataset.loaded='true';
-      parse();
-    };
-    script.onerror=resolve;
-    document.body.appendChild(script);
   });
+  observer.observe(card,{childList:true,subtree:true});
 }
+
+(function waitFB(){
+  if(window.FB&&window.FB.XFBML&&window.FB.XFBML.parse){
+    document.dispatchEvent(new Event('fb_init'));
+  }else{
+    setTimeout(waitFB,400);
+  }
+})();
 
 function getWhatsappLink(message=''){
   const num=(socialConfig.whatsapp_number_e164||'').replace(/[^0-9]/g,'');
@@ -156,7 +215,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   await Promise.all([injectPartials(),loadCharmsCatalog(),loadSocialConfig()]); /* AUREN: carga inicial */
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
-  loadSocialWall();
+  renderSocialEmbeds();
   renderCharmGallery();
   setupLightbox();
   initMenu();
