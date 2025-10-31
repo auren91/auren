@@ -173,7 +173,32 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .social-banner__icon{font-size:1rem;}
 .social-banner__text{flex:1;display:flex;flex-direction:column;font-size:.85rem;gap:2px;}
 .social-banner__actions{display:flex;gap:8px;}
-.social-banner__actions .btn{margin:0;}
+.social-banner__actions .btn{
+  margin:0;
+  background-color:var(--auren-brand,#C2644C);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;
+  padding:8px 18px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background-color .3s ease,transform .2s ease,color .3s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+}
+.social-banner__actions .btn:hover,
+.social-banner__actions .btn:focus-visible{
+  background-color:var(--auren-gold,#D6A77A);
+  color:#2B1F1B;
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+  outline:none;
+}
+.social-banner__actions .btn:focus-visible{
+  box-shadow:0 6px 14px rgba(0,0,0,.25),0 0 0 3px rgba(214,167,122,.4);
+}
 .social-banner__close{background:none;border:none;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;color:inherit;}
 .social-banner__close:focus{outline:2px solid var(--oscuro);outline-offset:2px;}
 .social-banner--enter{opacity:0;transform:translateY(-8px);}
