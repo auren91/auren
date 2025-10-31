@@ -1,6 +1,17 @@
 <section id="social" class="social-section" aria-labelledby="social-title">
   <div class="container">
     <h2 id="social-title">Síguenos</h2>
+    <section id="social-embeds" class="social-embeds">
+      <div class="embed-row" id="ig-embeds" aria-label="Instagram"></div>
+      <div class="embed-row" id="fb-embeds" aria-label="Facebook"></div>
+    </section>
+
+    <!-- SDKs (una sola vez en todo el sitio) -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+      src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v20.0"></script>
+    <script async defer src="https://www.instagram.com/embed.js"></script>
+
     <div class="social-actions" aria-label="Redes sociales de Auren">
       <a class="social-follow-btn" href="https://www.facebook.com/profile.php?id=615785765150563" target="_blank" rel="noopener noreferrer" aria-label="Seguir en Facebook" title="Seguir en Facebook">
         <span class="sr-only">Seguir en Facebook</span>
@@ -26,28 +37,6 @@
           <path d="M13.5 2h3.25A4.25 4.25 0 0 0 21 6.25V10a7.25 7.25 0 0 1-4-1.2v6.2a5.5 5.5 0 1 1-5.5-5.5 5.4 5.4 0 0 1 1.75.29V13a3 3 0 1 0 2-2.82z"/>
         </svg>
       </a>
-    </div>
-
-    <div class="social-wall" id="social-wall" aria-live="polite">
-      <div class="social-row social-row--posts" aria-label="Publicaciones recientes de Facebook">
-        <article class="social-card">
-          <div class="fb-post" data-href="https://www.facebook.com/share/p/1977BWVtrz/" data-show-text="true"></div>
-        </article>
-        <article class="social-card">
-          <div class="fb-post" data-href="https://www.facebook.com/share/p/1AFbyKgrAK/" data-show-text="true"></div>
-        </article>
-        <article class="social-card">
-          <div class="fb-post" data-href="https://www.facebook.com/share/p/1C7b2PwVNN/" data-show-text="true"></div>
-        </article>
-      </div>
-      <div class="social-row social-row--reels" aria-label="Reels de Facebook">
-        <article class="social-card social-card--reel">
-          <div class="fb-video" data-href="https://www.facebook.com/share/r/19tYE84GE5/" data-allowfullscreen="true"></div>
-        </article>
-        <article class="social-card social-card--reel">
-          <div class="fb-video" data-href="https://www.facebook.com/share/r/17G2ez6Vfg/" data-allowfullscreen="true"></div>
-        </article>
-      </div>
     </div>
   </div>
 </section>

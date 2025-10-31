@@ -672,3 +672,26 @@ main{padding:100px 20px 40px;}
   background: transparent; border: none; color: #fff;
   font-size: 32px; line-height: 1; cursor: pointer;
 }
+/* —— Embeds sociales —— */
+.social-embeds{max-width:1200px;margin:24px auto 48px;padding:0 16px}
+.embed-row{display:grid;gap:18px;margin-bottom:22px}
+#ig-embeds{grid-template-columns:1fr}
+#fb-embeds{grid-template-columns:1fr}
+
+@media (min-width:700px){
+  #ig-embeds{grid-template-columns:repeat(2,1fr)}
+  #fb-embeds{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Tarjeta contenedora por si algún embed falla */
+.embed-card{
+  border:1px solid rgba(214,167,122,.35);
+  background:#2c201c; border-radius:14px; padding:8px;
+  box-shadow:0 12px 26px rgba(0,0,0,.25);
+}
+.embed-card .embed-fallback{display:none}
+.embed-card.show-fallback .embed-fallback{display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; padding:24px; text-align:center; color:#fff;}
+.embed-fallback a{
+  color:#D6A77A; text-decoration:underline;
+}
