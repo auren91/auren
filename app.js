@@ -157,6 +157,8 @@ document.addEventListener('DOMContentLoaded',async()=>{
   renderFooterSocials(document.getElementById('auren-socials'));
   applyWhatsAppCTAs();
   loadSocialWall();
+  renderCharmGallery();
+  setupLightbox();
   initMenu();
   initSliders();
   initSocialBanner();
@@ -435,5 +437,70 @@ function initProductPage(){
     const priceHTML=p.priceOriginal?`<div class="price"><span class="price-old">$${p.priceOriginal}</span><span class="price-new">$${p.price}</span></div>`:`<div class="price"><span class="price-new">$${p.price}</span></div>`;
     a.innerHTML=`<div class="img-wrapper"><img src="${imgFront}" alt="${p.name}"></div><div class="card-body"><h3>${p.name}</h3>${priceHTML}</div>`;
     relatedContainer.appendChild(a);
+  });
+}
+
+async function renderCharmGallery(){
+  const grid=document.getElementById('charms-grid');
+  if(!grid) return;
+
+  try{
+    const res=await fetch('data/charm_photos.json',{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const files=await res.json();
+
+    const frag=document.createDocumentFragment();
+    files.forEach(src=>{
+      const card=document.createElement('article');
+      card.className='charm-card';
+
+      const frame=document.createElement('a');
+      frame.className='charm-frame';
+      frame.href=src;
+      frame.setAttribute('data-full',src);
+      frame.setAttribute('aria-label','Ver charm ampliado');
+
+      const img=document.createElement('img');
+      img.className='charm-img';
+      img.src=src;
+      img.loading='lazy';
+      img.decoding='async';
+      img.alt='Charm Auren';
+
+      frame.appendChild(img);
+      card.appendChild(frame);
+      frag.appendChild(card);
+    });
+    grid.appendChild(frag);
+  }catch(err){
+    console.error('AUREN charms: no se pudo cargar el manifiesto',err);
+  }
+}
+
+function setupLightbox(){
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightbox-img');
+  const closeBtn=lb?.querySelector('.lightbox-close');
+  if(!lb || !lbImg) return;
+
+  document.addEventListener('click',e=>{
+    const trigger=e.target.closest?.('.charm-frame');
+    if(trigger){
+      e.preventDefault();
+      lbImg.src=trigger.dataset.full||trigger.href;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    }
+    if(e.target===lb){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src='';
+    }
+  });
+
+  closeBtn?.addEventListener('click',()=>{
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    lbImg.src='';
   });
 }
