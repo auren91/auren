@@ -45,3 +45,11 @@
   40%{ opacity:1; transform: translateY(0); filter: blur(0); }
   100%{ opacity:0; }
 }
+
+.joyeria-intro{
+  max-width:780px;
+  margin:0 auto 18px;
+  text-align:center;
+  color:var(--oscuro);
+  opacity:.9;
+}
