@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Auren Ropa | Moda y Vestidos en Manzanillo</title>
-  <meta name="description" content="Subpágina de ropa de Auren: moda y vestidos en Manzanillo con paleta terracota, beige, rosa pastel y dorado.">
+  <meta name="description" content="Colección de ropa Auren en Manzanillo: galería minimalista con pocas fotos seleccionadas y contacto directo por WhatsApp.">
   <link rel="canonical" href="https://arturoyenrique.com/ropa.html">
   <link rel="icon" type="image/png" href="img/logos/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ropa.css">
 </head>
@@ -17,7 +17,7 @@
   <section class="hero" style="background-image:url('img/heroes/hero-ropa.jpg');">
     <div class="hero-content">
       <img src="img/logos/logotipo.png" alt="Auren logotipo" class="logo-hero">
-      <p class="hero-tagline">Moda y vestidos para todos tus momentos</p>
+      <p class="hero-tagline">Looks hermosos, versátiles y listos para ti</p>
     </div>
   </section>
 
@@ -26,54 +26,22 @@
     <a class="chip" href="joyeria.html">Joyería</a>
   </nav>
 
-  <main class="container">
-    <h1>Colección AUREN · Ropa</h1>
-    <p class="section-intro">Explora moda femenina creada por Arturo y Enrique: piezas versátiles, tonos cálidos y detalles chic para elevar tu estilo en Manzanillo.</p>
-    <div id="controls" class="controls">
-      <input type="search" id="search" placeholder="Buscar por palabra clave...">
-      <div class="filters">
-        <label><input type="checkbox" name="color" value="claro"> Claro</label>
-        <label><input type="checkbox" name="color" value="oscuro"> Oscuro</label>
-        <label><input type="checkbox" name="color" value="neutro"> Neutro</label>
-        <span class="price-range">
-          <input type="number" id="price-min" value="0" min="0" max="2000" step="10">-
-          <input type="number" id="price-max" value="1000" min="0" max="2000" step="10">
-        </span>
+  <main class="container ropa-main">
+    <header class="ropa-header">
+      <h1>Colección AUREN · Ropa</h1>
+      <p class="section-intro">Seleccionamos pocas piezas para que la experiencia sea limpia, elegante y fácil de explorar. Si quieres catálogo completo o consultar precio, te atendemos por WhatsApp.</p>
+      <div class="top-cta-group">
+        <a id="wa-catalogo-top" class="btn-wa btn-wa--primary" href="#" target="_blank" rel="noopener noreferrer">Ver catálogo completo por WhatsApp</a>
+        <a id="wa-precio-top" class="btn-wa" href="#" target="_blank" rel="noopener noreferrer">Consultar precio por WhatsApp</a>
       </div>
-      <select id="sort">
-        <option value="relevance">Relevancia</option>
-        <option value="price-asc">Precio ↑</option>
-        <option value="price-desc">Precio ↓</option>
-        <option value="new">Nuevas</option>
-      </select>
-      <label class="compact"><input type="checkbox" id="compact"> compacto</label>
-    </div>
+    </header>
+
     <section id="grid" class="grid" aria-live="polite"></section>
-    <div id="sentinel"></div>
   </main>
 
   <div id="site-footer"></div>
 
-  <div class="qv" role="dialog" aria-modal="true" aria-labelledby="qv-title">
-    <div class="qv__backdrop" onclick="closeQuickView()"></div>
-    <div class="qv__dialog">
-      <div class="qv__content">
-        <div class="qv__imageWrap">
-          <img class="qv__img" alt="" />
-          <div class="qv__tools">
-            <button class="qv__btn qv__zoomOut" aria-label="Alejar">−</button>
-            <button class="qv__btn qv__zoomReset" aria-label="Restablecer">⤾</button>
-            <button class="qv__btn qv__zoomIn" aria-label="Acercar">+</button>
-          </div>
-        </div>
-        <div class="qv__info">
-          <h3 id="qv-title">Prenda</h3>
-          <div class="qv__price"><s>$999</s><strong>$799</strong></div>
-          <div class="qv__actions"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <a id="wa-float" class="wa-float" href="#" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp">WhatsApp</a>
 
   <script type="module" src="ropa.js"></script>
   <script src="app.js"></script>
