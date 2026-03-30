@@ -121,6 +121,8 @@ document.addEventListener('DOMContentLoaded',async()=>{
   setupLightbox();
   initMenu();
   initSliders();
+  initVisualEffects();
+  initInstagramEmbeds();
   initSocialBanner();
   const bodyCategory=document.body.dataset.category;
   if(bodyCategory) initCatalog(bodyCategory);
@@ -152,6 +154,63 @@ function initSliders(){
   });
 }
 
+
+
+function initVisualEffects(){
+  const revealTargets=document.querySelectorAll('.auren-story,.destacada-card,.seo-copy,.ropa-card,.carousel-block,.builder-wrap,.cg-grid > *');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+    revealTargets.forEach(el=>{
+      el.classList.add('reveal-up');
+      io.observe(el);
+    });
+  }
+
+  const hero=document.querySelector('.hero');
+  if(hero && matchMedia('(pointer:fine)').matches){
+    window.addEventListener('scroll',()=>{
+      const y=Math.min(window.scrollY*0.2,90);
+      hero.style.setProperty('--hero-shift',`${y}px`);
+    },{passive:true});
+  }
+}
+
+function initInstagramEmbeds(){
+  const section=document.querySelector('.js-lazy-instagram');
+  if(!section || section.dataset.loaded==='1') return;
+  const load=()=>{
+    if(section.dataset.loaded==='1') return;
+    const script=document.createElement('script');
+    script.async=true;
+    script.src='https://www.instagram.com/embed.js';
+    script.onload=()=>{
+      if(window.instgrm?.Embeds?.process) window.instgrm.Embeds.process();
+    };
+    document.body.appendChild(script);
+    section.dataset.loaded='1';
+  };
+
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          load();
+          io.disconnect();
+        }
+      });
+    },{rootMargin:'240px'});
+    io.observe(section);
+  }else{
+    load();
+  }
+}
 
 function initSocialBanner(){
   const banner=document.getElementById('promoSocialBanner');
