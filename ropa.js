@@ -4,7 +4,7 @@ function getWA(message) {
   if (typeof getWhatsappLink === 'function') {
     return getWhatsappLink(message);
   }
-  const fallback = 'https://wa.me/523142836428';
+  const fallback = 'https://wa.me/5213142836428';
   return message ? `${fallback}?text=${encodeURIComponent(message)}` : fallback;
 }
 

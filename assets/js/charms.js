@@ -1,4 +1,4 @@
-const WA_NUMBER = '523142836428';
+const WA_NUMBER = '5213142836428';
 const WHATSAPP_BASE = `https://wa.me/${WA_NUMBER}`;
 
 const BASE_PRICES = {

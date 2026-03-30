@@ -11,7 +11,8 @@
   --auren-soft:#EAC7BD; /* AUREN: suaves */
   --auren-surface:#5D4036; /* AUREN: bordes */
   --ring:#D6A77A; /* AUREN: foco accesible */
-  --green:#25D366; /* AUREN: color WhatsApp */
+  --green:#22c55e; /* AUREN: color WhatsApp */
+  --green-dark:#15803d; /* AUREN: hover WhatsApp */
   --hero-logo-tint:#D6A77A; /* AUREN: default (joyería) */
   --hero-logo-opacity:.10;
   --auren-ink:#fff7f2;       /* texto principal claro */
@@ -95,11 +96,13 @@ body {
   gap:8px;
   padding:10px 20px;
   border-radius:999px;   /* redondeado */
-  background: var(--auren-main, #C2644C);
+  background: linear-gradient(135deg, var(--green, #22c55e), var(--green-dark, #15803d));
   color:#fff;
-  font-weight:500;
+  font-weight:600;
   text-decoration:none;
-  transition: transform .2s ease, box-shadow .2s ease;
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 20px rgba(21,128,61,.32);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
 
 .btn-whatsapp .icon {
@@ -110,7 +113,8 @@ body {
 .btn-whatsapp:hover,
 .btn-whatsapp:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  box-shadow: 0 12px 24px rgba(21,128,61,.35);
+  filter: saturate(1.08);
   outline:none;
 }
 
@@ -135,7 +139,8 @@ a:hover { color:var(--auren-primary); }
 .container{max-width:1200px;margin:0 auto;padding:0 20px;}
 .btn{display:inline-block;margin:10px 0;padding:10px 20px;border-radius:1rem;background:var(--auren-primary);color:var(--auren-text);transition:background .3s ease,transform .2s ease;border:none;cursor:pointer;text-align:center;}/* AUREN: botón principal */
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgba(0,0,0,.2);}/* AUREN: elevación sutil */
-.btn.whatsapp{background:var(--auren-primary);color:var(--auren-text);}/* AUREN: CTA principal */
+.btn.whatsapp{background:linear-gradient(135deg,var(--green,#22c55e),var(--green-dark,#15803d));color:#fff;border:1px solid rgba(255,255,255,.22);box-shadow:0 10px 20px rgba(21,128,61,.32);}/* AUREN: CTA WhatsApp */
+.btn.whatsapp:hover{box-shadow:0 12px 24px rgba(21,128,61,.35);filter:saturate(1.08);}/* AUREN: hover WhatsApp */
 .btn.outline{background:transparent;border:1px solid var(--auren-gold);color:var(--auren-gold);}/* AUREN: CTA secundario */
 .btn.outline:hover{background:var(--auren-gold);color:var(--auren-bg-deep);}/* AUREN: hover dorado */
 .chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:16px;border:1px solid var(--acento);background:var(--fondo);cursor:pointer;font-size:.875rem;transition:.3s;margin:4px;color:var(--oscuro);}
