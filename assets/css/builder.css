@@ -241,7 +241,9 @@
 }
 
 .actions-bar button.whatsapp {
-  background: var(--green);
+  background: linear-gradient(135deg, var(--green,#22c55e), var(--green-dark,#15803d));
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 10px 20px rgba(21,128,61,.3);
 }
 
 /* Hover shadows */
